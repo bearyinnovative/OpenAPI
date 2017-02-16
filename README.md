@@ -1,0 +1,34 @@
+# OpenAPI
+
+[![@BearyChat](http://openapi.beary.chat/badge.svg)](http://openapi.beary.chat/join)
+![doc: 1.0](https://img.shields.io/badge/doc-1.0-green.svg)
+
+BearyChat 开放 API 文档
+
+<!-- toc -->
+
+- [API 文档](#api-%E6%96%87%E6%A1%A3)
+- [SDK 列表](#sdk-%E5%88%97%E8%A1%A8)
+- [基于 OpenAPI 的开发库](#%E5%9F%BA%E4%BA%8E-openapi-%E7%9A%84%E5%BC%80%E5%8F%91%E5%BA%93)
+
+<!-- tocstop -->
+
+## API 文档
+
+**整理中**
+
+## SDK 列表
+
+- [bearychat.js][]
+- [bearychat.py][]
+- [bearychat.go][]
+
+[bearychat.js]: https://github.com/bearyinnovative/bearychat.js
+[bearychat.py]: https://github.com/bearyinnovative/bearychat.py
+[bearychat.go]: https://github.com/bearyinnovative/bearychat.go
+
+## 基于 OpenAPI 的开发库
+
+- [hubot-bearychat][]
+
+[hubot-bearychat]: https://github.com/bearyinnovative/hubot-bearychat
