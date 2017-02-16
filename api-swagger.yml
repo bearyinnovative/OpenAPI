@@ -1,0 +1,1139 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: beary-openapi
+  description: BearyChat OpenAPI 列表
+host: api.bearychat.com
+basePath: /v1
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /meta:
+    get:
+      description: |
+        返回 BearyChat API 的状态
+      responses:
+        200:
+          description: meta response
+          schema:
+            type: object
+            properties:
+              code:
+                $ref: '#/definitions/ResponseCode'
+              result:
+                $ref: '#/definitions/Meta'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  #---------------------------------------------------------------------------
+  # 团队相关
+  #---------------------------------------------------------------------------
+
+  /team.info:
+    get:
+      description: |
+        返回当前团队信息
+      responses:
+        200:
+          description: team response
+          schema:
+            $ref: '#/definitions/Team'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  #---------------------------------------------------------------------------
+  # 用户相关
+  #---------------------------------------------------------------------------
+
+  /user.info:
+    get:
+      description: |
+        返回一个用户完整信息
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: user_id
+          in: body
+          description: 用户 id
+          required: true
+          type: string
+
+  /user.list:
+    get:
+      description: |
+        返回团队内的用户列表，获取某个用户的完整信息，请使用 `user.info`
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+
+  /user.me:
+    get:
+      description: |
+        返回当前用户的信息
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+
+  # /channel.update_me: TODO
+
+  #---------------------------------------------------------------------------
+  # 讨论组相关
+  #---------------------------------------------------------------------------
+
+  /channel.info:
+    get:
+      description: |
+        返回一个讨论组的完整信息
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Channel'
+        default:
+          schema:
+            $ref: '#/definitions/TBD'
+      parameters:
+        - name: channel_id
+          in: body
+          description: 讨论组 id
+          required: true
+          type: string
+
+  /channel.list:
+    get:
+      description: |
+        返回团队内的讨论组列表，获取某个讨论组的完整信息，请使用 `channel.info`
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Channel'
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+
+  /channel.create:
+    post:
+      description: |
+        创建一个讨论组
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/Channel'
+        # TODO invalid payload response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: name
+          in: body
+          description: 讨论组名称
+          required: true
+          type: string
+        - name: topic
+          in: body
+          description: 讨论组话题
+          required: false
+          type: string
+        - name: private
+          in: body
+          description: 讨论组是否为私密？
+          required: false
+          type: boolean
+          default: false
+
+  /channel.archive:
+    post:
+      description: |
+        归档一个讨论组
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO permission denied response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: channel_id
+          in: body
+          description: 讨论组 id
+          required: true
+          type: string
+
+  /channel.unarchive:
+    post:
+      description: |
+        恢复一个讨论组
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO permission denied response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: channel_id
+          in: body
+          description: 讨论组 id
+          required: true
+          type: string
+
+  /channel.leave:
+    post:
+      description: |
+        离开讨论组
+      responses:
+        204:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO permission denied response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: channel_id
+          in: body
+          description: 讨论组 id
+          required: true
+          type: string
+
+  /channel.join:
+    post:
+      description: |
+        加入讨论组
+      responses:
+        204:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO permission denied response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: channel_id
+          in: body
+          description: 讨论组 id
+          required: true
+          type: string
+
+  /channel.invite:
+    post:
+      description: |
+        邀请团队成员加入讨论组
+      responses:
+        204:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO permission denied response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: channel_id
+          in: body
+          description: 讨论组 id
+          required: true
+          type: string
+        - name: invite_uid
+          in: body
+          description: 邀请用户 id
+          required: true
+          type: string
+
+  /channel.kick:
+    post:
+      description: |
+        移除讨论组成员
+      responses:
+        204:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO permission denied response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: channel_id
+          in: body
+          description: 讨论组 id
+          required: true
+          type: string
+        - name: kick_uid
+          in: body
+          description: 移除用户 id
+          required: true
+          type: string
+
+  # /channel.update: TODO
+
+  #---------------------------------------------------------------------------
+  # 临时讨论组相关
+  #---------------------------------------------------------------------------
+
+  /session_channel.info:
+    get:
+      description: |
+        返回一个临时讨论组的完整信息
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/SessionChannel'
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: session_channel_id
+          in: body
+          description: 讨论组 id
+          required: true
+          type: string
+
+  /session_channel.list:
+    get:
+      description: |
+        返回团队内已经加入的临时讨论组列表，获取某个临时讨论组的完整信息，
+        请使用 `session_channel.info`
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SessionChannel'
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+
+  /session_channel.create:
+    post:
+      description: |
+        创建一个临时讨论组
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/SessionChannel'
+        # TODO invalid payload response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: name
+          in: body
+          description: 临时讨论组名称
+          required: false
+          type: string
+        - name: member_uids
+          in: body
+          description: 临时讨论组成员 id 列表
+          required: true
+          type: array
+          items:
+            $ref: '#/definitions/ResponseObjectId'
+
+  /session_channel.archive:
+    post:
+      description: |
+        归档一个临时讨论组
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO permission denied response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: session_channel_id
+          in: body
+          description: 临时讨论组 id
+          required: true
+          type: string
+
+  /session_channel.convert_to_channel:
+    post:
+      description: |
+        将临时讨论组转换为讨论组
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/Channel'
+        # TODO permission denied response
+        # TODO invalid payload response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: session_channel_id
+          in: body
+          description: 临时讨论组 id
+          required: true
+          type: string
+        - name: name
+          in: body
+          description: 讨论组名称
+          required: true
+          type: string
+        - name: private
+          in: body
+          description: 讨论组是否为私密？
+          required: false
+          type: boolean
+          default: true
+
+  /session_channel.leave:
+    post:
+      description: |
+        离开临时讨论组
+      responses:
+        204:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO permission denied response
+        default:
+          schema:
+            $ref: '#/definitions/TBD'
+      parameters:
+        - name: session_channel_id
+          in: body
+          description: 临时讨论组 id
+          required: true
+          type: string
+
+  /session_channel.invite:
+    post:
+      description: |
+        邀请成员加入临时讨论组
+      responses:
+        204:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO permission denied response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: session_channel_id
+          in: body
+          description: 临时讨论组 id
+          required: true
+          type: string
+        - name: invite_uid
+          in: body
+          description: 邀请用户 id
+          required: true
+          type: string
+
+  /session_channel.kick:
+    post:
+      description: |
+        移除临时讨论组成员
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO permission denied response
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: session_channel_id
+          in: body
+          description: 临时讨论组 id
+          required: true
+          type: string
+        - name: kick_uid
+          in: body
+          description: 邀请用户 id
+          required: true
+          type: string
+
+  # /session_channel.update: TODO
+
+  #---------------------------------------------------------------------------
+  # P2P 聊天列表相关
+  #---------------------------------------------------------------------------
+
+  /p2p.info:
+    get:
+      description: |
+        返回一个 P2P 聊天会话的完整信息
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/P2PChannel'
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: p2p_channel_id
+          in: body
+          description: P2P 聊天会话 id
+          required: true
+          type: string
+
+  /p2p.list:
+    get:
+      description: |
+        返回 P2P 聊天会话列表，获取某个 P2P 会话的完整信息，请使用 `p2p.info`
+      responses:
+        default:
+          200:
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/P2PChannel'
+          schema:
+            $ref: '#/definitions/Error'
+
+  /p2p.create:
+    post:
+      description: |
+        创建一个 P2P 聊天会话
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/P2PChannel'
+        # TODO invalid payload error
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      properties:
+        - name: user_id
+          in: body
+          description: P2P 聊天另外一方的用户 id
+          required: true
+          type: string
+
+  #---------------------------------------------------------------------------
+  # 消息相关
+  #---------------------------------------------------------------------------
+
+  /message.query:
+    post:
+      description: |
+        查询指定 vchannel 下的消息列表
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/MessageQueryResult'
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: query
+          in: body
+          description: 消息查询 payload
+          required: true
+          $ref: '#/definitions/MessageQuery'
+
+  /message.create:
+    post:
+      description: |
+        发送一条消息到指定聊天会话
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/Message'
+        # TODO error responses
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: vchannel_id
+          in: body
+          description: 指定的目标聊天会话 id
+          required: true
+          $ref: '#/definitions/VChannelId'
+        - name: text
+          in: body
+          description: 消息内容
+          required: true
+          type: string
+        - name: attachments
+          in: body
+          description: 消息附件
+          required: true
+          type: array
+          items:
+            $ref '#/definitions/MessageAttachment'
+
+  /message.delete:
+    post:
+      description: |
+        删除一条消息
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/OK'
+        # TODO error responses
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: message_key
+          in: body
+          description: 删除的消息 key
+          required: true
+          $ref: '#/definitions/MessageKey'
+
+  /message.update_text:
+    patch:
+      description: |
+        更新一条消息的内容
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Message'
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: message_key
+          in: body
+          description: 更新的消息 key
+          required: true
+          $ref: '#/definitions/MessageKey'
+        - name: text
+          in: body
+          description: 更新的消息内容
+          required: true
+          type: string
+
+  #---------------------------------------------------------------------------
+  # 团队自定义 emoji 相关
+  #---------------------------------------------------------------------------
+
+  /emoji.list:
+    get:
+      description: |
+        返回团队内的自定义 emoji 列表
+      responses:
+        default:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Emoji'
+
+  #---------------------------------------------------------------------------
+  # 团队自定义 sticker 相关
+  #---------------------------------------------------------------------------
+
+  /sticker.list:
+    get:
+      description: |
+        返回当前用户的自定义 sticker 列表
+      responses:
+        default:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/StickerPack'
+
+  #---------------------------------------------------------------------------
+  # RTM 相关
+  #---------------------------------------------------------------------------
+
+  /rtm.start:
+    post:
+      description: |
+        打开 RTM 连接会话
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/RTMStart'
+        # TODO permission denied error
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  VChannelId:
+    description: '聊天会话 id'
+    type: string
+  VChannelType:
+    description: '聊天会话类型'
+    type: string
+    enum:
+      - 'normal'  # 普通讨论组聊天
+      - 'session' # 临时讨论组聊天
+      - 'p2p'  # P2P 聊天
+
+  Meta:
+    required:
+      - version
+    properties:
+      version:
+        description: 当前 api 版本
+        type: string
+
+  Team:
+    required:
+      - id
+      - subdomain
+      - name
+      - email_domain
+      - logo_url
+      - description
+      - plan
+      - created
+    properties:
+      id:
+        $ref: '#/definitions/ResponseObjectId'
+      subdomain:
+        description: 团队 subdomain
+        type: string
+      name:
+        description: 团队名称
+        type: string
+      email_domain:
+        description: 团队邮箱域名
+        # TODO nullable field in swagger?
+        type: string
+      logo_url:
+        description: 团队头像地址
+        type: string
+      description:
+        description: 团队简介
+        type: string
+      plan:
+        $ref: '#/definitions/TeamPlan'
+      created:
+        description: 团队创建时间
+        type: dateTime
+  TeamPlan:
+    type: string
+    enum:
+      - 'basic'
+      - 'standard'
+
+  User:
+    required:
+      - id
+      - team_id
+      - email
+      - mobile
+      - name
+      - full_name
+      - type
+      - role
+      - avatars
+      - profile
+      - inactive
+      - created
+    properties:
+      id:
+        $ref: '#/definitions/ResponseObjectId'
+      team_id:
+        description: 用户所属团队 id
+        $ref: '#/definitions/ResponseObjectId'
+      email:
+        description: 用户注册邮箱地址
+        type: string
+        format: email
+      mobile:
+        description: 用户注册手机号码
+        type: string
+      name:
+        description: 用户名
+        type: string
+      full_name:
+        description: 用户全名
+        type: string
+      type:
+        description: 用户类型
+        type: string
+        enum:
+          - 'normal'  # 普通用户
+          - 'assistant'  # BearyBot 小助手
+          - 'hubot'  # hubot 类型机器人用户
+      role:
+        description: 用户在团队内的身份
+        type: string
+        enum:
+          - 'owner'  # 团队所有者
+          - 'admin'  # 团队管理员
+          - 'normal'  # 团队普通成员
+          - 'visitor'  # 团队访客
+      avatars:
+        description: 用户头像
+        $ref: '#/definitions/UserAvatar'
+      profile:
+        description: 用户个人资料
+        $ref: '#/definitions/UserProfile'
+      inactive:
+        description: 用户是否已注销
+        type: boolean
+      created:
+        description: 用户加入时间
+        type: dateTime
+  UserAvatar:
+    required:
+      - small
+      - medium
+      - large
+    properties:
+      small:
+        type: string
+      medium:
+        type: string
+      large:
+        type: string
+  UserProfile:
+    properties:
+      bio:
+        description: 用户个人简介
+        type: string
+      position:
+        description: 用户个人资料
+        type: string
+      skype:
+        description: 用户 skype
+        type: string
+
+  Channel:
+    required:
+      - id
+      - team_id
+      - uid
+      - vchannel_id
+      - name
+      - topic
+      - type
+      - general
+      - private
+      - is_member
+      - member_uids
+      - latest_ts
+    properties:
+      id:
+        $ref: '#/definitions/ResponseObjectId'
+      team_id:
+        $ref: '#/definitions/ResponseObjectId'
+      uid:
+        description: 讨论组创建者 id
+        $ref: '#/definitions/ResponseObjectId'
+      vchannel_id:
+        $ref: '#/definitions/VChannelId'
+      name:
+        description: 讨论组名称
+        type: string
+      topic:
+        description: 讨论组话题
+        type: string
+      type:
+        $ref: '#/definitions/VChannelType'
+      general:
+        description: 讨论组是否为`所有人`讨论组？
+        type: boolean
+      private:
+        description: 讨论组是否为私密讨论组？
+        type: boolean
+      is_member:
+        description: 当前用户是否为讨论组成员？
+        type: boolean
+      member_uids:
+        description: 讨论组成员 id 列表
+        type: array
+        items:
+          $ref: '#/definitions/ResponseObjectId'
+      latest_ts:
+        description: 讨论组最新一条消息的 ts
+        type: integer
+
+  SessionChannel:
+    required:
+      - id
+      - team_id
+      - vchannel_id
+      - name
+      - type
+      - is_member
+      - member_uids
+      - latest_ts
+    properties:
+      id:
+        $ref: '#/definitions/ResponseObjectId'
+      team_id:
+        $ref: '#/definitions/ResponseObjectId'
+      vchannel_id:
+        $ref: '#/definitions/VChannelId'
+      name:
+        description: 临时讨论组名称，如果为 null 则表示未设置名称
+        type: string
+      type:
+        $ref: '#/definitions/VChannelType'
+      is_member:
+        description: 当前用户是否为临时讨论组成员？
+        type: boolean
+      member_uids:
+        description: 临时讨论组成员 id 列表
+        type: array
+        items:
+          $ref: '#/definitions/ResponseObjectId'
+      latest_ts:
+        description: 临时讨论组最新一条消息的 ts
+        type: integer
+
+  P2PChannel:
+    required:
+      - vchannel_id
+      - type
+      - member_uids
+    properties:
+      id:
+        $ref: '#/definitions/EncodedId'
+      team_id:
+        $ref: '#/definitions/EncodedId'
+      vchannel_id:
+        $ref: '#/definitions/VChannelId'
+      type:
+        $ref: '#/definitions/VChannelType'
+      is_member:
+        description: 当前用户是否为对话成员？
+        type: boolean
+      member_uids:
+        description: P2P 对话成员 id 列表
+        type: array
+        items:
+          $ref: '#/definitions/ResponseObjectId'
+      latest_ts:
+        description: P2P 对话最新一条消息的 ts
+        type: integer
+
+  MessageKey:
+    description: 消息唯一索引 key
+    type: string
+  MessageSubtype:
+    description: 消息类型
+    type: string
+    enum:
+      # TODO add all subtypes
+      - 'normal'  # 普通消息
+      - 'info'  # 系统消息
+  MessageAttachment:
+    description: 消息附件 (TBD)
+    type: string
+  Message:
+    required:
+      - key
+      - team_id
+      - uid
+      - robot_id
+      - vchannel_id
+      - thread_key
+      - refer_key
+      - subtype
+      - text
+      - fallback
+      - attachments
+      - created
+      - created_ts
+      - updated
+      - is_channel
+    properties:
+      key:
+        description: 消息唯一索引 key
+        $ref: '#/definitions/MessageKey'
+      team_id:
+        $ref: '#/definitions/ResponseObjectId'
+      uid:
+        description: 消息发送用户 id，为 null 时表示消息不是由 User 所发
+        $ref: '#/definitions/ResponseObjectId'
+      robot_id:
+        description: 消息发送机器人 id，为 null 时表示消息不是由 Robot 所发
+        $ref: '#/definitions/ResponseObjectId'
+      vchannel_id:
+        description: 消息所属聊天会话 id
+        $ref: '#/definitions/VChannelId'
+      thread_key:
+        description: 消息所属线索会话的消息 key
+        $ref: '#/definitions/MessageKey'
+      refer_key:
+        description: 消息引用的消息 key
+        $ref: '#/definitions/MessageKey'
+      subtype:
+        description: 消息类型
+        $ref: '#/definitions/MessageSubtype'
+      text:
+        description: 消息正文
+        type: string
+      fallback:
+        description: 消息提醒使用正文
+        type: string
+      attachments:
+        description: 消息附件
+        type: array
+        items:
+          $ref: '#/definitions/MessageAttachment'
+      created:
+        description: 消息创建时间
+        type: dateTime
+      created_ts:
+        description: 消息创建时间戳
+        type: integer
+        format: int32
+      updated:
+        description: 消息最后修改时间
+        type: dateTime
+      is_channel:
+        description: 消息是否为讨论组消息？
+        type: boolean
+
+  MessageQuery:
+    properties:
+      window:
+        description: 按照 `window` 方法查询
+        $ref: '#/definitions/TBD'
+      since:
+        description: 按照 `since` 方法查询
+        $ref: '#/definitions/TBD'
+      latest:
+        description: 按照 `latest` 方法查询
+        $ref: '#/definitions/TBD'
+      thread:
+        description: 按照 `thread` 方法查询
+        $ref: '#/definitions/TBD'
+
+  MessageQueryResult:
+    required:
+      - messages
+    properties:
+      messages:
+        description: 查询到的消息列表
+        type: array
+        items:
+          $ref: '#/definitions/Message'
+
+  RTMStart:
+    required:
+      - user
+      - ws_host
+    properties:
+      user:
+        description: rtm 用户
+        $ref: '#/definitions/User'
+      ws_host:
+        description: rtm 连接地址
+        type: string
+
+  Emoji:
+    required:
+      - id
+      - uid
+      - team_id
+      - name
+      - type
+      - created
+      - updated
+      - url
+    properties:
+      id:
+        description: emoji id
+        type: string
+      uid:
+        description: 创建用户 id
+        type: string
+      team_id:
+        description: 所属团队 id
+        type: string
+      name:
+        description: 名称
+        type: string
+      created:
+        description: 创建时间
+        type: dateTime
+      updated:
+        description: 最后修改时间
+        type: dateTime
+      url:
+        description: emoji url
+
+  Sticker:
+    required:
+      - url
+      - name
+      - width
+      - height
+    properties:
+      url:
+        description: sticker url
+        type: string
+      name:
+        description: 名称
+        type: string
+      width:
+        description: 图片宽度
+        type: integer
+      height:
+        description: 图片高度
+        type: integer
+
+  StickerPack:
+    description: 表情包
+    required:
+      - pack
+      - stickers
+    properties:
+      pack:
+        description: 表情包名称
+        type: string
+      stickers:
+        description: 包含的表情
+        type: array
+        items:
+          $ref: '#/definitions/Sticker'
+
+  Error:
+    required:
+      - code
+      - error
+    properties:
+      code:
+        $ref: '#/definitions/ResponseCode'
+      error:
+        $ref: '#/definitions/ResponseError'
+  OK:
+    required:
+      - code
+      - error
+    properties:
+      code:
+        $ref: '#/definitions/ResponseCode'
+        default: 0
+
+  TBD:
+    description: '待定义'
+    type: string
+
+  ResponseObjectId:
+    type: string
+  ResponseCode:
+    type: integer
+    format: int32
+  ResponseError:
+    type: string
+    format: string
