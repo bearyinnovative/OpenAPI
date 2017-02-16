@@ -16,6 +16,7 @@ paths:
     get:
       description: |
         返回 BearyChat API 的状态
+      authentication: false
       responses:
         200:
           description: meta response
@@ -39,6 +40,7 @@ paths:
     get:
       description: |
         返回当前团队信息
+      authentication: true
       responses:
         200:
           description: team response
@@ -47,6 +49,7 @@ paths:
         default:
           description: unexpected error
           schema:
+            $ref: '#/definitions/Error'
             $ref: '#/definitions/Error'
 
   #---------------------------------------------------------------------------
@@ -57,6 +60,7 @@ paths:
     get:
       description: |
         返回一个用户完整信息
+      authentication: true
       responses:
         200:
           schema:
@@ -75,6 +79,7 @@ paths:
     get:
       description: |
         返回团队内的用户列表，获取某个用户的完整信息，请使用 `user.info`
+      authentication: true
       responses:
         200:
           schema:
@@ -89,6 +94,7 @@ paths:
     get:
       description: |
         返回当前用户的信息
+      authentication: true
       responses:
         200:
           schema:
@@ -97,7 +103,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  # /channel.update_me: TODO
+  # /user.update_me: TODO
 
   #---------------------------------------------------------------------------
   # 讨论组相关
@@ -107,6 +113,7 @@ paths:
     get:
       description: |
         返回一个讨论组的完整信息
+      authentication: true
       responses:
         200:
           schema:
@@ -125,6 +132,7 @@ paths:
     get:
       description: |
         返回团队内的讨论组列表，获取某个讨论组的完整信息，请使用 `channel.info`
+      authentication: true
       responses:
         200:
           schema:
@@ -139,6 +147,7 @@ paths:
     post:
       description: |
         创建一个讨论组
+      authentication: true
       responses:
         201:
           schema:
@@ -169,6 +178,7 @@ paths:
     post:
       description: |
         归档一个讨论组
+      authentication: true
       responses:
         200:
           schema:
@@ -188,6 +198,7 @@ paths:
     post:
       description: |
         恢复一个讨论组
+      authentication: true
       responses:
         200:
           schema:
@@ -207,6 +218,7 @@ paths:
     post:
       description: |
         离开讨论组
+      authentication: true
       responses:
         204:
           schema:
@@ -227,6 +239,7 @@ paths:
       description: |
         加入讨论组
       responses:
+      authentication: true
         204:
           schema:
             $ref: '#/definitions/OK'
@@ -245,6 +258,7 @@ paths:
     post:
       description: |
         邀请团队成员加入讨论组
+      authentication: true
       responses:
         204:
           schema:
@@ -269,6 +283,7 @@ paths:
     post:
       description: |
         移除讨论组成员
+      authentication: true
       responses:
         204:
           schema:
@@ -299,6 +314,7 @@ paths:
     get:
       description: |
         返回一个临时讨论组的完整信息
+      authentication: true
       responses:
         200:
           schema:
@@ -318,6 +334,7 @@ paths:
       description: |
         返回团队内已经加入的临时讨论组列表，获取某个临时讨论组的完整信息，
         请使用 `session_channel.info`
+      authentication: true
       responses:
         200:
           schema:
@@ -332,6 +349,7 @@ paths:
     post:
       description: |
         创建一个临时讨论组
+      authentication: true
       responses:
         201:
           schema:
@@ -358,6 +376,7 @@ paths:
     post:
       description: |
         归档一个临时讨论组
+      authentication: true
       responses:
         200:
           schema:
@@ -377,6 +396,7 @@ paths:
     post:
       description: |
         将临时讨论组转换为讨论组
+      authentication: true
       responses:
         201:
           schema:
@@ -408,6 +428,7 @@ paths:
     post:
       description: |
         离开临时讨论组
+      authentication: true
       responses:
         204:
           schema:
@@ -427,6 +448,7 @@ paths:
     post:
       description: |
         邀请成员加入临时讨论组
+      authentication: true
       responses:
         204:
           schema:
@@ -451,6 +473,7 @@ paths:
     post:
       description: |
         移除临时讨论组成员
+      authentication: true
       responses:
         200:
           schema:
@@ -481,6 +504,7 @@ paths:
     get:
       description: |
         返回一个 P2P 聊天会话的完整信息
+      authentication: true
       responses:
         200:
           schema:
@@ -499,6 +523,7 @@ paths:
     get:
       description: |
         返回 P2P 聊天会话列表，获取某个 P2P 会话的完整信息，请使用 `p2p.info`
+      authentication: true
       responses:
         default:
           200:
@@ -513,6 +538,7 @@ paths:
     post:
       description: |
         创建一个 P2P 聊天会话
+      authentication: true
       responses:
         201:
           schema:
@@ -536,6 +562,7 @@ paths:
     post:
       description: |
         查询指定 vchannel 下的消息列表
+      authentication: true
       responses:
         200:
           schema:
@@ -554,6 +581,7 @@ paths:
     post:
       description: |
         发送一条消息到指定聊天会话
+      authentication: true
       responses:
         201:
           schema:
@@ -585,6 +613,7 @@ paths:
     post:
       description: |
         删除一条消息
+      authentication: true
       responses:
         200:
           schema:
@@ -604,6 +633,7 @@ paths:
     patch:
       description: |
         更新一条消息的内容
+      authentication: true
       responses:
         200:
           schema:
@@ -631,6 +661,7 @@ paths:
     get:
       description: |
         返回团队内的自定义 emoji 列表
+      authentication: true
       responses:
         default:
           schema:
@@ -646,6 +677,7 @@ paths:
     get:
       description: |
         返回当前用户的自定义 sticker 列表
+      authentication: true
       responses:
         default:
           schema:
@@ -661,6 +693,7 @@ paths:
     post:
       description: |
         打开 RTM 连接会话
+      authentication: true
       responses:
         200:
           schema:
