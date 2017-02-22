@@ -15,7 +15,7 @@ paths:
   /meta:
     get:
       description: |
-        返回 BearyChat API 的状态
+        返回 BearyChat API 的状态。
       authentication: false
       responses:
         200:
@@ -39,7 +39,7 @@ paths:
   /team.info:
     get:
       description: |
-        返回当前团队信息
+        返回当前团队信息。
       authentication: true
       responses:
         200:
@@ -59,7 +59,7 @@ paths:
   /user.info:
     get:
       description: |
-        返回一个用户完整信息
+        返回团队内指定用户完整信息。
       authentication: true
       responses:
         200:
@@ -71,14 +71,15 @@ paths:
       parameters:
         - name: user_id
           in: body
-          description: 用户 id
+          description: 指定用户 id
+          example: '=bw52O'
           required: true
           type: string
 
   /user.list:
     get:
       description: |
-        返回团队内的用户列表，获取某个用户的完整信息，请使用 `user.info`
+        返回团队内的用户列表，获取某个用户的完整信息，请使用 `user.info`.
       authentication: true
       responses:
         200:
@@ -93,7 +94,7 @@ paths:
   /user.me:
     get:
       description: |
-        返回当前用户的信息
+        返回当前用户的信息。
       authentication: true
       responses:
         200:
@@ -112,7 +113,7 @@ paths:
   /channel.info:
     get:
       description: |
-        返回一个讨论组的完整信息
+        返回指定讨论组的完整信息。
       authentication: true
       responses:
         200:
@@ -125,13 +126,14 @@ paths:
         - name: channel_id
           in: body
           description: 讨论组 id
+          example: "=bw52O"
           required: true
           type: string
 
   /channel.list:
     get:
       description: |
-        返回团队内的讨论组列表，获取某个讨论组的完整信息，请使用 `channel.info`
+        返回团队内的讨论组列表，获取某个讨论组的完整信息，请使用 `channel.info`.
       authentication: true
       responses:
         200:
@@ -159,12 +161,16 @@ paths:
       parameters:
         - name: name
           in: body
-          description: 讨论组名称
+          description: |
+            讨论组名称，可以包含 2~20 个英文字符或 1~10 个中文字符。
+            允许使用数字、下划线 (_)、中线 (_)和点。
+          example: '吃喝玩乐在深圳'
           required: true
           type: string
         - name: topic
           in: body
           description: 讨论组话题
+          example: '今天吃什么？'
           required: false
           type: string
         - name: private
@@ -177,7 +183,7 @@ paths:
   /channel.archive:
     post:
       description: |
-        归档一个讨论组
+        归档一个讨论组。
       authentication: true
       responses:
         200:
@@ -191,13 +197,14 @@ paths:
         - name: channel_id
           in: body
           description: 讨论组 id
+          example: "=bw52O"
           required: true
           type: string
 
   /channel.unarchive:
     post:
       description: |
-        恢复一个讨论组
+        恢复一个已被归档的讨论组。
       authentication: true
       responses:
         200:
@@ -211,13 +218,14 @@ paths:
         - name: channel_id
           in: body
           description: 讨论组 id
+          example: "=bw52O"
           required: true
           type: string
 
   /channel.leave:
     post:
       description: |
-        离开讨论组
+        当前用户离开讨论组。
       authentication: true
       responses:
         204:
@@ -231,13 +239,14 @@ paths:
         - name: channel_id
           in: body
           description: 讨论组 id
+          example: "=bw52O"
           required: true
           type: string
 
   /channel.join:
     post:
       description: |
-        加入讨论组
+        当前用户加入指定讨论组。
       responses:
       authentication: true
         204:
@@ -251,13 +260,14 @@ paths:
         - name: channel_id
           in: body
           description: 讨论组 id
+          example: "=bw52O"
           required: true
           type: string
 
   /channel.invite:
     post:
       description: |
-        邀请团队成员加入讨论组
+        当前用户邀请一个团队成员加入讨论组。
       authentication: true
       responses:
         204:
@@ -271,18 +281,20 @@ paths:
         - name: channel_id
           in: body
           description: 讨论组 id
+          example: "=bw52O"
           required: true
           type: string
         - name: invite_uid
           in: body
           description: 邀请用户 id
+          example: "=bw52O"
           required: true
           type: string
 
   /channel.kick:
     post:
       description: |
-        移除讨论组成员
+        当前用户移除一个讨论组成员。
       authentication: true
       responses:
         204:
@@ -296,11 +308,13 @@ paths:
         - name: channel_id
           in: body
           description: 讨论组 id
+          example: "=bw52O"
           required: true
           type: string
         - name: kick_uid
           in: body
           description: 移除用户 id
+          example: "=bw52O"
           required: true
           type: string
 
@@ -313,7 +327,7 @@ paths:
   /session_channel.info:
     get:
       description: |
-        返回一个临时讨论组的完整信息
+        返回一个临时讨论组的完整信息。
       authentication: true
       responses:
         200:
@@ -326,6 +340,7 @@ paths:
         - name: session_channel_id
           in: body
           description: 讨论组 id
+          example: "=bw52O"
           required: true
           type: string
 
@@ -333,7 +348,7 @@ paths:
     get:
       description: |
         返回团队内已经加入的临时讨论组列表，获取某个临时讨论组的完整信息，
-        请使用 `session_channel.info`
+        请使用 `session_channel.info`.
       authentication: true
       responses:
         200:
@@ -348,7 +363,7 @@ paths:
   /session_channel.create:
     post:
       description: |
-        创建一个临时讨论组
+        创建一个临时讨论组。
       authentication: true
       responses:
         201:
@@ -361,12 +376,16 @@ paths:
       parameters:
         - name: name
           in: body
-          description: 临时讨论组名称
+          description: |
+            临时讨论组名称，可以包含 2~20 个英文字符或 1~10 个中文字符。
+            允许使用数字、下划线 (_)、中线 (_)和点。
+          example: '吃喝玩乐在深圳'
           required: false
           type: string
         - name: member_uids
           in: body
           description: 临时讨论组成员 id 列表
+          example: '["=bw52O", "=bw52P"]'
           required: true
           type: array
           items:
@@ -375,7 +394,7 @@ paths:
   /session_channel.archive:
     post:
       description: |
-        归档一个临时讨论组
+        归档一个临时讨论组。
       authentication: true
       responses:
         200:
@@ -389,13 +408,14 @@ paths:
         - name: session_channel_id
           in: body
           description: 临时讨论组 id
+          example: '=bw52O'
           required: true
           type: string
 
   /session_channel.convert_to_channel:
     post:
       description: |
-        将临时讨论组转换为讨论组
+        将临时讨论组转换为讨论组。
       authentication: true
       responses:
         201:
@@ -410,11 +430,16 @@ paths:
         - name: session_channel_id
           in: body
           description: 临时讨论组 id
+          example: '=bw52O'
           required: true
           type: string
         - name: name
           in: body
           description: 讨论组名称
+          description: |
+            讨论组名称，可以包含 2~20 个英文字符或 1~10 个中文字符。
+            允许使用数字、下划线 (_)、中线 (_)和点。
+          example: '吃喝玩乐在深圳'
           required: true
           type: string
         - name: private
@@ -427,7 +452,7 @@ paths:
   /session_channel.leave:
     post:
       description: |
-        离开临时讨论组
+        离开临时讨论组。
       authentication: true
       responses:
         204:
@@ -441,13 +466,14 @@ paths:
         - name: session_channel_id
           in: body
           description: 临时讨论组 id
+          example: '=bw52O'
           required: true
           type: string
 
   /session_channel.invite:
     post:
       description: |
-        邀请成员加入临时讨论组
+        邀请一个团队成员加入临时讨论组。
       authentication: true
       responses:
         204:
@@ -461,18 +487,20 @@ paths:
         - name: session_channel_id
           in: body
           description: 临时讨论组 id
+          example: '=bw52O'
           required: true
           type: string
         - name: invite_uid
           in: body
           description: 邀请用户 id
+          example: '=bw52O'
           required: true
           type: string
 
   /session_channel.kick:
     post:
       description: |
-        移除临时讨论组成员
+        移除一个临时讨论组成员。
       authentication: true
       responses:
         200:
@@ -486,11 +514,13 @@ paths:
         - name: session_channel_id
           in: body
           description: 临时讨论组 id
+          example: '=bw52O'
           required: true
           type: string
         - name: kick_uid
           in: body
           description: 邀请用户 id
+          example: '=bw52O'
           required: true
           type: string
 
@@ -503,7 +533,7 @@ paths:
   /p2p.info:
     get:
       description: |
-        返回一个 P2P 聊天会话的完整信息
+        返回一个 P2P 聊天会话的完整信息。
       authentication: true
       responses:
         200:
@@ -516,13 +546,14 @@ paths:
         - name: p2p_channel_id
           in: body
           description: P2P 聊天会话 id
+          example: '=bw52O'
           required: true
           type: string
 
   /p2p.list:
     get:
       description: |
-        返回 P2P 聊天会话列表，获取某个 P2P 会话的完整信息，请使用 `p2p.info`
+        返回 P2P 聊天会话列表，获取某个 P2P 会话的完整信息，请使用 `p2p.info`.
       authentication: true
       responses:
         default:
@@ -537,7 +568,7 @@ paths:
   /p2p.create:
     post:
       description: |
-        创建一个 P2P 聊天会话
+        创建一个 P2P 聊天会话。
       authentication: true
       responses:
         201:
@@ -547,10 +578,11 @@ paths:
         default:
           schema:
             $ref: '#/definitions/Error'
-      properties:
+      parameters:
         - name: user_id
           in: body
           description: P2P 聊天另外一方的用户 id
+          example: '=bw52O'
           required: true
           type: string
 
@@ -561,7 +593,7 @@ paths:
   /message.query:
     post:
       description: |
-        查询指定 vchannel 下的消息列表
+        查询指定 vchannel 下的消息列表。
       authentication: true
       responses:
         200:
@@ -580,7 +612,7 @@ paths:
   /message.create:
     post:
       description: |
-        发送一条消息到指定聊天会话
+        发送一条消息到指定聊天会话。
       authentication: true
       responses:
         201:
@@ -594,11 +626,13 @@ paths:
         - name: vchannel_id
           in: body
           description: 指定的目标聊天会话 id
+          example: '=bw52O'
           required: true
           $ref: '#/definitions/VChannelId'
         - name: text
           in: body
           description: 消息内容
+          example: '中午吃啥啊？'
           required: true
           type: string
         - name: attachments
@@ -612,7 +646,7 @@ paths:
   /message.delete:
     post:
       description: |
-        删除一条消息
+        删除一条消息。
       authentication: true
       responses:
         200:
@@ -626,13 +660,14 @@ paths:
         - name: message_key
           in: body
           description: 删除的消息 key
+          example: '1487667236785.0077'
           required: true
           $ref: '#/definitions/MessageKey'
 
   /message.update_text:
     patch:
       description: |
-        更新一条消息的内容
+        更新一条消息的内容。
       authentication: true
       responses:
         200:
@@ -645,11 +680,13 @@ paths:
         - name: message_key
           in: body
           description: 更新的消息 key
+          example: '1487667236785.0077'
           required: true
           $ref: '#/definitions/MessageKey'
         - name: text
           in: body
           description: 更新的消息内容
+          example: '中午吃啥啊？'
           required: true
           type: string
 
