@@ -50,7 +50,6 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/Error'
-            $ref: '#/definitions/Error'
 
   #---------------------------------------------------------------------------
   # 用户相关
@@ -247,8 +246,8 @@ paths:
     post:
       description: |
         当前用户加入指定讨论组。
-      responses:
       authentication: true
+      responses:
         204:
           schema:
             $ref: '#/definitions/OK'
@@ -435,7 +434,6 @@ paths:
           type: string
         - name: name
           in: body
-          description: 讨论组名称
           description: |
             讨论组名称，可以包含 2~20 个英文字符或 1~10 个中文字符。
             允许使用数字、下划线 (_)、中线 (_)和点。
