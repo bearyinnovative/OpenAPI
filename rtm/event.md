@@ -16,5 +16,5 @@ RTM 服务通过 `websocket` 协议实现实时双工通信。
 - [`channel_message`](./event_channel_message.md) 讨论组会话消息事件
 - [`update_message`](./event_update_message.md) P2P 会话消息更新事件
 - [`update_channel_message`](./event_update_channel_message.md) 讨论组会话消息更新事件
-- [`add_message_reaction`](./event_add_message_reaction.md) 添加消息响应事件
-- [`delete_message_reaction`](./event_delete_message_reaction.md) 删除消息响应事件
+- [`add_message_reaction`](./event_add_message_reaction.md) 添加消息回应事件
+- [`delete_message_reaction`](./event_delete_message_reaction.md) 删除消息回应事件
