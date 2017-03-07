@@ -37,7 +37,7 @@ channel_message 时间在讨论组会话中收到新消息的时候触发。
 
 | 字段 | 类型 | 说明 |
 |:----:|:----:|------|
-| `vchannel_id` | `string` | P2P 会话 id，**必填** |
+| `vchannel_id` | `string` | 讨论组会话 id，**必填** |
 | `text` | `string` | 消息内容，**必填** |
 | `type` | `MessageType` | 消息类型，讨论组消息值为 `channel_message`， **必填** |
 | `channel_id` | `string` | 接收讨论组 id, **必填** |
