@@ -45,5 +45,5 @@ POST https://rtm.bearychat.com/start
 
 <!-- TODO(hbc): generate TOC by tool -->
 
-- [`start`](./api_start.md)
-- [`message`](./api_message.md)
+- [`start`](./api_start.md)  获取 RTM 模式的连接地址和用户信息
+- [`message`](./api_message.md) 发送富文本消息

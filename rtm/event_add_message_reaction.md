@@ -18,6 +18,6 @@
 }
 ```
 
-add_message_reaction 事件在添加消息响应的时候触发。其中 `data` 字段包含了
-该消息响应的数据：`message_key` 为对应消息的 key, `reaction` 为用户点选的
+add_message_reaction 事件在添加消息回应的时候触发。其中 `data` 字段包含了
+该消息回应的数据：`message_key` 为对应消息的 key, `reaction` 为用户点选的
 emoji 名称，`uid` 为点选的用户 id.

@@ -18,6 +18,6 @@
 }
 ```
 
-delete_message_reaction 事件在取消消息响应的时候触发。其中 `data` 字段包含了
-被取消的消息响应的数据：`message_key` 为对应消息的 key, `reaction` 为用户取消的
+delete_message_reaction 事件在取消消息回应的时候触发。其中 `data` 字段包含了
+被取消的消息回应的数据：`message_key` 为对应消息的 key, `reaction` 为用户取消的
 emoji 名称，`uid` 为取消的用户 id.
