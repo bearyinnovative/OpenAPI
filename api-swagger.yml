@@ -893,6 +893,7 @@ definitions:
       - type
       - general
       - private
+      - is_active
       - is_member
       - member_uids
       - latest_ts
@@ -920,6 +921,9 @@ definitions:
       private:
         description: 讨论组是否为私密讨论组？
         type: boolean
+      is_active:
+        description: 会话是否有效
+        type: boolean
       is_member:
         description: 当前用户是否为讨论组成员？
         type: boolean
@@ -939,6 +943,7 @@ definitions:
       - vchannel_id
       - name
       - type
+      - is_active
       - is_member
       - member_uids
       - latest_ts
@@ -954,6 +959,9 @@ definitions:
         type: string
       type:
         $ref: '#/definitions/VChannelType'
+      is_active:
+        description: 会话是否有效
+        type: boolean
       is_member:
         description: 当前用户是否为临时讨论组成员？
         type: boolean
@@ -968,9 +976,14 @@ definitions:
 
   P2PChannel:
     required:
+      - id
+      - team_id
       - vchannel_id
       - type
+      - is_active
+      - is_member
       - member_uids
+      - latest_ts
     properties:
       id:
         $ref: '#/definitions/EncodedId'
@@ -980,6 +993,9 @@ definitions:
         $ref: '#/definitions/VChannelId'
       type:
         $ref: '#/definitions/VChannelType'
+      is_active:
+        description: 会话是否有效
+        type: boolean
       is_member:
         description: 当前用户是否为对话成员？
         type: boolean
