@@ -613,6 +613,32 @@ paths:
           required: true
           $ref: '#/definitions/MessageQuery'
 
+  /message.info:
+    get:
+      description: |
+        返回一条消息的信息。
+      authentication: true
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Message'
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: vchannel_id
+          in: body
+          description: 指定的目标聊天会话 id
+          example: '=bw52O'
+          required: true
+          $ref: '#/definitions/VChannelId'
+        - name: message_key
+          in: body
+          description: 获取消息的 key
+          example: '1487667236785.0077'
+          required: true
+          $ref: '#/definitions/MessageKey'
+
   /message.create:
     post:
       description: |
