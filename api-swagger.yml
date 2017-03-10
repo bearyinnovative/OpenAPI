@@ -601,6 +601,12 @@ paths:
           schema:
             $ref: '#/definitions/Error'
       parameters:
+        - name: vchannel_id
+          in: body
+          description: 待查询 vchannel_id
+          required: true
+          example: '=bw52O'
+          type: string
         - name: query
           in: body
           description: 消息查询 payload
@@ -1071,20 +1077,89 @@ definitions:
         description: 消息是否为讨论组消息？
         type: boolean
 
+  MessageQueryWindow:
+    description: |
+      拉取一定时间窗口里面的消息
+      {from,to}_key / {from,to}_ts 不能混用，优先使用 {from,to}_key 对
+      from_{key,ts} to_{key,ts} 必须成对出现
+      使用消息 key 查询的时候，查询区间为 (from_key, to_key)
+      使用消息 ts 查询的时候，查询区间为 [from_ts, to_ts]
+      forward / backward 可选其一
+      查询结果最多返回 100 条消息：
+        - forward / backward 最大值为 100
+        - 不指定 forward / backward 时，默认返回 forward=100 的消息记录
+        - 如果查询区间开始值比结束值大，返回空结果
+    properties:
+      form-key:
+        description: 区间开始的消息 `key`
+        type: string
+      to-key:
+        description: 区间结束的消息 `key`
+        type: string
+      from-ts:
+        description: 区间开始的消息时间戳
+        type: int32
+      to-ts:
+        description: 区间结束的消息时间戳
+        type: int32
+      forward:
+        description: 向前获取 n 条消息
+        type: int32
+      backward:
+        description: 向后获取 n 条消息
+        type: int32
+
+  MessageQuerySince:
+    description: |
+      从指定位置开始拉取若干条消息
+      key / ts 不能混用，优先使用 key
+      forward / backward 可同时使用，默认为 forward=100
+      使用消息 key 查询的时候，查询区间为 (key, +inf) / (-inf, key)
+      使用消息 ts 查询的时候，查询区间为 [ts, +inf) / (-inf, ts]
+      forward / backward 可选其一
+      查询结果最多返回 100 条消息：
+        - forward / backward 最大值为 100
+        - 不指定 forward / backward 时，默认返回 forward=100 的消息记录
+        - 如果同时使用 forward / backward 查询，返回消息保证 总数 <= forward + backward
+    properties:
+      key:
+        description: 指定位置的消息 `key`
+        type: string
+      ts:
+        description: 指定位置的消息时间戳
+        type: int32
+      forward:
+        description: 向前获取 n 条消息
+        type: int32
+      backward:
+        description: 向后获取 n 条消息
+        type: int32
+
+  MessageQueryLatest:
+    description: |
+      获取该 vchannel 下的最新消息列表
+      查询结果最多返回 100 条消息：
+        - limit 最大值为 100
+        - 不指定 limit 时，limit 默认为 20
+    properties:
+      limit:
+        description: 获取 n 条消息
+        type: int32
+
   MessageQuery:
+    description: |
+      window / since / latest / thread 只能存在其中一种查询方法
+      如果带有多种查询方法，则只以第一个方法为准
     properties:
       window:
         description: 按照 `window` 方法查询
-        $ref: '#/definitions/TBD'
+        $ref: '#/definitions/MessageQueryWindow'
       since:
         description: 按照 `since` 方法查询
-        $ref: '#/definitions/TBD'
+        $ref: '#/definitions/MessageQuerySince'
       latest:
         description: 按照 `latest` 方法查询
-        $ref: '#/definitions/TBD'
-      thread:
-        description: 按照 `thread` 方法查询
-        $ref: '#/definitions/TBD'
+        $ref: '#/definitions/MessageQueryLatest'
 
   MessageQueryResult:
     required:
