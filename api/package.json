@@ -1,0 +1,16 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "BearyChat OpenAPI documentation",
+  "main": "swagger.yml",
+  "scripts": {
+    "build": "node gen_doc.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "license": "UNLICENSED",
+  "dependencies": {
+    "async": "^2.1.5",
+    "js-yaml": "^3.8.2"
+  }
+}

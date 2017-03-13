@@ -27,6 +27,10 @@ paths:
                 $ref: '#/definitions/ResponseCode'
               result:
                 $ref: '#/definitions/Meta'
+          example: |
+            {
+              "version": "1"
+            }
         default:
           description: unexpected error
           schema:
@@ -46,6 +50,17 @@ paths:
           description: team response
           schema:
             $ref: '#/definitions/Team'
+          example: |
+            {
+              "id": "=bw52O",
+              "subdomain": "openapi",
+              "name": "BearyChat OpenAPI",
+              "email_domain": null,
+              "logo_url": null,
+              "description": "",
+              "plan": "basic",
+              "created": "2017-01-11T12:28:31.000+0000"
+            }
         default:
           description: unexpected error
           schema:
@@ -64,6 +79,29 @@ paths:
         200:
           schema:
             $ref: '#/definitions/User'
+          example: |
+            {
+              "inactive": false,
+              "role": "normal",
+              "email": "support@bearyinnovative.com",
+              "name": "BearyBot",
+              "type": "assistant",
+              "created": "2017-01-11T12:28:31.000+0000",
+              "id": "=bwMkR",
+              "avatars": {
+                "small": null,
+                "medium": null,
+                "large": null
+              },
+              "team_id": "=bw52O",
+              "full_name": "倍洽小助手",
+              "mobile": null,
+              "profile": {
+                "bio": null,
+                "position": null,
+                "skype": null
+              }
+            }
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -86,6 +124,31 @@ paths:
             type: array
             items:
               $ref: '#/definitions/User'
+          example: |
+            [
+              {
+                "inactive": false,
+                "role": "normal",
+                "email": "support@bearyinnovative.com",
+                "name": "BearyBot",
+                "type": "assistant",
+                "created": "2017-01-11T12:28:31.000+0000",
+                "id": "=bwMkR",
+                "avatars": {
+                  "small": null,
+                  "medium": null,
+                  "large": null
+                },
+                "team_id": "=bw52O",
+                "full_name": "倍洽小助手",
+                "mobile": null,
+                "profile": {
+                  "bio": null,
+                  "position": null,
+                  "skype": null
+                }
+              }
+            ]
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -99,6 +162,29 @@ paths:
         200:
           schema:
             $ref: '#/definitions/User'
+          example: |
+            {
+              "inactive": false,
+              "role": "normal",
+              "email": "support@bearyinnovative.com",
+              "name": "BearyBot",
+              "type": "assistant",
+              "created": "2017-01-11T12:28:31.000+0000",
+              "id": "=bwMkR",
+              "avatars": {
+                "small": null,
+                "medium": null,
+                "large": null
+              },
+              "team_id": "=bw52O",
+              "full_name": "倍洽小助手",
+              "mobile": null,
+              "profile": {
+                "bio": null,
+                "position": null,
+                "skype": null
+              }
+            }
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -118,6 +204,24 @@ paths:
         200:
           schema:
             $ref: '#/definitions/Channel'
+          example: |
+            {
+              "private": false,
+              "general": true,
+              "latest_ts": 1486367046281,
+              "uid": "=bw52O",
+              "name": "所有人",
+              "is_member": false,
+              "is_active": true,
+              "type": "normal",
+              "topic": null,
+              "member_uids": [
+                "=bw52O"
+              ],
+              "vchannel_id": "=bw52O",
+              "id": "=bw52O",
+              "team_id": "=bw52O"
+            }
         default:
           schema:
             $ref: '#/definitions/TBD'
@@ -140,6 +244,26 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Channel'
+          example: |
+            [
+              {
+                "private": false,
+                "general": true,
+                "latest_ts": 1486367046281,
+                "uid": "=bw52O",
+                "name": "所有人",
+                "is_member": false,
+                "is_active": true,
+                "type": "normal",
+                "topic": null,
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
+            ]
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -153,6 +277,24 @@ paths:
         201:
           schema:
             $ref: '#/definitions/Channel'
+          example: |
+            {
+              "private": false,
+              "general": true,
+              "latest_ts": 1486367046281,
+              "uid": "=bw52O",
+              "name": "所有人",
+              "is_member": false,
+              "is_active": true,
+              "type": "normal",
+              "topic": null,
+              "member_uids": [
+                "=bw52O"
+              ],
+              "vchannel_id": "=bw52O",
+              "id": "=bw52O",
+              "team_id": "=bw52O"
+            }
         # TODO invalid payload response
         default:
           schema:
@@ -188,6 +330,10 @@ paths:
         200:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         default:
           schema:
@@ -209,6 +355,10 @@ paths:
         200:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         default:
           schema:
@@ -230,6 +380,10 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         default:
           schema:
@@ -251,6 +405,10 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         default:
           schema:
@@ -272,6 +430,10 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         default:
           schema:
@@ -299,6 +461,10 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         default:
           schema:
@@ -332,6 +498,20 @@ paths:
         200:
           schema:
             $ref: '#/definitions/SessionChannel'
+          example: |
+            {
+              "latest_ts": "1489242467694",
+              "name": "临时讨论组名称",
+              "is_member": true,
+              "is_active": true,
+              "type": "session",
+              "member_uids": [
+                "=bw52O"
+              ],
+              "vchannel_id": "=bw52O",
+              "id": "=bw52O",
+              "team_id": "=bw52O"
+            }
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -355,6 +535,22 @@ paths:
             type: array
             items:
               $ref: '#/definitions/SessionChannel'
+          example: |
+            [
+              {
+                "latest_ts": "1489242467694",
+                "name": "临时讨论组名称",
+                "is_member": true,
+                "is_active": true,
+                "type": "session",
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
+            ]
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -368,6 +564,20 @@ paths:
         201:
           schema:
             $ref: '#/definitions/SessionChannel'
+          example: |
+            {
+              "latest_ts": "1489242467694",
+              "name": "临时讨论组名称",
+              "is_member": true,
+              "is_active": true,
+              "type": "session",
+              "member_uids": [
+                "=bw52O"
+              ],
+              "vchannel_id": "=bw52O",
+              "id": "=bw52O",
+              "team_id": "=bw52O"
+            }
         # TODO invalid payload response
         default:
           schema:
@@ -399,6 +609,10 @@ paths:
         200:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         default:
           schema:
@@ -420,6 +634,10 @@ paths:
         201:
           schema:
             $ref: '#/definitions/Channel'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         # TODO invalid payload response
         default:
@@ -456,6 +674,10 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         default:
           schema:
@@ -477,6 +699,10 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         default:
           schema:
@@ -504,6 +730,10 @@ paths:
         200:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO permission denied response
         default:
           schema:
@@ -537,6 +767,20 @@ paths:
         200:
           schema:
             $ref: '#/definitions/P2PChannel'
+          example: |
+            {
+              "id": "=bw52O",
+              "team_id": "=bw52O",
+              "vchannel_id": "=bw52O",
+              "type": "p2p",
+              "is_active": true,
+              "is_member": true,
+              "member_uids": [
+                "=bw52O",
+                "=bw52P"
+              ],
+              "latest_ts": 1485238998284
+            }
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -560,6 +804,22 @@ paths:
               type: array
               items:
                 $ref: '#/definitions/P2PChannel'
+          example: |
+            [
+              {
+                "id": "=bw52O",
+                "team_id": "=bw52O",
+                "vchannel_id": "=bw52O",
+                "type": "p2p",
+                "is_active": true,
+                "is_member": true,
+                "member_uids": [
+                  "=bw52O",
+                  "=bw52P"
+                ],
+                "latest_ts": 1485238998284
+              }
+            ]
           schema:
             $ref: '#/definitions/Error'
 
@@ -572,6 +832,20 @@ paths:
         201:
           schema:
             $ref: '#/definitions/P2PChannel'
+          example: |
+            {
+              "id": "=bw52O",
+              "team_id": "=bw52O",
+              "vchannel_id": "=bw52O",
+              "type": "p2p",
+              "is_active": true,
+              "is_member": true,
+              "member_uids": [
+                "=bw52O",
+                "=bw52P"
+              ],
+              "latest_ts": 1485238998284
+            }
         # TODO invalid payload error
         default:
           schema:
@@ -597,6 +871,28 @@ paths:
         200:
           schema:
             $ref: '#/definitions/MessageQueryResult'
+          example: |
+            {
+              "messages": [
+                {
+                  "key": "1485236262366.0193",
+                  "updated": "2017-01-24T13:37:42.000+0000",
+                  "is_channel": false,
+                  "uid": "=bw52O",
+                  "fallback": null,
+                  "attachments": [],
+                  "thread_key": null,
+                  "created": "2017-01-24T13:37:42.000+0000",
+                  "vchannel_id": "=bw52O",
+                  "refer_key": null,
+                  "robot_id": null,
+                  "created_ts": 1485236262366,
+                  "team_id": "=bw52O",
+                  "subtype": "normal",
+                  "text": "hello"
+                }
+              ]
+            }
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -612,6 +908,26 @@ paths:
           description: 消息查询 payload
           required: true
           $ref: '#/definitions/MessageQuery'
+      parameters_example: |
+        // latest
+        {
+          "vchannel_id": "=bw52O",
+          "query": {
+            "latest": {
+              "limit": 10
+            }
+          }
+        }
+
+        // since
+        {
+          "vchannel_id": "=bw52O",
+          "query": {
+            "since": {
+              "ts": 1485236262366
+            }
+          }
+        }
 
   /message.info:
     get:
@@ -622,9 +938,28 @@ paths:
         200:
           schema:
             $ref: '#/definitions/Message'
+          example: |
+            {
+              "key": "1485236262366.0193",
+              "updated": "2017-01-24T13:37:42.000+0000",
+              "is_channel": false,
+              "uid": "=bw52O",
+              "fallback": null,
+              "attachments": [],
+              "thread_key": null,
+              "created": "2017-01-24T13:37:42.000+0000",
+              "vchannel_id": "=bw52O",
+              "refer_key": null,
+              "robot_id": null,
+              "created_ts": 1485236262366,
+              "team_id": "=bw52O",
+              "subtype": "normal",
+              "text": "hello"
+            }
         default:
           schema:
             $ref: '#/definitions/Error'
+          key:
       parameters:
         - name: vchannel_id
           in: body
@@ -648,6 +983,24 @@ paths:
         201:
           schema:
             $ref: '#/definitions/Message'
+          example: |
+            {
+              "key": "1485236262366.0193",
+              "updated": "2017-01-24T13:37:42.000+0000",
+              "is_channel": false,
+              "uid": "=bw52O",
+              "fallback": null,
+              "attachments": [],
+              "thread_key": null,
+              "created": "2017-01-24T13:37:42.000+0000",
+              "vchannel_id": "=bw52O",
+              "refer_key": null,
+              "robot_id": null,
+              "created_ts": 1485236262366,
+              "team_id": "=bw52O",
+              "subtype": "normal",
+              "text": "hello"
+            }
         # TODO error responses
         default:
           schema:
@@ -658,7 +1011,8 @@ paths:
           description: 指定的目标聊天会话 id
           example: '=bw52O'
           required: true
-          $ref: '#/definitions/VChannelId'
+          schema:
+            $ref: '#/definitions/VChannelId'
         - name: text
           in: body
           description: 消息内容
@@ -682,6 +1036,10 @@ paths:
         200:
           schema:
             $ref: '#/definitions/OK'
+          example: |
+            {
+              "code": 0
+            }
         # TODO error responses
         default:
           schema:
@@ -703,6 +1061,24 @@ paths:
         200:
           schema:
             $ref: '#/definitions/Message'
+          example: |
+            {
+              "key": "1485236262366.0193",
+              "updated": "2017-01-24T13:37:42.000+0000",
+              "is_channel": false,
+              "uid": "=bw52O",
+              "fallback": null,
+              "attachments": [],
+              "thread_key": null,
+              "created": "2017-01-24T13:37:42.000+0000",
+              "vchannel_id": "=bw52O",
+              "refer_key": null,
+              "robot_id": null,
+              "created_ts": 1485236262366,
+              "team_id": "=bw52O",
+              "subtype": "normal",
+              "text": "hello"
+            }
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -730,11 +1106,24 @@ paths:
         返回团队内的自定义 emoji 列表
       authentication: true
       responses:
-        default:
+        200:
           schema:
             type: array
             items:
               $ref: '#/definitions/Emoji'
+          example: |
+            [
+              {
+                "id": "=bw52O",
+                "uid": "=bw52O",
+                "team_id": "=bw52O",
+                "name": "hello",
+                "type": "emoji",
+                "created": "2017-03-13T13:54:16.000+0000",
+                "updated": "2017-03-13T13:54:16.000+0000",
+                "url": "http://example.com/1.jpg"
+              }
+            ]
 
   #---------------------------------------------------------------------------
   # 团队自定义 sticker 相关
@@ -746,11 +1135,25 @@ paths:
         返回当前用户的自定义 sticker 列表
       authentication: true
       responses:
-        default:
+        200:
           schema:
             type: array
             items:
               $ref: '#/definitions/StickerPack'
+          example: |
+            [
+              {
+                "pack": "黑白熊静态",
+                "stickers": [
+                  {
+                    "url": "https://dn-bearychat.qbox.me/sticker-gif-20.gif",
+                    "name": "累",
+                    "width": 240,
+                    "height": 240
+                  }
+                ]
+              }
+            ]
 
   #---------------------------------------------------------------------------
   # RTM 相关
@@ -765,6 +1168,32 @@ paths:
         200:
           schema:
             $ref: '#/definitions/RTMStart'
+          example: |
+            {
+              "ws_host": "wss://rtm.bearychat.com/nimbus/ws:xxx",
+              "user": {
+                "inactive": false,
+                "role": "normal",
+                "email": "support@bearyinnovative.com",
+                "name": "BearyBot",
+                "type": "assistant",
+                "created": "2017-01-11T12:28:31.000+0000",
+                "id": "=bwMkR",
+                "avatars": {
+                  "small": null,
+                  "medium": null,
+                  "large": null
+                },
+                "team_id": "=bw52O",
+                "full_name": "倍洽小助手",
+                "mobile": null,
+                "profile": {
+                  "bio": null,
+                  "position": null,
+                  "skype": null
+                }
+              }
+            }
         # TODO permission denied error
         default:
           schema:
@@ -1018,9 +1447,9 @@ definitions:
       - latest_ts
     properties:
       id:
-        $ref: '#/definitions/EncodedId'
+        $ref: '#/definitions/ResponseObjectId'
       team_id:
-        $ref: '#/definitions/EncodedId'
+        $ref: '#/definitions/ResponseObjectId'
       vchannel_id:
         $ref: '#/definitions/VChannelId'
       type:
@@ -1247,6 +1676,9 @@ definitions:
         type: string
       name:
         description: 名称
+        type: string
+      type:
+        description: 资源类型
         type: string
       created:
         description: 创建时间
