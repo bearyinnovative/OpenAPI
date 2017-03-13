@@ -4,13 +4,15 @@
   "description": "BearyChat OpenAPI documentation",
   "main": "swagger.yml",
   "scripts": {
-    "build": "node gen_doc.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:swagger && npm run build:readme",
+    "build:swagger": "node gen_doc.js",
+    "build:readme": "markdown-toc -i README.md"
   },
   "private": true,
   "license": "UNLICENSED",
   "dependencies": {
     "async": "^2.1.5",
-    "js-yaml": "^3.8.2"
+    "js-yaml": "^3.8.2",
+    "markdown-toc": "^1.1.0"
   }
 }
