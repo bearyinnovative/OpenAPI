@@ -15,7 +15,8 @@ BearyChat 开放 API 文档
 
 ## API 文档
 
-**整理中**
+- [开放 API OpenAPI](./api)
+- [实时聊天 RTM](./rtm)
 
 ## SDK 列表
 
