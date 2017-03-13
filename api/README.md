@@ -65,6 +65,12 @@ https://api.bearychat.com/v1
 - rtm: RTM 相关
   * [POST /rtm.start](./rtm.start.md)
 
+
+所有接口都按照 [OpenAPI 规格][openapi-spec] 进行记录，对应规格文件可以查看
+[swagger.yml](./swagger.yml)
+
+[openapi-spec]: http://swagger.io/specification/
+
 ## 授权
 
 如无特别说明，所有 API 接口都需要授权后才能访问。目前支持授权方式有：
