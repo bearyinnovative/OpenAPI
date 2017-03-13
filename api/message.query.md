@@ -1,6 +1,47 @@
 # message.query
 
-查询指定 vchannel 下的消息列表。
+查询指定 vchannel 下的消息列表。支持以下几种查询算法：
+
+### `latest`
+
+查询 vchannel 下最新的消息，支持参数：
+
+- `limit`: 查询数量限制，最大值为 100, 默认 20
+
+### `since`
+
+从指定位置开始拉取若干条消息，支持参数：
+
+- `key`: 开始位置的消息 key, 不可以和 `ts` 同时使用
+- `ts`: 开始位置的消息 ts, 不可以和 `ts` 同时使用
+- `forward`: 向前（时间发生方向）获取条数
+- `backward`: 向后（时间发生方向）获取条数
+
+**注意**:
+
+1. 使用 `key` 查询时，查询区间不包括 key 对应的消息
+2. 使用 `ts` 查询时，查询区间包括 ts 对应的消息
+3. `forward` / `backward` 参数可以同时使用
+4. `forward` / `backward` 参数最大值为 100,
+5. `forward` / `backward` 均未指定时，默认使用 `forward=100`
+
+### `window`
+
+拉去一定时间窗口内的消息，支持参数：
+
+- `from_key` / `to_key`: 窗口区间的消息 key
+- `from_ts` / `to_ts`: 窗口区间的消息 ts
+- `forward`: 从 from 方向往 to 方向取的消息数
+- `backward`: 从 to 方向往 from 方向取的消息数
+
+**注意**:
+
+1. `{from,to}_key` 和 `{from,to}_ts` 不可以混用
+2. 使用 `{from,to}_key` 查询时，查询区间不包括 key 对应的消息
+3. 使用 `{from,to}_ts` 查询时，查询区间包括 ts 对应的消息
+4. `forward` 和 `backward` 参数只能选其中一个
+5. `forward` / `backward` 均未指定时，默认使用 `forward=100`
+6. 如果查询区间开始值比结束值大，返回空结果
 
 ## 请求方式
 
@@ -34,6 +75,18 @@ POST {base_url}/message.query
   "query": {
     "since": {
       "ts": 1485236262366
+    }
+  }
+}
+
+// window
+{
+  "vchannel_id": "=bw52O",
+  "query": {
+    "window": {
+      "from_ts": 1485236262366,
+      "to_ts": 1485236362366,
+      "forward": 100
     }
   }
 }
