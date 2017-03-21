@@ -22,7 +22,21 @@ POST {base_url}/channel.archive
 
 ```json
 {
-  "code": 0
+  "private": false,
+  "general": true,
+  "latest_ts": 1486367046281,
+  "uid": "=bw52O",
+  "name": "所有人",
+  "is_member": false,
+  "is_active": false,
+  "type": "normal",
+  "topic": null,
+  "member_uids": [
+    "=bw52O"
+  ],
+  "vchannel_id": "=bw52O",
+  "id": "=bw52O",
+  "team_id": "=bw52O"
 }
 ```
 ### 错误响应
