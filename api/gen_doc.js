@@ -75,13 +75,15 @@ function describeResponse(methodSchema) {
   Object.keys(responses).forEach((statusCode) => {
     if (statusCode === 'default') return
 
-    content = content.concat([
-      `### ${statusCode}`,
-      '',
-      '```json',
-      (responses[statusCode].example || '').trim(),
-      '```',
-    ])
+    content.push(`### ${statusCode}`);
+    if (responses[statusCode].example) {
+      content = content.concat([
+        '',
+        '```json',
+        responses[statusCode].example.trim(),
+        '```',
+      ]);
+    }
   })
 
   if (responses.default) {

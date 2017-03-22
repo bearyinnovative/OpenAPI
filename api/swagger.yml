@@ -408,10 +408,6 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
-          example: |
-            {
-              "code": 0
-            }
         # TODO permission denied response
         default:
           schema:
@@ -433,10 +429,6 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
-          example: |
-            {
-              "code": 0
-            }
         # TODO permission denied response
         default:
           schema:
@@ -458,10 +450,6 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
-          example: |
-            {
-              "code": 0
-            }
         # TODO permission denied response
         default:
           schema:
@@ -489,10 +477,6 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
-          example: |
-            {
-              "code": 0
-            }
         # TODO permission denied response
         default:
           schema:
@@ -702,10 +686,6 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
-          example: |
-            {
-              "code": 0
-            }
         # TODO permission denied response
         default:
           schema:
@@ -727,10 +707,6 @@ paths:
         204:
           schema:
             $ref: '#/definitions/OK'
-          example: |
-            {
-              "code": 0
-            }
         # TODO permission denied response
         default:
           schema:

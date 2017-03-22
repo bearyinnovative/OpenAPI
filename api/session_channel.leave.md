@@ -19,12 +19,6 @@ POST {base_url}/session_channel.leave
 ## 响应
 
 ### 204
-
-```json
-{
-  "code": 0
-}
-```
 ### 错误响应
 
 ```json
