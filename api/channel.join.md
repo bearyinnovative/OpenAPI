@@ -18,7 +18,27 @@ POST {base_url}/channel.join
 
 ## 响应
 
-### 204
+### 200
+
+```json
+{
+  "private": false,
+  "general": false,
+  "latest_ts": 1486367046281,
+  "uid": "=bw52O",
+  "name": "吃喝玩乐在深圳",
+  "is_member": false,
+  "is_active": true,
+  "type": "normal",
+  "topic": null,
+  "member_uids": [
+    "=bw52O"
+  ],
+  "vchannel_id": "=bw52O",
+  "id": "=bw52O",
+  "team_id": "=bw52O"
+}
+```
 ### 错误响应
 
 ```json
