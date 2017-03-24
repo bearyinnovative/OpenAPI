@@ -51,8 +51,8 @@ function describeRequestParameters(methodSchema) {
         `\`${p.name}\``,
         type,
         p.required ? '是' : '否',
-        (p.description || '').trim(),
-        (p.example || '').trim(),
+        (p.description || '').replace('\n', ' ').trim(),
+        (p.example || '').replace('\n', ' ').trim(),
       ].join(' | ')
       content.push(`| ${line} |`)
     })
