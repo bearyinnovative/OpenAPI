@@ -106,7 +106,6 @@ POST {base_url}/message.query
       "uid": "=bw52O",
       "fallback": null,
       "attachments": [],
-      "thread_key": null,
       "created": "2017-01-24T13:37:42.000+0000",
       "vchannel_id": "=bw52O",
       "refer_key": null,

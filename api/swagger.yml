@@ -1130,6 +1130,13 @@ paths:
           schema:
             $ref: '#/definitions/Error'
       parameters:
+        - name: vchannel_id
+          in: body
+          description: 消息聊天会话 id
+          example: '=bw52O'
+          required: true
+          schema:
+            $ref: '#/definitions/VChannelId'
         - name: message_key
           in: body
           description: 删除的消息 key
