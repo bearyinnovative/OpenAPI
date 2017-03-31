@@ -961,7 +961,6 @@ paths:
                   "uid": "=bw52O",
                   "fallback": null,
                   "attachments": [],
-                  "thread_key": null,
                   "created": "2017-01-24T13:37:42.000+0000",
                   "vchannel_id": "=bw52O",
                   "refer_key": null,
@@ -1038,7 +1037,6 @@ paths:
               "uid": "=bw52O",
               "fallback": null,
               "attachments": [],
-              "thread_key": null,
               "created": "2017-01-24T13:37:42.000+0000",
               "vchannel_id": "=bw52O",
               "refer_key": null,
@@ -1083,7 +1081,6 @@ paths:
               "uid": "=bw52O",
               "fallback": null,
               "attachments": [],
-              "thread_key": null,
               "created": "2017-01-24T13:37:42.000+0000",
               "vchannel_id": "=bw52O",
               "refer_key": null,
@@ -1161,7 +1158,6 @@ paths:
               "uid": "=bw52O",
               "fallback": null,
               "attachments": [],
-              "thread_key": null,
               "created": "2017-01-24T13:37:42.000+0000",
               "vchannel_id": "=bw52O",
               "refer_key": null,
@@ -1581,7 +1577,6 @@ definitions:
       - uid
       - robot_id
       - vchannel_id
-      - thread_key
       - refer_key
       - subtype
       - text
@@ -1606,9 +1601,6 @@ definitions:
       vchannel_id:
         description: 消息所属聊天会话 id
         $ref: '#/definitions/VChannelId'
-      thread_key:
-        description: 消息所属线索会话的消息 key
-        $ref: '#/definitions/MessageKey'
       refer_key:
         description: 消息引用的消息 key
         $ref: '#/definitions/MessageKey'
