@@ -1655,16 +1655,16 @@ definitions:
         - 不指定 forward / backward 时，默认返回 forward=100 的消息记录
         - 如果查询区间开始值比结束值大，返回空结果
     properties:
-      form-key:
+      form_key:
         description: 区间开始的消息 `key`
         type: string
-      to-key:
+      to_key:
         description: 区间结束的消息 `key`
         type: string
-      from-ts:
+      from_ts:
         description: 区间开始的消息时间戳
         type: int32
-      to-ts:
+      to_ts:
         description: 区间结束的消息时间戳
         type: int32
       forward:
