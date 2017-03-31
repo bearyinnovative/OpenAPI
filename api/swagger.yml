@@ -1122,13 +1122,9 @@ paths:
         删除一条消息。
       authentication: true
       responses:
-        200:
+        204:
           schema:
             $ref: '#/definitions/OK'
-          example: |
-            {
-              "code": 0
-            }
         # TODO error responses
         default:
           schema:
