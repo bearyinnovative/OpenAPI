@@ -14,6 +14,7 @@ PATCH {base_url}/message.update_text
 
 | 参数名称 | 参数类型 | 参数是否必须？ | 说明 | 样例 |
 |:--------:|:--------:|:--------------:|------|------|
+| `vchannel_id` | `string` | 是 | 消息聊天会话 id | =bw52O |
 | `message_key` | `string` | 是 | 更新的消息 key | 1487667236785.0077 |
 | `text` | `string` | 是 | 更新的消息内容 | 中午吃啥啊？ |
 
