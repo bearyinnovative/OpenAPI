@@ -22,7 +22,17 @@ POST {base_url}/session_channel.archive
 
 ```json
 {
-  "code": 0
+  "latest_ts": "1489242467694",
+  "name": "临时讨论组名称",
+  "is_member": true,
+  "is_active": false,
+  "type": "session",
+  "member_uids": [
+    "=bw52O"
+  ],
+  "vchannel_id": "=bw52O",
+  "id": "=bw52O",
+  "team_id": "=bw52O"
 }
 ```
 ### 错误响应
