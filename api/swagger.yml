@@ -769,13 +769,9 @@ paths:
         移除一个临时讨论组成员。
       authentication: true
       responses:
-        200:
+        204:
           schema:
             $ref: '#/definitions/OK'
-          example: |
-            {
-              "code": 0
-            }
         # TODO permission denied response
         default:
           schema:

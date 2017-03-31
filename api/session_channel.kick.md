@@ -19,13 +19,7 @@ POST {base_url}/session_channel.kick
 
 ## 响应
 
-### 200
-
-```json
-{
-  "code": 0
-}
-```
+### 204
 ### 错误响应
 
 ```json
