@@ -76,13 +76,15 @@ function describeResponse(methodSchema) {
     if (statusCode === 'default') return
 
     content.push(`### ${statusCode}`);
-    if (responses[statusCode].example) {
-      content = content.concat([
-        '',
-        '```json',
-        responses[statusCode].example.trim(),
-        '```',
-      ]);
+
+    const examples = responses[statusCode].examples;
+    if (examples) {
+      Object.values(examples).forEach((example) => {
+        content.push('');
+        content.push('```json');
+        content.push(example.trim());
+        content.push('```');
+      });
     }
   })
 

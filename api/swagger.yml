@@ -14,6 +14,8 @@ produces:
 paths:
   /meta:
     get:
+      tags:
+        - meta
       description: |
         返回 BearyChat API 的状态。
       authentication: false
@@ -21,16 +23,12 @@ paths:
         200:
           description: meta response
           schema:
-            type: object
-            properties:
-              code:
-                $ref: '#/definitions/ResponseCode'
-              result:
-                $ref: '#/definitions/Meta'
-          example: |
-            {
-              "version": "1"
-            }
+            $ref: '#/definitions/Meta'
+          examples:
+            API 状态: |
+              {
+                "version": "1"
+              }
         default:
           description: unexpected error
           schema:
@@ -42,25 +40,27 @@ paths:
 
   /team.info:
     get:
+      tags:
+        - team
       description: |
         返回当前团队信息。
       authentication: true
       responses:
         200:
-          description: team response
           schema:
             $ref: '#/definitions/Team'
-          example: |
-            {
-              "id": "=bw52O",
-              "subdomain": "openapi",
-              "name": "BearyChat OpenAPI",
-              "email_domain": null,
-              "logo_url": null,
-              "description": "",
-              "plan": "basic",
-              "created": "2017-01-11T12:28:31.000+0000"
-            }
+          examples:
+            team response: |
+              {
+                "id": "=bw52O",
+                "subdomain": "openapi",
+                "name": "BearyChat OpenAPI",
+                "email_domain": null,
+                "logo_url": null,
+                "description": "",
+                "plan": "basic",
+                "created": "2017-01-11T12:28:31.000+0000"
+              }
         default:
           description: unexpected error
           schema:
@@ -72,6 +72,8 @@ paths:
 
   /user.info:
     get:
+      tags:
+        - user
       description: |
         返回团队内指定用户完整信息。
       authentication: true
@@ -79,53 +81,8 @@ paths:
         200:
           schema:
             $ref: '#/definitions/User'
-          example: |
-            {
-              "inactive": false,
-              "role": "normal",
-              "email": "support@bearyinnovative.com",
-              "name": "BearyBot",
-              "type": "assistant",
-              "created": "2017-01-11T12:28:31.000+0000",
-              "id": "=bwMkR",
-              "avatars": {
-                "small": null,
-                "medium": null,
-                "large": null
-              },
-              "team_id": "=bw52O",
-              "full_name": "倍洽小助手",
-              "mobile": null,
-              "profile": {
-                "bio": null,
-                "position": null,
-                "skype": null
-              }
-            }
-        default:
-          schema:
-            $ref: '#/definitions/Error'
-      parameters:
-        - name: user_id
-          in: body
-          description: 指定用户 id
-          example: '=bw52O'
-          required: true
-          type: string
-
-  /user.list:
-    get:
-      description: |
-        返回团队内的用户列表，获取某个用户的完整信息，请使用 `user.info`.
-      authentication: true
-      responses:
-        200:
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/User'
-          example: |
-            [
+          examples:
+            user response: |
               {
                 "inactive": false,
                 "role": "normal",
@@ -148,13 +105,64 @@ paths:
                   "skype": null
                 }
               }
-            ]
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: user_id
+          in: body
+          description: 指定用户 id
+          example: '=bw52O'
+          required: true
+          type: string
+
+  /user.list:
+    get:
+      tags:
+        - user
+      description: |
+        返回团队内的用户列表，获取某个用户的完整信息，请使用 `user.info`.
+      authentication: true
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+          examples:
+            users response: |
+              [
+                {
+                  "inactive": false,
+                  "role": "normal",
+                  "email": "support@bearyinnovative.com",
+                  "name": "BearyBot",
+                  "type": "assistant",
+                  "created": "2017-01-11T12:28:31.000+0000",
+                  "id": "=bwMkR",
+                  "avatars": {
+                    "small": null,
+                    "medium": null,
+                    "large": null
+                  },
+                  "team_id": "=bw52O",
+                  "full_name": "倍洽小助手",
+                  "mobile": null,
+                  "profile": {
+                    "bio": null,
+                    "position": null,
+                    "skype": null
+                  }
+                }
+              ]
         default:
           schema:
             $ref: '#/definitions/Error'
 
   /user.me:
     get:
+      tags:
+        - user
       description: |
         返回当前用户的信息。
       authentication: true
@@ -162,29 +170,30 @@ paths:
         200:
           schema:
             $ref: '#/definitions/User'
-          example: |
-            {
-              "inactive": false,
-              "role": "normal",
-              "email": "support@bearyinnovative.com",
-              "name": "BearyBot",
-              "type": "assistant",
-              "created": "2017-01-11T12:28:31.000+0000",
-              "id": "=bwMkR",
-              "avatars": {
-                "small": null,
-                "medium": null,
-                "large": null
-              },
-              "team_id": "=bw52O",
-              "full_name": "倍洽小助手",
-              "mobile": null,
-              "profile": {
-                "bio": null,
-                "position": null,
-                "skype": null
+          examples:
+            user response: |
+              {
+                "inactive": false,
+                "role": "normal",
+                "email": "support@bearyinnovative.com",
+                "name": "BearyBot",
+                "type": "assistant",
+                "created": "2017-01-11T12:28:31.000+0000",
+                "id": "=bwMkR",
+                "avatars": {
+                  "small": null,
+                  "medium": null,
+                  "large": null
+                },
+                "team_id": "=bw52O",
+                "full_name": "倍洽小助手",
+                "mobile": null,
+                "profile": {
+                  "bio": null,
+                  "position": null,
+                  "skype": null
+                }
               }
-            }
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -197,6 +206,8 @@ paths:
 
   /channel.info:
     get:
+      tags:
+        - channel
       description: |
         返回指定讨论组的完整信息。
       authentication: true
@@ -204,48 +215,8 @@ paths:
         200:
           schema:
             $ref: '#/definitions/Channel'
-          example: |
-            {
-              "private": false,
-              "general": true,
-              "latest_ts": 1486367046281,
-              "uid": "=bw52O",
-              "name": "所有人",
-              "is_member": false,
-              "is_active": true,
-              "type": "normal",
-              "topic": null,
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
-        default:
-          schema:
-            $ref: '#/definitions/TBD'
-      parameters:
-        - name: channel_id
-          in: body
-          description: 讨论组 id
-          example: "=bw52O"
-          required: true
-          type: string
-
-  /channel.list:
-    get:
-      description: |
-        返回团队内的讨论组列表，获取某个讨论组的完整信息，请使用 `channel.info`.
-      authentication: true
-      responses:
-        200:
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Channel'
-          example: |
-            [
+          examples:
+            channel response: |
               {
                 "private": false,
                 "general": true,
@@ -263,13 +234,59 @@ paths:
                 "id": "=bw52O",
                 "team_id": "=bw52O"
               }
-            ]
+        default:
+          schema:
+            $ref: '#/definitions/TBD'
+      parameters:
+        - name: channel_id
+          in: body
+          description: 讨论组 id
+          example: "=bw52O"
+          required: true
+          type: string
+
+  /channel.list:
+    get:
+      tags:
+        - channel
+      description: |
+        返回团队内的讨论组列表，获取某个讨论组的完整信息，请使用 `channel.info`.
+      authentication: true
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Channel'
+          examples:
+            channels response: |
+              [
+                {
+                  "private": false,
+                  "general": true,
+                  "latest_ts": 1486367046281,
+                  "uid": "=bw52O",
+                  "name": "所有人",
+                  "is_member": false,
+                  "is_active": true,
+                  "type": "normal",
+                  "topic": null,
+                  "member_uids": [
+                    "=bw52O"
+                  ],
+                  "vchannel_id": "=bw52O",
+                  "id": "=bw52O",
+                  "team_id": "=bw52O"
+                }
+              ]
         default:
           schema:
             $ref: '#/definitions/Error'
 
   /channel.create:
     post:
+      tags:
+        - channel
       description: |
         创建一个讨论组
       authentication: true
@@ -277,25 +294,26 @@ paths:
         201:
           schema:
             $ref: '#/definitions/Channel'
-          example: |
-            {
-              "private": false,
-              "general": true,
-              "latest_ts": 1486367046281,
-              "uid": "=bw52O",
-              "name": "所有人",
-              "is_member": false,
-              "is_active": true,
-              "type": "normal",
-              "topic": null,
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
-        # TODO invalid payload response
+          examples:
+            channel response: |
+              {
+                "private": false,
+                "general": true,
+                "latest_ts": 1486367046281,
+                "uid": "=bw52O",
+                "name": "所有人",
+                "is_member": false,
+                "is_active": true,
+                "type": "normal",
+                "topic": null,
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
+          # TODO invalid payload response
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -323,6 +341,8 @@ paths:
 
   /channel.archive:
     post:
+      tags:
+        - channel
       description: |
         归档一个讨论组。
       authentication: true
@@ -330,24 +350,25 @@ paths:
         200:
           schema:
             $ref: '#/definitions/Channel'
-          example: |
-            {
-              "private": false,
-              "general": true,
-              "latest_ts": 1486367046281,
-              "uid": "=bw52O",
-              "name": "所有人",
-              "is_member": false,
-              "is_active": false,
-              "type": "normal",
-              "topic": null,
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
+          examples:
+            channel response: |
+              {
+                "private": false,
+                "general": true,
+                "latest_ts": 1486367046281,
+                "uid": "=bw52O",
+                "name": "所有人",
+                "is_member": false,
+                "is_active": false,
+                "type": "normal",
+                "topic": null,
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
         # TODO permission denied response
         default:
           schema:
@@ -362,6 +383,8 @@ paths:
 
   /channel.unarchive:
     post:
+      tags:
+        - channel
       description: |
         恢复一个已被归档的讨论组。
       authentication: true
@@ -369,24 +392,25 @@ paths:
         200:
           schema:
             $ref: '#/definitions/Channel'
-          example: |
-            {
-              "private": false,
-              "general": true,
-              "latest_ts": 1486367046281,
-              "uid": "=bw52O",
-              "name": "所有人",
-              "is_member": false,
-              "is_active": true,
-              "type": "normal",
-              "topic": null,
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
+          examples:
+            channel response: |
+              {
+                "private": false,
+                "general": true,
+                "latest_ts": 1486367046281,
+                "uid": "=bw52O",
+                "name": "所有人",
+                "is_member": false,
+                "is_active": true,
+                "type": "normal",
+                "topic": null,
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
         # TODO permission denied response
         default:
           schema:
@@ -401,13 +425,15 @@ paths:
 
   /channel.leave:
     post:
+      tags:
+        - channel
       description: |
         当前用户离开讨论组。
       authentication: true
       responses:
         204:
           schema:
-            $ref: '#/definitions/OK'
+            $ref: '#/definitions/NoContent'
         # TODO permission denied response
         default:
           schema:
@@ -422,6 +448,8 @@ paths:
 
   /channel.join:
     post:
+      tags:
+        - channel
       description: |
         当前用户加入指定讨论组。
       authentication: true
@@ -429,24 +457,25 @@ paths:
         200:
           schema:
             $ref: '#/definitions/Channel'
-          example: |
-            {
-              "private": false,
-              "general": false,
-              "latest_ts": 1486367046281,
-              "uid": "=bw52O",
-              "name": "吃喝玩乐在深圳",
-              "is_member": false,
-              "is_active": true,
-              "type": "normal",
-              "topic": null,
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
+          examples:
+            channel response: |
+              {
+                "private": false,
+                "general": false,
+                "latest_ts": 1486367046281,
+                "uid": "=bw52O",
+                "name": "吃喝玩乐在深圳",
+                "is_member": false,
+                "is_active": true,
+                "type": "normal",
+                "topic": null,
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
         # TODO permission denied response
         default:
           schema:
@@ -461,13 +490,15 @@ paths:
 
   /channel.invite:
     post:
+      tags:
+        - channel
       description: |
         当前用户邀请一个团队成员加入讨论组。
       authentication: true
       responses:
         204:
           schema:
-            $ref: '#/definitions/OK'
+            $ref: '#/definitions/NoContent'
         # TODO permission denied response
         default:
           schema:
@@ -488,13 +519,15 @@ paths:
 
   /channel.kick:
     post:
+      tags:
+        - channel
       description: |
         当前用户移除一个讨论组成员。
       authentication: true
       responses:
         204:
           schema:
-            $ref: '#/definitions/OK'
+            $ref: '#/definitions/NoContent'
         # TODO permission denied response
         default:
           schema:
@@ -521,6 +554,8 @@ paths:
 
   /session_channel.info:
     get:
+      tags:
+        - session channel
       description: |
         返回一个临时讨论组的完整信息。
       authentication: true
@@ -528,45 +563,8 @@ paths:
         200:
           schema:
             $ref: '#/definitions/SessionChannel'
-          example: |
-            {
-              "latest_ts": "1489242467694",
-              "name": "临时讨论组名称",
-              "is_member": true,
-              "is_active": true,
-              "type": "session",
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
-        default:
-          schema:
-            $ref: '#/definitions/Error'
-      parameters:
-        - name: session_channel_id
-          in: body
-          description: 讨论组 id
-          example: "=bw52O"
-          required: true
-          type: string
-
-  /session_channel.list:
-    get:
-      description: |
-        返回团队内已经加入的临时讨论组列表，获取某个临时讨论组的完整信息，
-        请使用 `session_channel.info`.
-      authentication: true
-      responses:
-        200:
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/SessionChannel'
-          example: |
-            [
+          examples:
+            session channel response: |
               {
                 "latest_ts": "1489242467694",
                 "name": "临时讨论组名称",
@@ -580,13 +578,56 @@ paths:
                 "id": "=bw52O",
                 "team_id": "=bw52O"
               }
-            ]
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: session_channel_id
+          in: body
+          description: 讨论组 id
+          example: "=bw52O"
+          required: true
+          type: string
+
+  /session_channel.list:
+    get:
+      tags:
+        - session channel
+      description: |
+        返回团队内已经加入的临时讨论组列表，获取某个临时讨论组的完整信息，
+        请使用 `session_channel.info`.
+      authentication: true
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SessionChannel'
+          examples:
+            session channels response: |
+              [
+                {
+                  "latest_ts": "1489242467694",
+                  "name": "临时讨论组名称",
+                  "is_member": true,
+                  "is_active": true,
+                  "type": "session",
+                  "member_uids": [
+                    "=bw52O"
+                  ],
+                  "vchannel_id": "=bw52O",
+                  "id": "=bw52O",
+                  "team_id": "=bw52O"
+                }
+              ]
         default:
           schema:
             $ref: '#/definitions/Error'
 
   /session_channel.create:
     post:
+      tags:
+        - session channel
       description: |
         创建一个临时讨论组。
       authentication: true
@@ -594,20 +635,21 @@ paths:
         201:
           schema:
             $ref: '#/definitions/SessionChannel'
-          example: |
-            {
-              "latest_ts": "1489242467694",
-              "name": "临时讨论组名称",
-              "is_member": true,
-              "is_active": true,
-              "type": "session",
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
+          examples:
+            session channel responses: |
+              {
+                "latest_ts": "1489242467694",
+                "name": "临时讨论组名称",
+                "is_member": true,
+                "is_active": true,
+                "type": "session",
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
         # TODO invalid payload response
         default:
           schema:
@@ -632,6 +674,8 @@ paths:
 
   /session_channel.archive:
     post:
+      tags:
+        - session channel
       description: |
         归档一个临时讨论组。
       authentication: true
@@ -639,20 +683,21 @@ paths:
         200:
           schema:
             $ref: '#/definitions/SessionChannel'
-          example: |
-            {
-              "latest_ts": "1489242467694",
-              "name": "临时讨论组名称",
-              "is_member": true,
-              "is_active": false,
-              "type": "session",
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
+          examples:
+            session channel response: |
+              {
+                "latest_ts": "1489242467694",
+                "name": "临时讨论组名称",
+                "is_member": true,
+                "is_active": false,
+                "type": "session",
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
         # TODO permission denied response
         default:
           schema:
@@ -667,6 +712,8 @@ paths:
 
   /session_channel.convert_to_channel:
     post:
+      tags:
+        - session channel
       description: |
         将临时讨论组转换为讨论组。
       authentication: true
@@ -674,20 +721,21 @@ paths:
         201:
           schema:
             $ref: '#/definitions/Channel'
-          example: |
-            {
-              "latest_ts": "1489242467694",
-              "name": "临时讨论组名称",
-              "is_member": true,
-              "is_active": false,
-              "type": "session",
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
+          examples:
+            session channel response: |
+              {
+                "latest_ts": "1489242467694",
+                "name": "临时讨论组名称",
+                "is_member": true,
+                "is_active": false,
+                "type": "session",
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
         # TODO permission denied response
         # TODO invalid payload response
         default:
@@ -717,17 +765,19 @@ paths:
 
   /session_channel.leave:
     post:
+      tags:
+        - session channel
       description: |
         离开临时讨论组。
       authentication: true
       responses:
         204:
           schema:
-            $ref: '#/definitions/OK'
+            $ref: '#/definitions/NoContent'
         # TODO permission denied response
         default:
           schema:
-            $ref: '#/definitions/TBD'
+            $ref: '#/definitions/Error'
       parameters:
         - name: session_channel_id
           in: body
@@ -738,13 +788,15 @@ paths:
 
   /session_channel.invite:
     post:
+      tags:
+        - session channel
       description: |
         邀请一个团队成员加入临时讨论组。
       authentication: true
       responses:
         204:
           schema:
-            $ref: '#/definitions/OK'
+            $ref: '#/definitions/NoContent'
         # TODO permission denied response
         default:
           schema:
@@ -765,13 +817,15 @@ paths:
 
   /session_channel.kick:
     post:
+      tags:
+        - session channel
       description: |
         移除一个临时讨论组成员。
       authentication: true
       responses:
         204:
           schema:
-            $ref: '#/definitions/OK'
+            $ref: '#/definitions/NoContent'
         # TODO permission denied response
         default:
           schema:
@@ -798,6 +852,8 @@ paths:
 
   /p2p.info:
     get:
+      tags:
+        - p2p
       description: |
         返回一个 P2P 聊天会话的完整信息。
       authentication: true
@@ -805,45 +861,8 @@ paths:
         200:
           schema:
             $ref: '#/definitions/P2PChannel'
-          example: |
-            {
-              "id": "=bw52O",
-              "team_id": "=bw52O",
-              "vchannel_id": "=bw52O",
-              "type": "p2p",
-              "is_active": true,
-              "is_member": true,
-              "member_uids": [
-                "=bw52O",
-                "=bw52P"
-              ],
-              "latest_ts": 1485238998284
-            }
-        default:
-          schema:
-            $ref: '#/definitions/Error'
-      parameters:
-        - name: p2p_channel_id
-          in: body
-          description: P2P 聊天会话 id
-          example: '=bw52O'
-          required: true
-          type: string
-
-  /p2p.list:
-    get:
-      description: |
-        返回 P2P 聊天会话列表，获取某个 P2P 会话的完整信息，请使用 `p2p.info`.
-      authentication: true
-      responses:
-        default:
-          200:
-            schema:
-              type: array
-              items:
-                $ref: '#/definitions/P2PChannel'
-          example: |
-            [
+          examples:
+            p2p response: |
               {
                 "id": "=bw52O",
                 "team_id": "=bw52O",
@@ -857,12 +876,55 @@ paths:
                 ],
                 "latest_ts": 1485238998284
               }
-            ]
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: p2p_channel_id
+          in: body
+          description: P2P 聊天会话 id
+          example: '=bw52O'
+          required: true
+          type: string
+
+  /p2p.list:
+    get:
+      tags:
+        - p2p
+      description: |
+        返回 P2P 聊天会话列表，获取某个 P2P 会话的完整信息，请使用 `p2p.info`.
+      authentication: true
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/P2PChannel'
+          examples:
+            p2p list response: |
+              [
+                {
+                  "id": "=bw52O",
+                  "team_id": "=bw52O",
+                  "vchannel_id": "=bw52O",
+                  "type": "p2p",
+                  "is_active": true,
+                  "is_member": true,
+                  "member_uids": [
+                    "=bw52O",
+                    "=bw52P"
+                  ],
+                  "latest_ts": 1485238998284
+                }
+              ]
+        default:
           schema:
             $ref: '#/definitions/Error'
 
   /p2p.create:
     post:
+      tags:
+        - p2p
       description: |
         创建一个 P2P 聊天会话。
       authentication: true
@@ -870,20 +932,21 @@ paths:
         201:
           schema:
             $ref: '#/definitions/P2PChannel'
-          example: |
-            {
-              "id": "=bw52O",
-              "team_id": "=bw52O",
-              "vchannel_id": "=bw52O",
-              "type": "p2p",
-              "is_active": true,
-              "is_member": true,
-              "member_uids": [
-                "=bw52O",
-                "=bw52P"
-              ],
-              "latest_ts": 1485238998284
-            }
+          examples:
+            p2p response: |
+              {
+                "id": "=bw52O",
+                "team_id": "=bw52O",
+                "vchannel_id": "=bw52O",
+                "type": "p2p",
+                "is_active": true,
+                "is_member": true,
+                "member_uids": [
+                  "=bw52O",
+                  "=bw52P"
+                ],
+                "latest_ts": 1485238998284
+              }
         # TODO invalid payload error
         default:
           schema:
@@ -902,6 +965,8 @@ paths:
 
   /message.query:
     post:
+      tags:
+        - message
       description: |
         查询指定 vchannel 下的消息列表。支持以下几种查询算法：
 
@@ -951,27 +1016,28 @@ paths:
         200:
           schema:
             $ref: '#/definitions/MessageQueryResult'
-          example: |
-            {
-              "messages": [
-                {
-                  "key": "1485236262366.0193",
-                  "updated": "2017-01-24T13:37:42.000+0000",
-                  "is_channel": false,
-                  "uid": "=bw52O",
-                  "fallback": null,
-                  "attachments": [],
-                  "created": "2017-01-24T13:37:42.000+0000",
-                  "vchannel_id": "=bw52O",
-                  "refer_key": null,
-                  "robot_id": null,
-                  "created_ts": 1485236262366,
-                  "team_id": "=bw52O",
-                  "subtype": "normal",
-                  "text": "hello"
-                }
-              ]
-            }
+          examples:
+            message query response: |
+              {
+                "messages": [
+                  {
+                    "key": "1485236262366.0193",
+                    "updated": "2017-01-24T13:37:42.000+0000",
+                    "is_channel": false,
+                    "uid": "=bw52O",
+                    "fallback": null,
+                    "attachments": [],
+                    "created": "2017-01-24T13:37:42.000+0000",
+                    "vchannel_id": "=bw52O",
+                    "refer_key": null,
+                    "robot_id": null,
+                    "created_ts": 1485236262366,
+                    "team_id": "=bw52O",
+                    "subtype": "normal",
+                    "text": "hello"
+                  }
+                ]
+              }
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -1022,6 +1088,8 @@ paths:
 
   /message.info:
     get:
+      tags:
+        - message
       description: |
         返回一条消息的信息。
       authentication: true
@@ -1029,23 +1097,24 @@ paths:
         200:
           schema:
             $ref: '#/definitions/Message'
-          example: |
-            {
-              "key": "1485236262366.0193",
-              "updated": "2017-01-24T13:37:42.000+0000",
-              "is_channel": false,
-              "uid": "=bw52O",
-              "fallback": null,
-              "attachments": [],
-              "created": "2017-01-24T13:37:42.000+0000",
-              "vchannel_id": "=bw52O",
-              "refer_key": null,
-              "robot_id": null,
-              "created_ts": 1485236262366,
-              "team_id": "=bw52O",
-              "subtype": "normal",
-              "text": "hello"
-            }
+          examples:
+            message response: |
+              {
+                "key": "1485236262366.0193",
+                "updated": "2017-01-24T13:37:42.000+0000",
+                "is_channel": false,
+                "uid": "=bw52O",
+                "fallback": null,
+                "attachments": [],
+                "created": "2017-01-24T13:37:42.000+0000",
+                "vchannel_id": "=bw52O",
+                "refer_key": null,
+                "robot_id": null,
+                "created_ts": 1485236262366,
+                "team_id": "=bw52O",
+                "subtype": "normal",
+                "text": "hello"
+              }
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -1066,6 +1135,8 @@ paths:
 
   /message.create:
     post:
+      tags:
+        - message
       description: |
         发送一条消息到指定聊天会话。
       authentication: true
@@ -1073,23 +1144,24 @@ paths:
         201:
           schema:
             $ref: '#/definitions/Message'
-          example: |
-            {
-              "key": "1485236262366.0193",
-              "updated": "2017-01-24T13:37:42.000+0000",
-              "is_channel": false,
-              "uid": "=bw52O",
-              "fallback": null,
-              "attachments": [],
-              "created": "2017-01-24T13:37:42.000+0000",
-              "vchannel_id": "=bw52O",
-              "refer_key": null,
-              "robot_id": null,
-              "created_ts": 1485236262366,
-              "team_id": "=bw52O",
-              "subtype": "normal",
-              "text": "hello"
-            }
+          examples:
+            message response: |
+              {
+                "key": "1485236262366.0193",
+                "updated": "2017-01-24T13:37:42.000+0000",
+                "is_channel": false,
+                "uid": "=bw52O",
+                "fallback": null,
+                "attachments": [],
+                "created": "2017-01-24T13:37:42.000+0000",
+                "vchannel_id": "=bw52O",
+                "refer_key": null,
+                "robot_id": null,
+                "created_ts": 1485236262366,
+                "team_id": "=bw52O",
+                "subtype": "normal",
+                "text": "hello"
+              }
         # TODO error responses
         default:
           schema:
@@ -1118,13 +1190,15 @@ paths:
 
   /message.delete:
     post:
+      tags:
+        - message
       description: |
         删除一条消息。
       authentication: true
       responses:
         204:
           schema:
-            $ref: '#/definitions/OK'
+            $ref: '#/definitions/NoContent'
         # TODO error responses
         default:
           schema:
@@ -1146,6 +1220,8 @@ paths:
 
   /message.update_text:
     patch:
+      tags:
+        - message
       description: |
         更新一条消息的内容。
       authentication: true
@@ -1153,23 +1229,24 @@ paths:
         200:
           schema:
             $ref: '#/definitions/Message'
-          example: |
-            {
-              "key": "1485236262366.0193",
-              "updated": "2017-01-24T13:37:42.000+0000",
-              "is_channel": false,
-              "uid": "=bw52O",
-              "fallback": null,
-              "attachments": [],
-              "created": "2017-01-24T13:37:42.000+0000",
-              "vchannel_id": "=bw52O",
-              "refer_key": null,
-              "robot_id": null,
-              "created_ts": 1485236262366,
-              "team_id": "=bw52O",
-              "subtype": "normal",
-              "text": "hello"
-            }
+          examples:
+            message response: |
+              {
+                "key": "1485236262366.0193",
+                "updated": "2017-01-24T13:37:42.000+0000",
+                "is_channel": false,
+                "uid": "=bw52O",
+                "fallback": null,
+                "attachments": [],
+                "created": "2017-01-24T13:37:42.000+0000",
+                "vchannel_id": "=bw52O",
+                "refer_key": null,
+                "robot_id": null,
+                "created_ts": 1485236262366,
+                "team_id": "=bw52O",
+                "subtype": "normal",
+                "text": "hello"
+              }
         default:
           schema:
             $ref: '#/definitions/Error'
@@ -1200,6 +1277,8 @@ paths:
 
   /emoji.list:
     get:
+      tags:
+        - emoji & sticker
       description: |
         返回团队内的自定义 emoji 列表
       authentication: true
@@ -1209,19 +1288,24 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Emoji'
-          example: |
-            [
-              {
-                "id": "=bw52O",
-                "uid": "=bw52O",
-                "team_id": "=bw52O",
-                "name": "hello",
-                "type": "emoji",
-                "created": "2017-03-13T13:54:16.000+0000",
-                "updated": "2017-03-13T13:54:16.000+0000",
-                "url": "http://example.com/1.jpg"
-              }
-            ]
+          examples:
+            emojis response: |
+              [
+                {
+                  "id": "=bw52O",
+                  "uid": "=bw52O",
+                  "team_id": "=bw52O",
+                  "name": "hello",
+                  "type": "emoji",
+                  "created": "2017-03-13T13:54:16.000+0000",
+                  "updated": "2017-03-13T13:54:16.000+0000",
+                  "url": "http://example.com/1.jpg"
+                }
+              ]
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
 
   #---------------------------------------------------------------------------
   # 团队自定义 sticker 相关
@@ -1229,6 +1313,8 @@ paths:
 
   /sticker.list:
     get:
+      tags:
+        - emoji & sticker
       description: |
         返回当前用户的自定义 sticker 列表
       authentication: true
@@ -1238,20 +1324,25 @@ paths:
             type: array
             items:
               $ref: '#/definitions/StickerPack'
-          example: |
-            [
-              {
-                "pack": "黑白熊静态",
-                "stickers": [
-                  {
-                    "url": "https://dn-bearychat.qbox.me/sticker-gif-20.gif",
-                    "name": "累",
-                    "width": 240,
-                    "height": 240
-                  }
-                ]
-              }
-            ]
+          examples:
+            sticker packs response: |
+              [
+                {
+                  "pack": "黑白熊静态",
+                  "stickers": [
+                    {
+                      "url": "https://dn-bearychat.qbox.me/sticker-gif-20.gif",
+                      "name": "累",
+                      "width": 240,
+                      "height": 240
+                    }
+                  ]
+                }
+              ]
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
 
   #---------------------------------------------------------------------------
   # RTM 相关
@@ -1259,6 +1350,8 @@ paths:
 
   /rtm.start:
     post:
+      tags:
+        - rtm
       description: |
         打开 RTM 连接会话
       authentication: true
@@ -1266,32 +1359,33 @@ paths:
         200:
           schema:
             $ref: '#/definitions/RTMStart'
-          example: |
-            {
-              "ws_host": "wss://rtm.bearychat.com/nimbus/ws:xxx",
-              "user": {
-                "inactive": false,
-                "role": "normal",
-                "email": "support@bearyinnovative.com",
-                "name": "BearyBot",
-                "type": "assistant",
-                "created": "2017-01-11T12:28:31.000+0000",
-                "id": "=bwMkR",
-                "avatars": {
-                  "small": null,
-                  "medium": null,
-                  "large": null
-                },
-                "team_id": "=bw52O",
-                "full_name": "倍洽小助手",
-                "mobile": null,
-                "profile": {
-                  "bio": null,
-                  "position": null,
-                  "skype": null
+          examples:
+            rtm response: |
+              {
+                "ws_host": "wss://rtm.bearychat.com/nimbus/ws:xxx",
+                "user": {
+                  "inactive": false,
+                  "role": "normal",
+                  "email": "support@bearyinnovative.com",
+                  "name": "BearyBot",
+                  "type": "assistant",
+                  "created": "2017-01-11T12:28:31.000+0000",
+                  "id": "=bwMkR",
+                  "avatars": {
+                    "small": null,
+                    "medium": null,
+                    "large": null
+                  },
+                  "team_id": "=bw52O",
+                  "full_name": "倍洽小助手",
+                  "mobile": null,
+                  "profile": {
+                    "bio": null,
+                    "position": null,
+                    "skype": null
+                  }
                 }
               }
-            }
         # TODO permission denied error
         default:
           schema:
@@ -1835,6 +1929,8 @@ definitions:
       code:
         $ref: '#/definitions/ResponseCode'
         default: 0
+  NoContent:
+    description: 'NO CONTENT'
 
   TBD:
     description: '待定义'

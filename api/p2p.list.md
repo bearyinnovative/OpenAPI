@@ -15,6 +15,25 @@ GET {base_url}/p2p.list
 
 ## 响应
 
+### 200
+
+```json
+[
+  {
+    "id": "=bw52O",
+    "team_id": "=bw52O",
+    "vchannel_id": "=bw52O",
+    "type": "p2p",
+    "is_active": true,
+    "is_member": true,
+    "member_uids": [
+      "=bw52O",
+      "=bw52P"
+    ],
+    "latest_ts": 1485238998284
+  }
+]
+```
 ### 错误响应
 
 ```json
