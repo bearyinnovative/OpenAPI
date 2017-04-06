@@ -18,7 +18,7 @@ GET {base_url}/session_channel.list
 
 ### 200
 
-```json
+```javascript
 [
   {
     "latest_ts": "1489242467694",
@@ -37,7 +37,7 @@ GET {base_url}/session_channel.list
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

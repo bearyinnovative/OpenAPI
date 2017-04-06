@@ -17,7 +17,7 @@ POST {base_url}/rtm.start
 
 ### 200
 
-```json
+```javascript
 {
   "ws_host": "wss://rtm.bearychat.com/nimbus/ws:xxx",
   "user": {
@@ -46,7 +46,7 @@ POST {base_url}/rtm.start
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

@@ -17,7 +17,7 @@ GET {base_url}/sticker.list
 
 ### 200
 
-```json
+```javascript
 [
   {
     "pack": "黑白熊静态",
@@ -34,7 +34,7 @@ GET {base_url}/sticker.list
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

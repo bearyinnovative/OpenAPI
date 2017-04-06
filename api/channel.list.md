@@ -17,7 +17,7 @@ GET {base_url}/channel.list
 
 ### 200
 
-```json
+```javascript
 [
   {
     "private": false,
@@ -40,7 +40,7 @@ GET {base_url}/channel.list
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

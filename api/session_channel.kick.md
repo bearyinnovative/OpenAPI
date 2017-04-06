@@ -22,7 +22,7 @@ POST {base_url}/session_channel.kick
 ### 204
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

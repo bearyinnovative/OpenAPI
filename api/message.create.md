@@ -22,7 +22,7 @@ POST {base_url}/message.create
 
 ### 201
 
-```json
+```javascript
 {
   "key": "1485236262366.0193",
   "updated": "2017-01-24T13:37:42.000+0000",
@@ -42,7 +42,7 @@ POST {base_url}/message.create
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

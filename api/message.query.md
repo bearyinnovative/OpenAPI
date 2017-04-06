@@ -58,7 +58,7 @@ POST {base_url}/message.query
 | `vchannel_id` | `string` | 是 | 待查询 vchannel_id | =bw52O |
 | `query` | `string` | 是 | 消息查询 payload |  |
 
-```json
+```javascript
 // latest
 {
   "vchannel_id": "=bw52O",
@@ -96,7 +96,7 @@ POST {base_url}/message.query
 
 ### 200
 
-```json
+```javascript
 {
   "messages": [
     {
@@ -120,7 +120,7 @@ POST {base_url}/message.query
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

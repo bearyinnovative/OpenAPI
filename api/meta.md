@@ -16,14 +16,14 @@ GET {base_url}/meta
 
 ### 200
 
-```json
+```javascript
 {
   "version": "1"
 }
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

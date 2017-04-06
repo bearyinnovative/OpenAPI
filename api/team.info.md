@@ -17,7 +17,7 @@ GET {base_url}/team.info
 
 ### 200
 
-```json
+```javascript
 {
   "id": "=bw52O",
   "subdomain": "openapi",
@@ -31,7 +31,7 @@ GET {base_url}/team.info
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

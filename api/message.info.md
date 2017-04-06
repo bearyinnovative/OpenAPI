@@ -21,7 +21,7 @@ GET {base_url}/message.info
 
 ### 200
 
-```json
+```javascript
 {
   "key": "1485236262366.0193",
   "updated": "2017-01-24T13:37:42.000+0000",
@@ -41,7 +41,7 @@ GET {base_url}/message.info
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

@@ -20,7 +20,7 @@ GET {base_url}/user.info
 
 ### 200
 
-```json
+```javascript
 {
   "inactive": false,
   "role": "normal",
@@ -46,7 +46,7 @@ GET {base_url}/user.info
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

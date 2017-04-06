@@ -20,7 +20,7 @@ GET {base_url}/session_channel.info
 
 ### 200
 
-```json
+```javascript
 {
   "latest_ts": "1489242467694",
   "name": "临时讨论组名称",
@@ -37,7 +37,7 @@ GET {base_url}/session_channel.info
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

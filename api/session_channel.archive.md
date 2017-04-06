@@ -20,7 +20,7 @@ POST {base_url}/session_channel.archive
 
 ### 200
 
-```json
+```javascript
 {
   "latest_ts": "1489242467694",
   "name": "临时讨论组名称",
@@ -37,7 +37,7 @@ POST {base_url}/session_channel.archive
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

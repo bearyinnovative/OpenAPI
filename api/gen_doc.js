@@ -60,7 +60,7 @@ function describeRequestParameters(methodSchema) {
 
   if (methodSchema.decl.parameters_example) {
     content.push('')
-    content.push('```json')
+    content.push('```javascript')
     content.push(methodSchema.decl.parameters_example.trim())
     content.push('```')
   }
@@ -81,7 +81,7 @@ function describeResponse(methodSchema) {
     if (examples) {
       Object.values(examples).forEach((example) => {
         content.push('');
-        content.push('```json');
+        content.push('```javascript');
         content.push(example.trim());
         content.push('```');
       });
@@ -92,7 +92,7 @@ function describeResponse(methodSchema) {
     content = content.concat([
       `### 错误响应`,
       '',
-      '```json',
+      '```javascript',
       '{',
       '  "code": // error code,',
       '  "error": "unexpected error"',

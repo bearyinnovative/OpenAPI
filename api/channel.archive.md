@@ -20,7 +20,7 @@ POST {base_url}/channel.archive
 
 ### 200
 
-```json
+```javascript
 {
   "private": false,
   "general": true,
@@ -41,7 +41,7 @@ POST {base_url}/channel.archive
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

@@ -20,7 +20,7 @@ POST {base_url}/p2p.create
 
 ### 201
 
-```json
+```javascript
 {
   "id": "=bw52O",
   "team_id": "=bw52O",
@@ -37,7 +37,7 @@ POST {base_url}/p2p.create
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"

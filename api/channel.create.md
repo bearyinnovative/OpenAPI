@@ -22,7 +22,7 @@ POST {base_url}/channel.create
 
 ### 201
 
-```json
+```javascript
 {
   "private": false,
   "general": true,
@@ -43,7 +43,7 @@ POST {base_url}/channel.create
 ```
 ### 错误响应
 
-```json
+```javascript
 {
   "code": // error code,
   "error": "unexpected error"
