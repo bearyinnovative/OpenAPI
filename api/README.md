@@ -29,6 +29,9 @@ https://api.bearychat.com/v1
   * [GET /user.info](./user.info.md)
   * [GET /user.me](./user.me.md)
   * [GET /user.list](./user.list.md)
+- vchannel: 聊天会话相关
+- channel: 讨论组相关
+  * [GET /vchannel.info](./vchannel.info.md)
 - channel: 讨论组相关
   * [GET /channel.info](./channel.info.md)
   * [GET /channel.list](./channel.list.md)
