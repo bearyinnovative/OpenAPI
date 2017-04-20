@@ -198,13 +198,63 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  # /user.update_me: TODO
+  /user.update_me:
+    patch:
+      tags:
+        - user
+      description: |
+        更新当前用户信息。
+      authentication: true
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/User'
+          examples:
+            user response: |
+              {
+                "inactive": false,
+                "role": "normal",
+                "email": "support@bearyinnovative.com",
+                "name": "BearyBot",
+                "type": "assistant",
+                "created": "2017-01-11T12:28:31.000+0000",
+                "id": "=bwMkR",
+                "avatars": {
+                  "small": null,
+                  "medium": null,
+                  "large": null
+                },
+                "team_id": "=bw52O",
+                "full_name": "倍洽小助手",
+                "mobile": null,
+                "profile": {
+                  "bio": null,
+                  "position": null,
+                  "skype": null
+                }
+              }
+        default:
+          schema:
+            $ref: '#/definitions/Error'
+      parameters:
+        - name: name
+          in: body
+          description: 用户名 (@name)
+          example: 'beary_bot'
+          required: false
+        - name: full_name
+          in: body
+          description: 用户全名
+          example: 'BearyBot'
+          required: false
 
   #---------------------------------------------------------------------------
   # 聊天会话相关
   #---------------------------------------------------------------------------
   /vchannel.info:
     get:
+      tags:
+        - vchannel
       description: |
         返回指定聊天会话的完整信息。
       authentication: true
@@ -214,55 +264,56 @@ paths:
             type: object
             description: |
               Channel / SessionChannel / P2PChannel 的其中一种
-          example: |
-            // Channel
-            {
-              "private": false,
-              "general": true,
-              "latest_ts": 1486367046281,
-              "uid": "=bw52O",
-              "name": "所有人",
-              "is_member": false,
-              "is_active": true,
-              "type": "normal",
-              "topic": null,
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
+          examples:
+            vchannel response: |
+              // Channel
+              {
+                "private": false,
+                "general": true,
+                "latest_ts": 1486367046281,
+                "uid": "=bw52O",
+                "name": "所有人",
+                "is_member": false,
+                "is_active": true,
+                "type": "normal",
+                "topic": null,
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
 
-            // SessionChannel
-            {
-              "latest_ts": "1489242467694",
-              "name": "临时讨论组名称",
-              "is_member": true,
-              "is_active": true,
-              "type": "session",
-              "member_uids": [
-                "=bw52O"
-              ],
-              "vchannel_id": "=bw52O",
-              "id": "=bw52O",
-              "team_id": "=bw52O"
-            }
+              // SessionChannel
+              {
+                "latest_ts": "1489242467694",
+                "name": "临时讨论组名称",
+                "is_member": true,
+                "is_active": true,
+                "type": "session",
+                "member_uids": [
+                  "=bw52O"
+                ],
+                "vchannel_id": "=bw52O",
+                "id": "=bw52O",
+                "team_id": "=bw52O"
+              }
 
-            // P2PChannel
-            {
-              "id": "=bw52O",
-              "team_id": "=bw52O",
-              "vchannel_id": "=bw52O",
-              "type": "p2p",
-              "is_active": true,
-              "is_member": true,
-              "member_uids": [
-                "=bw52O",
-                "=bw52P"
-              ],
-              "latest_ts": 1485238998284
-            }
+              // P2PChannel
+              {
+                "id": "=bw52O",
+                "team_id": "=bw52O",
+                "vchannel_id": "=bw52O",
+                "type": "p2p",
+                "is_active": true,
+                "is_member": true,
+                "member_uids": [
+                  "=bw52O",
+                  "=bw52P"
+                ],
+                "latest_ts": 1485238998284
+              }
       parameters:
         - name: vchannel_id
           in: body

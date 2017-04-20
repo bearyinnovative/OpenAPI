@@ -20,7 +20,7 @@ GET {base_url}/vchannel.info
 
 ### 200
 
-```json
+```javascript
 // Channel
 {
   "private": false,
