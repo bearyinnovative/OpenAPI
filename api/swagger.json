@@ -1,0 +1,1942 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "beary-openapi",
+    "description": "BearyChat OpenAPI 列表"
+  },
+  "host": "api.bearychat.com",
+  "basePath": "/v1",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/meta": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "description": "返回 BearyChat API 的状态。\n",
+        "authentication": false,
+        "responses": {
+          "200": {
+            "description": "meta response",
+            "schema": {
+              "$ref": "#/definitions/Meta"
+            },
+            "examples": {
+              "API 状态": "{\n  \"version\": \"1\"\n}\n"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/team.info": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "description": "返回当前团队信息。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Team"
+            },
+            "examples": {
+              "team response": "{\n  \"id\": \"=bw52O\",\n  \"subdomain\": \"openapi\",\n  \"name\": \"BearyChat OpenAPI\",\n  \"email_domain\": null,\n  \"logo_url\": null,\n  \"description\": \"\",\n  \"plan\": \"basic\",\n  \"created\": \"2017-01-11T12:28:31.000+0000\"\n}\n"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user.info": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "返回团队内指定用户完整信息。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "examples": {
+              "user response": "{\n  \"inactive\": false,\n  \"role\": \"normal\",\n  \"email\": \"support@bearyinnovative.com\",\n  \"name\": \"BearyBot\",\n  \"type\": \"assistant\",\n  \"created\": \"2017-01-11T12:28:31.000+0000\",\n  \"id\": \"=bwMkR\",\n  \"avatars\": {\n    \"small\": null,\n    \"medium\": null,\n    \"large\": null\n  },\n  \"team_id\": \"=bw52O\",\n  \"full_name\": \"倍洽小助手\",\n  \"mobile\": null,\n  \"profile\": {\n    \"bio\": null,\n    \"position\": null,\n    \"skype\": null\n  }\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "body",
+            "description": "指定用户 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/user.list": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "返回团队内的用户列表，获取某个用户的完整信息，请使用 `user.info`.\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            },
+            "examples": {
+              "users response": "[\n  {\n    \"inactive\": false,\n    \"role\": \"normal\",\n    \"email\": \"support@bearyinnovative.com\",\n    \"name\": \"BearyBot\",\n    \"type\": \"assistant\",\n    \"created\": \"2017-01-11T12:28:31.000+0000\",\n    \"id\": \"=bwMkR\",\n    \"avatars\": {\n      \"small\": null,\n      \"medium\": null,\n      \"large\": null\n    },\n    \"team_id\": \"=bw52O\",\n    \"full_name\": \"倍洽小助手\",\n    \"mobile\": null,\n    \"profile\": {\n      \"bio\": null,\n      \"position\": null,\n      \"skype\": null\n    }\n  }\n]\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user.me": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "返回当前用户的信息。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "examples": {
+              "user response": "{\n  \"inactive\": false,\n  \"role\": \"normal\",\n  \"email\": \"support@bearyinnovative.com\",\n  \"name\": \"BearyBot\",\n  \"type\": \"assistant\",\n  \"created\": \"2017-01-11T12:28:31.000+0000\",\n  \"id\": \"=bwMkR\",\n  \"avatars\": {\n    \"small\": null,\n    \"medium\": null,\n    \"large\": null\n  },\n  \"team_id\": \"=bw52O\",\n  \"full_name\": \"倍洽小助手\",\n  \"mobile\": null,\n  \"profile\": {\n    \"bio\": null,\n    \"position\": null,\n    \"skype\": null\n  }\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user.update_me": {
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "description": "更新当前用户信息。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "examples": {
+              "user response": "{\n  \"inactive\": false,\n  \"role\": \"normal\",\n  \"email\": \"support@bearyinnovative.com\",\n  \"name\": \"BearyBot\",\n  \"type\": \"assistant\",\n  \"created\": \"2017-01-11T12:28:31.000+0000\",\n  \"id\": \"=bwMkR\",\n  \"avatars\": {\n    \"small\": null,\n    \"medium\": null,\n    \"large\": null\n  },\n  \"team_id\": \"=bw52O\",\n  \"full_name\": \"倍洽小助手\",\n  \"mobile\": null,\n  \"profile\": {\n    \"bio\": null,\n    \"position\": null,\n    \"skype\": null\n  }\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "用户名 (@name)",
+            "example": "beary_bot",
+            "required": false
+          },
+          {
+            "name": "full_name",
+            "in": "body",
+            "description": "用户全名",
+            "example": "BearyBot",
+            "required": false
+          }
+        ]
+      }
+    },
+    "/vchannel.info": {
+      "get": {
+        "tags": [
+          "vchannel"
+        ],
+        "description": "返回指定聊天会话的完整信息。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "description": "Channel / SessionChannel / P2PChannel 的其中一种\n"
+            },
+            "examples": {
+              "vchannel response": "// Channel\n{\n  \"private\": false,\n  \"general\": true,\n  \"latest_ts\": 1486367046281,\n  \"uid\": \"=bw52O\",\n  \"name\": \"所有人\",\n  \"is_member\": false,\n  \"is_active\": true,\n  \"type\": \"normal\",\n  \"topic\": null,\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n\n// SessionChannel\n{\n  \"latest_ts\": \"1489242467694\",\n  \"name\": \"临时讨论组名称\",\n  \"is_member\": true,\n  \"is_active\": true,\n  \"type\": \"session\",\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n\n// P2PChannel\n{\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\",\n  \"vchannel_id\": \"=bw52O\",\n  \"type\": \"p2p\",\n  \"is_active\": true,\n  \"is_member\": true,\n  \"member_uids\": [\n    \"=bw52O\",\n    \"=bw52P\"\n  ],\n  \"latest_ts\": 1485238998284\n}\n"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "vchannel_id",
+            "in": "body",
+            "description": "聊天会话 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/channel.info": {
+      "get": {
+        "tags": [
+          "channel"
+        ],
+        "description": "返回指定讨论组的完整信息。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Channel"
+            },
+            "examples": {
+              "channel response": "{\n  \"private\": false,\n  \"general\": true,\n  \"latest_ts\": 1486367046281,\n  \"uid\": \"=bw52O\",\n  \"name\": \"所有人\",\n  \"is_member\": false,\n  \"is_active\": true,\n  \"type\": \"normal\",\n  \"topic\": null,\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/TBD"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "body",
+            "description": "讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/channel.list": {
+      "get": {
+        "tags": [
+          "channel"
+        ],
+        "description": "返回团队内的讨论组列表，获取某个讨论组的完整信息，请使用 `channel.info`.\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Channel"
+              }
+            },
+            "examples": {
+              "channels response": "[\n  {\n    \"private\": false,\n    \"general\": true,\n    \"latest_ts\": 1486367046281,\n    \"uid\": \"=bw52O\",\n    \"name\": \"所有人\",\n    \"is_member\": false,\n    \"is_active\": true,\n    \"type\": \"normal\",\n    \"topic\": null,\n    \"member_uids\": [\n      \"=bw52O\"\n    ],\n    \"vchannel_id\": \"=bw52O\",\n    \"id\": \"=bw52O\",\n    \"team_id\": \"=bw52O\"\n  }\n]\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/channel.create": {
+      "post": {
+        "tags": [
+          "channel"
+        ],
+        "description": "创建一个讨论组\n",
+        "authentication": true,
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Channel"
+            },
+            "examples": {
+              "channel response": "{\n  \"private\": false,\n  \"general\": true,\n  \"latest_ts\": 1486367046281,\n  \"uid\": \"=bw52O\",\n  \"name\": \"所有人\",\n  \"is_member\": false,\n  \"is_active\": true,\n  \"type\": \"normal\",\n  \"topic\": null,\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。\n允许使用数字、下划线 (`_`)、中线 (`-`) 和点。\n",
+            "example": "吃喝玩乐在深圳",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "topic",
+            "in": "body",
+            "description": "讨论组话题",
+            "example": "今天吃什么？",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "private",
+            "in": "body",
+            "description": "讨论组是否为私密？",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          }
+        ]
+      }
+    },
+    "/channel.archive": {
+      "post": {
+        "tags": [
+          "channel"
+        ],
+        "description": "归档一个讨论组。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Channel"
+            },
+            "examples": {
+              "channel response": "{\n  \"private\": false,\n  \"general\": true,\n  \"latest_ts\": 1486367046281,\n  \"uid\": \"=bw52O\",\n  \"name\": \"所有人\",\n  \"is_member\": false,\n  \"is_active\": false,\n  \"type\": \"normal\",\n  \"topic\": null,\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "body",
+            "description": "讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/channel.unarchive": {
+      "post": {
+        "tags": [
+          "channel"
+        ],
+        "description": "恢复一个已被归档的讨论组。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Channel"
+            },
+            "examples": {
+              "channel response": "{\n  \"private\": false,\n  \"general\": true,\n  \"latest_ts\": 1486367046281,\n  \"uid\": \"=bw52O\",\n  \"name\": \"所有人\",\n  \"is_member\": false,\n  \"is_active\": true,\n  \"type\": \"normal\",\n  \"topic\": null,\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "body",
+            "description": "讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/channel.leave": {
+      "post": {
+        "tags": [
+          "channel"
+        ],
+        "description": "当前用户离开讨论组。\n",
+        "authentication": true,
+        "responses": {
+          "204": {
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "body",
+            "description": "讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/channel.join": {
+      "post": {
+        "tags": [
+          "channel"
+        ],
+        "description": "当前用户加入指定讨论组。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Channel"
+            },
+            "examples": {
+              "channel response": "{\n  \"private\": false,\n  \"general\": false,\n  \"latest_ts\": 1486367046281,\n  \"uid\": \"=bw52O\",\n  \"name\": \"吃喝玩乐在深圳\",\n  \"is_member\": false,\n  \"is_active\": true,\n  \"type\": \"normal\",\n  \"topic\": null,\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "body",
+            "description": "讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/channel.invite": {
+      "post": {
+        "tags": [
+          "channel"
+        ],
+        "description": "当前用户邀请一个团队成员加入讨论组。\n",
+        "authentication": true,
+        "responses": {
+          "204": {
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "body",
+            "description": "讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "invite_uid",
+            "in": "body",
+            "description": "邀请用户 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/channel.kick": {
+      "post": {
+        "tags": [
+          "channel"
+        ],
+        "description": "当前用户移除一个讨论组成员。\n",
+        "authentication": true,
+        "responses": {
+          "204": {
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "body",
+            "description": "讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "kick_uid",
+            "in": "body",
+            "description": "移除用户 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/session_channel.info": {
+      "get": {
+        "tags": [
+          "session channel"
+        ],
+        "description": "返回一个临时讨论组的完整信息。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/SessionChannel"
+            },
+            "examples": {
+              "session channel response": "{\n  \"latest_ts\": \"1489242467694\",\n  \"name\": \"临时讨论组名称\",\n  \"is_member\": true,\n  \"is_active\": true,\n  \"type\": \"session\",\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "session_channel_id",
+            "in": "body",
+            "description": "讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/session_channel.list": {
+      "get": {
+        "tags": [
+          "session channel"
+        ],
+        "description": "返回团队内已经加入的临时讨论组列表，获取某个临时讨论组的完整信息，\n请使用 `session_channel.info`.\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SessionChannel"
+              }
+            },
+            "examples": {
+              "session channels response": "[\n  {\n    \"latest_ts\": \"1489242467694\",\n    \"name\": \"临时讨论组名称\",\n    \"is_member\": true,\n    \"is_active\": true,\n    \"type\": \"session\",\n    \"member_uids\": [\n      \"=bw52O\"\n    ],\n    \"vchannel_id\": \"=bw52O\",\n    \"id\": \"=bw52O\",\n    \"team_id\": \"=bw52O\"\n  }\n]\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/session_channel.create": {
+      "post": {
+        "tags": [
+          "session channel"
+        ],
+        "description": "创建一个临时讨论组。\n",
+        "authentication": true,
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/SessionChannel"
+            },
+            "examples": {
+              "session channel responses": "{\n  \"latest_ts\": \"1489242467694\",\n  \"name\": \"临时讨论组名称\",\n  \"is_member\": true,\n  \"is_active\": true,\n  \"type\": \"session\",\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "临时讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。\n允许使用数字、下划线 (`_`)、中线 (`-`) 和点。\n",
+            "example": "吃喝玩乐在深圳",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "member_uids",
+            "in": "body",
+            "description": "临时讨论组成员 id 列表",
+            "example": "[\"=bw52O\", \"=bw52P\"]",
+            "required": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ResponseObjectId"
+            }
+          }
+        ]
+      }
+    },
+    "/session_channel.archive": {
+      "post": {
+        "tags": [
+          "session channel"
+        ],
+        "description": "归档一个临时讨论组。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/SessionChannel"
+            },
+            "examples": {
+              "session channel response": "{\n  \"latest_ts\": \"1489242467694\",\n  \"name\": \"临时讨论组名称\",\n  \"is_member\": true,\n  \"is_active\": false,\n  \"type\": \"session\",\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "session_channel_id",
+            "in": "body",
+            "description": "临时讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/session_channel.convert_to_channel": {
+      "post": {
+        "tags": [
+          "session channel"
+        ],
+        "description": "将临时讨论组转换为讨论组。\n",
+        "authentication": true,
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Channel"
+            },
+            "examples": {
+              "session channel response": "{\n  \"latest_ts\": \"1489242467694\",\n  \"name\": \"临时讨论组名称\",\n  \"is_member\": true,\n  \"is_active\": false,\n  \"type\": \"session\",\n  \"member_uids\": [\n    \"=bw52O\"\n  ],\n  \"vchannel_id\": \"=bw52O\",\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "session_channel_id",
+            "in": "body",
+            "description": "临时讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": "讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。\n允许使用数字、下划线 (`_`)、中线 (`-`) 和点。\n",
+            "example": "吃喝玩乐在深圳",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "private",
+            "in": "body",
+            "description": "讨论组是否为私密？",
+            "required": false,
+            "type": "boolean",
+            "default": true
+          }
+        ]
+      }
+    },
+    "/session_channel.leave": {
+      "post": {
+        "tags": [
+          "session channel"
+        ],
+        "description": "离开临时讨论组。\n",
+        "authentication": true,
+        "responses": {
+          "204": {
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "session_channel_id",
+            "in": "body",
+            "description": "临时讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/session_channel.invite": {
+      "post": {
+        "tags": [
+          "session channel"
+        ],
+        "description": "邀请一个团队成员加入临时讨论组。\n",
+        "authentication": true,
+        "responses": {
+          "204": {
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "session_channel_id",
+            "in": "body",
+            "description": "临时讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "invite_uid",
+            "in": "body",
+            "description": "邀请用户 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/session_channel.kick": {
+      "post": {
+        "tags": [
+          "session channel"
+        ],
+        "description": "移除一个临时讨论组成员。\n",
+        "authentication": true,
+        "responses": {
+          "204": {
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "session_channel_id",
+            "in": "body",
+            "description": "临时讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "kick_uid",
+            "in": "body",
+            "description": "邀请用户 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/p2p.info": {
+      "get": {
+        "tags": [
+          "p2p"
+        ],
+        "description": "返回一个 P2P 聊天会话的完整信息。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/P2PChannel"
+            },
+            "examples": {
+              "p2p response": "{\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\",\n  \"vchannel_id\": \"=bw52O\",\n  \"type\": \"p2p\",\n  \"is_active\": true,\n  \"is_member\": true,\n  \"member_uids\": [\n    \"=bw52O\",\n    \"=bw52P\"\n  ],\n  \"latest_ts\": 1485238998284\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "p2p_channel_id",
+            "in": "body",
+            "description": "P2P 聊天会话 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/p2p.list": {
+      "get": {
+        "tags": [
+          "p2p"
+        ],
+        "description": "返回 P2P 聊天会话列表，获取某个 P2P 会话的完整信息，请使用 `p2p.info`.\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/P2PChannel"
+              }
+            },
+            "examples": {
+              "p2p list response": "[\n  {\n    \"id\": \"=bw52O\",\n    \"team_id\": \"=bw52O\",\n    \"vchannel_id\": \"=bw52O\",\n    \"type\": \"p2p\",\n    \"is_active\": true,\n    \"is_member\": true,\n    \"member_uids\": [\n      \"=bw52O\",\n      \"=bw52P\"\n    ],\n    \"latest_ts\": 1485238998284\n  }\n]\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/p2p.create": {
+      "post": {
+        "tags": [
+          "p2p"
+        ],
+        "description": "创建一个 P2P 聊天会话。\n",
+        "authentication": true,
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/P2PChannel"
+            },
+            "examples": {
+              "p2p response": "{\n  \"id\": \"=bw52O\",\n  \"team_id\": \"=bw52O\",\n  \"vchannel_id\": \"=bw52O\",\n  \"type\": \"p2p\",\n  \"is_active\": true,\n  \"is_member\": true,\n  \"member_uids\": [\n    \"=bw52O\",\n    \"=bw52P\"\n  ],\n  \"latest_ts\": 1485238998284\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "body",
+            "description": "P2P 聊天另外一方的用户 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/message.query": {
+      "post": {
+        "tags": [
+          "message"
+        ],
+        "description": "查询指定 vchannel 下的消息列表。支持以下几种查询算法：\n\n### `latest`\n\n查询 vchannel 下最新的消息，支持参数：\n\n- `limit`: 查询数量限制，最大值为 100, 默认 20\n\n### `since`\n\n从指定位置开始拉取若干条消息，支持参数：\n\n- `key`: 开始位置的消息 key, 不可以和 `ts` 同时使用\n- `ts`: 开始位置的消息 ts, 不可以和 `ts` 同时使用\n- `forward`: 向前（时间发生方向）获取条数\n- `backward`: 向后（时间发生方向）获取条数\n\n**注意**:\n\n1. 使用 `key` 查询时，查询区间不包括 key 对应的消息\n2. 使用 `ts` 查询时，查询区间包括 ts 对应的消息\n3. `forward` / `backward` 参数可以同时使用\n4. `forward` / `backward` 参数最大值为 100,\n5. `forward` / `backward` 均未指定时，默认使用 `forward=100`\n\n### `window`\n\n拉取一定时间窗口内的消息，支持参数：\n\n- `from_key` / `to_key`: 窗口区间的消息 key\n- `from_ts` / `to_ts`: 窗口区间的消息 ts\n- `forward`: 从 from 方向往 to 方向取的消息数\n- `backward`: 从 to 方向往 from 方向取的消息数\n\n**注意**:\n\n1. `{from,to}_key` 和 `{from,to}_ts` 不可以混用\n2. 使用 `{from,to}_key` 查询时，查询区间不包括 key 对应的消息\n3. 使用 `{from,to}_ts` 查询时，查询区间包括 ts 对应的消息\n4. `forward` 和 `backward` 参数只能选其中一个\n5. `forward` / `backward` 均未指定时，默认使用 `forward=100`\n6. 如果查询区间开始值比结束值大，返回空结果\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/MessageQueryResult"
+            },
+            "examples": {
+              "message query response": "{\n  \"messages\": [\n    {\n      \"key\": \"1485236262366.0193\",\n      \"updated\": \"2017-01-24T13:37:42.000+0000\",\n      \"is_channel\": false,\n      \"uid\": \"=bw52O\",\n      \"fallback\": null,\n      \"attachments\": [],\n      \"created\": \"2017-01-24T13:37:42.000+0000\",\n      \"vchannel_id\": \"=bw52O\",\n      \"refer_key\": null,\n      \"robot_id\": null,\n      \"created_ts\": 1485236262366,\n      \"team_id\": \"=bw52O\",\n      \"subtype\": \"normal\",\n      \"text\": \"hello\"\n    }\n  ]\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "vchannel_id",
+            "in": "body",
+            "description": "待查询 vchannel_id",
+            "required": true,
+            "example": "=bw52O",
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "body",
+            "description": "消息查询 payload",
+            "required": true,
+            "$ref": "#/definitions/MessageQuery"
+          }
+        ],
+        "parameters_example": "// latest\n{\n  \"vchannel_id\": \"=bw52O\",\n  \"query\": {\n    \"latest\": {\n      \"limit\": 10\n    }\n  }\n}\n\n// since\n{\n  \"vchannel_id\": \"=bw52O\",\n  \"query\": {\n    \"since\": {\n      \"ts\": 1485236262366\n    }\n  }\n}\n\n// window\n{\n  \"vchannel_id\": \"=bw52O\",\n  \"query\": {\n    \"window\": {\n      \"from_ts\": 1485236262366,\n      \"to_ts\": 1485236362366,\n      \"forward\": 100\n    }\n  }\n}\n"
+      }
+    },
+    "/message.info": {
+      "get": {
+        "tags": [
+          "message"
+        ],
+        "description": "返回一条消息的信息。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Message"
+            },
+            "examples": {
+              "message response": "{\n  \"key\": \"1485236262366.0193\",\n  \"updated\": \"2017-01-24T13:37:42.000+0000\",\n  \"is_channel\": false,\n  \"uid\": \"=bw52O\",\n  \"fallback\": null,\n  \"attachments\": [],\n  \"created\": \"2017-01-24T13:37:42.000+0000\",\n  \"vchannel_id\": \"=bw52O\",\n  \"refer_key\": null,\n  \"robot_id\": null,\n  \"created_ts\": 1485236262366,\n  \"team_id\": \"=bw52O\",\n  \"subtype\": \"normal\",\n  \"text\": \"hello\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            },
+            "key": null
+          }
+        },
+        "parameters": [
+          {
+            "name": "vchannel_id",
+            "in": "body",
+            "description": "指定的目标聊天会话 id",
+            "example": "=bw52O",
+            "required": true,
+            "$ref": "#/definitions/VChannelId"
+          },
+          {
+            "name": "message_key",
+            "in": "body",
+            "description": "获取消息的 key",
+            "example": "1487667236785.0077",
+            "required": true,
+            "$ref": "#/definitions/MessageKey"
+          }
+        ]
+      }
+    },
+    "/message.create": {
+      "post": {
+        "tags": [
+          "message"
+        ],
+        "description": "发送一条消息到指定聊天会话。\n",
+        "authentication": true,
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Message"
+            },
+            "examples": {
+              "message response": "{\n  \"key\": \"1485236262366.0193\",\n  \"updated\": \"2017-01-24T13:37:42.000+0000\",\n  \"is_channel\": false,\n  \"uid\": \"=bw52O\",\n  \"fallback\": null,\n  \"attachments\": [],\n  \"created\": \"2017-01-24T13:37:42.000+0000\",\n  \"vchannel_id\": \"=bw52O\",\n  \"refer_key\": null,\n  \"robot_id\": null,\n  \"created_ts\": 1485236262366,\n  \"team_id\": \"=bw52O\",\n  \"subtype\": \"normal\",\n  \"text\": \"hello\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "vchannel_id",
+            "in": "body",
+            "description": "指定的目标聊天会话 id",
+            "example": "=bw52O",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VChannelId"
+            }
+          },
+          {
+            "name": "text",
+            "in": "body",
+            "description": "消息内容",
+            "example": "中午吃啥啊？",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "attachments",
+            "in": "body",
+            "description": "消息附件",
+            "required": true,
+            "type": "array",
+            "items": "$ref '#/definitions/MessageAttachment'"
+          }
+        ]
+      }
+    },
+    "/message.delete": {
+      "post": {
+        "tags": [
+          "message"
+        ],
+        "description": "删除一条消息。\n",
+        "authentication": true,
+        "responses": {
+          "204": {
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "vchannel_id",
+            "in": "body",
+            "description": "消息聊天会话 id",
+            "example": "=bw52O",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VChannelId"
+            }
+          },
+          {
+            "name": "message_key",
+            "in": "body",
+            "description": "删除的消息 key",
+            "example": "1487667236785.0077",
+            "required": true,
+            "$ref": "#/definitions/MessageKey"
+          }
+        ]
+      }
+    },
+    "/message.update_text": {
+      "patch": {
+        "tags": [
+          "message"
+        ],
+        "description": "更新一条消息的内容。\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Message"
+            },
+            "examples": {
+              "message response": "{\n  \"key\": \"1485236262366.0193\",\n  \"updated\": \"2017-01-24T13:37:42.000+0000\",\n  \"is_channel\": false,\n  \"uid\": \"=bw52O\",\n  \"fallback\": null,\n  \"attachments\": [],\n  \"created\": \"2017-01-24T13:37:42.000+0000\",\n  \"vchannel_id\": \"=bw52O\",\n  \"refer_key\": null,\n  \"robot_id\": null,\n  \"created_ts\": 1485236262366,\n  \"team_id\": \"=bw52O\",\n  \"subtype\": \"normal\",\n  \"text\": \"hello\"\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "vchannel_id",
+            "in": "body",
+            "description": "消息聊天会话 id",
+            "example": "=bw52O",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VChannelId"
+            }
+          },
+          {
+            "name": "message_key",
+            "in": "body",
+            "description": "更新的消息 key",
+            "example": "1487667236785.0077",
+            "required": true,
+            "$ref": "#/definitions/MessageKey"
+          },
+          {
+            "name": "text",
+            "in": "body",
+            "description": "更新的消息内容",
+            "example": "中午吃啥啊？",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/emoji.list": {
+      "get": {
+        "tags": [
+          "emoji & sticker"
+        ],
+        "description": "返回团队内的自定义 emoji 列表\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Emoji"
+              }
+            },
+            "examples": {
+              "emojis response": "[\n  {\n    \"id\": \"=bw52O\",\n    \"uid\": \"=bw52O\",\n    \"team_id\": \"=bw52O\",\n    \"name\": \"hello\",\n    \"type\": \"emoji\",\n    \"created\": \"2017-03-13T13:54:16.000+0000\",\n    \"updated\": \"2017-03-13T13:54:16.000+0000\",\n    \"url\": \"http://example.com/1.jpg\"\n  }\n]\n"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/sticker.list": {
+      "get": {
+        "tags": [
+          "emoji & sticker"
+        ],
+        "description": "返回当前用户的自定义 sticker 列表\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StickerPack"
+              }
+            },
+            "examples": {
+              "sticker packs response": "[\n  {\n    \"pack\": \"黑白熊静态\",\n    \"stickers\": [\n      {\n        \"url\": \"https://dn-bearychat.qbox.me/sticker-gif-20.gif\",\n        \"name\": \"累\",\n        \"width\": 240,\n        \"height\": 240\n      }\n    ]\n  }\n]\n"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/rtm.start": {
+      "post": {
+        "tags": [
+          "rtm"
+        ],
+        "description": "打开 RTM 连接会话\n",
+        "authentication": true,
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/RTMStart"
+            },
+            "examples": {
+              "rtm response": "{\n  \"ws_host\": \"wss://rtm.bearychat.com/nimbus/ws:xxx\",\n  \"user\": {\n    \"inactive\": false,\n    \"role\": \"normal\",\n    \"email\": \"support@bearyinnovative.com\",\n    \"name\": \"BearyBot\",\n    \"type\": \"assistant\",\n    \"created\": \"2017-01-11T12:28:31.000+0000\",\n    \"id\": \"=bwMkR\",\n    \"avatars\": {\n      \"small\": null,\n      \"medium\": null,\n      \"large\": null\n    },\n    \"team_id\": \"=bw52O\",\n    \"full_name\": \"倍洽小助手\",\n    \"mobile\": null,\n    \"profile\": {\n      \"bio\": null,\n      \"position\": null,\n      \"skype\": null\n    }\n  }\n}\n"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "VChannelId": {
+      "description": "聊天会话 id",
+      "type": "string"
+    },
+    "VChannelType": {
+      "description": "聊天会话类型",
+      "type": "string",
+      "enum": [
+        "normal",
+        "session",
+        "p2p"
+      ]
+    },
+    "Meta": {
+      "required": [
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "description": "当前 api 版本",
+          "type": "string"
+        }
+      }
+    },
+    "Team": {
+      "required": [
+        "id",
+        "subdomain",
+        "name",
+        "email_domain",
+        "logo_url",
+        "description",
+        "plan",
+        "created"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "subdomain": {
+          "description": "团队 subdomain",
+          "type": "string"
+        },
+        "name": {
+          "description": "团队名称",
+          "type": "string"
+        },
+        "email_domain": {
+          "description": "团队邮箱域名",
+          "type": "string"
+        },
+        "logo_url": {
+          "description": "团队头像地址",
+          "type": "string"
+        },
+        "description": {
+          "description": "团队简介",
+          "type": "string"
+        },
+        "plan": {
+          "$ref": "#/definitions/TeamPlan"
+        },
+        "created": {
+          "description": "团队创建时间",
+          "type": "dateTime"
+        }
+      }
+    },
+    "TeamPlan": {
+      "type": "string",
+      "enum": [
+        "basic",
+        "standard"
+      ]
+    },
+    "User": {
+      "required": [
+        "id",
+        "team_id",
+        "email",
+        "mobile",
+        "name",
+        "full_name",
+        "type",
+        "role",
+        "avatars",
+        "profile",
+        "inactive",
+        "created"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "team_id": {
+          "description": "用户所属团队 id",
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "email": {
+          "description": "用户注册邮箱地址",
+          "type": "string",
+          "format": "email"
+        },
+        "mobile": {
+          "description": "用户注册手机号码",
+          "type": "string"
+        },
+        "name": {
+          "description": "用户名",
+          "type": "string"
+        },
+        "full_name": {
+          "description": "用户全名",
+          "type": "string"
+        },
+        "type": {
+          "description": "用户类型",
+          "type": "string",
+          "enum": [
+            "normal",
+            "assistant",
+            "hubot"
+          ]
+        },
+        "role": {
+          "description": "用户在团队内的身份",
+          "type": "string",
+          "enum": [
+            "owner",
+            "admin",
+            "normal",
+            "visitor"
+          ]
+        },
+        "avatars": {
+          "description": "用户头像",
+          "$ref": "#/definitions/UserAvatar"
+        },
+        "profile": {
+          "description": "用户个人资料",
+          "$ref": "#/definitions/UserProfile"
+        },
+        "inactive": {
+          "description": "用户是否已注销",
+          "type": "boolean"
+        },
+        "created": {
+          "description": "用户加入时间",
+          "type": "dateTime"
+        }
+      }
+    },
+    "UserAvatar": {
+      "required": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "properties": {
+        "small": {
+          "type": "string"
+        },
+        "medium": {
+          "type": "string"
+        },
+        "large": {
+          "type": "string"
+        }
+      }
+    },
+    "UserProfile": {
+      "properties": {
+        "bio": {
+          "description": "用户个人简介",
+          "type": "string"
+        },
+        "position": {
+          "description": "用户个人资料",
+          "type": "string"
+        },
+        "skype": {
+          "description": "用户 skype",
+          "type": "string"
+        }
+      }
+    },
+    "Channel": {
+      "required": [
+        "id",
+        "team_id",
+        "uid",
+        "vchannel_id",
+        "name",
+        "topic",
+        "type",
+        "general",
+        "private",
+        "is_active",
+        "is_member",
+        "member_uids",
+        "latest_ts"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "team_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "uid": {
+          "description": "讨论组创建者 id",
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "vchannel_id": {
+          "$ref": "#/definitions/VChannelId"
+        },
+        "name": {
+          "description": "讨论组名称",
+          "type": "string"
+        },
+        "topic": {
+          "description": "讨论组话题",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/VChannelType"
+        },
+        "general": {
+          "description": "讨论组是否为`所有人`讨论组？",
+          "type": "boolean"
+        },
+        "private": {
+          "description": "讨论组是否为私密讨论组？",
+          "type": "boolean"
+        },
+        "is_active": {
+          "description": "会话是否有效",
+          "type": "boolean"
+        },
+        "is_member": {
+          "description": "当前用户是否为讨论组成员？",
+          "type": "boolean"
+        },
+        "member_uids": {
+          "description": "讨论组成员 id 列表",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseObjectId"
+          }
+        },
+        "latest_ts": {
+          "description": "讨论组最新一条消息的 ts",
+          "type": "integer"
+        }
+      }
+    },
+    "SessionChannel": {
+      "required": [
+        "id",
+        "team_id",
+        "vchannel_id",
+        "name",
+        "type",
+        "is_active",
+        "is_member",
+        "member_uids",
+        "latest_ts"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "team_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "vchannel_id": {
+          "$ref": "#/definitions/VChannelId"
+        },
+        "name": {
+          "description": "临时讨论组名称，如果为 null 则表示未设置名称",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/VChannelType"
+        },
+        "is_active": {
+          "description": "会话是否有效",
+          "type": "boolean"
+        },
+        "is_member": {
+          "description": "当前用户是否为临时讨论组成员？",
+          "type": "boolean"
+        },
+        "member_uids": {
+          "description": "临时讨论组成员 id 列表",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseObjectId"
+          }
+        },
+        "latest_ts": {
+          "description": "临时讨论组最新一条消息的 ts",
+          "type": "integer"
+        }
+      }
+    },
+    "P2PChannel": {
+      "required": [
+        "id",
+        "team_id",
+        "vchannel_id",
+        "type",
+        "is_active",
+        "is_member",
+        "member_uids",
+        "latest_ts"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "team_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "vchannel_id": {
+          "$ref": "#/definitions/VChannelId"
+        },
+        "type": {
+          "$ref": "#/definitions/VChannelType"
+        },
+        "is_active": {
+          "description": "会话是否有效",
+          "type": "boolean"
+        },
+        "is_member": {
+          "description": "当前用户是否为对话成员？",
+          "type": "boolean"
+        },
+        "member_uids": {
+          "description": "P2P 对话成员 id 列表",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseObjectId"
+          }
+        },
+        "latest_ts": {
+          "description": "P2P 对话最新一条消息的 ts",
+          "type": "integer"
+        }
+      }
+    },
+    "MessageKey": {
+      "description": "消息唯一索引 key",
+      "type": "string"
+    },
+    "MessageSubtype": {
+      "description": "消息类型",
+      "type": "string",
+      "enum": [
+        "normal",
+        "info"
+      ]
+    },
+    "MessageAttachment": {
+      "description": "消息附件 (TBD)",
+      "type": "string"
+    },
+    "Message": {
+      "required": [
+        "key",
+        "team_id",
+        "uid",
+        "robot_id",
+        "vchannel_id",
+        "refer_key",
+        "subtype",
+        "text",
+        "fallback",
+        "attachments",
+        "created",
+        "created_ts",
+        "updated",
+        "is_channel"
+      ],
+      "properties": {
+        "key": {
+          "description": "消息唯一索引 key",
+          "$ref": "#/definitions/MessageKey"
+        },
+        "team_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "uid": {
+          "description": "消息发送用户 id，为 null 时表示消息不是由 User 所发",
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "robot_id": {
+          "description": "消息发送机器人 id，为 null 时表示消息不是由 Robot 所发",
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "vchannel_id": {
+          "description": "消息所属聊天会话 id",
+          "$ref": "#/definitions/VChannelId"
+        },
+        "refer_key": {
+          "description": "消息引用的消息 key",
+          "$ref": "#/definitions/MessageKey"
+        },
+        "subtype": {
+          "description": "消息类型",
+          "$ref": "#/definitions/MessageSubtype"
+        },
+        "text": {
+          "description": "消息正文",
+          "type": "string"
+        },
+        "fallback": {
+          "description": "消息提醒使用正文",
+          "type": "string"
+        },
+        "attachments": {
+          "description": "消息附件",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageAttachment"
+          }
+        },
+        "created": {
+          "description": "消息创建时间",
+          "type": "dateTime"
+        },
+        "created_ts": {
+          "description": "消息创建时间戳",
+          "type": "integer",
+          "format": "int32"
+        },
+        "updated": {
+          "description": "消息最后修改时间",
+          "type": "dateTime"
+        },
+        "is_channel": {
+          "description": "消息是否为讨论组消息？",
+          "type": "boolean"
+        }
+      }
+    },
+    "MessageQueryWindow": {
+      "description": "拉取一定时间窗口里面的消息\n{from,to}_key / {from,to}_ts 不能混用，优先使用 {from,to}_key 对\nfrom_{key,ts} to_{key,ts} 必须成对出现\n使用消息 key 查询的时候，查询区间为 (from_key, to_key)\n使用消息 ts 查询的时候，查询区间为 [from_ts, to_ts]\nforward / backward 可选其一\n查询结果最多返回 100 条消息：\n  - forward / backward 最大值为 100\n  - 不指定 forward / backward 时，默认返回 forward=100 的消息记录\n  - 如果查询区间开始值比结束值大，返回空结果\n",
+      "properties": {
+        "form_key": {
+          "description": "区间开始的消息 `key`",
+          "type": "string"
+        },
+        "to_key": {
+          "description": "区间结束的消息 `key`",
+          "type": "string"
+        },
+        "from_ts": {
+          "description": "区间开始的消息时间戳",
+          "type": "int32"
+        },
+        "to_ts": {
+          "description": "区间结束的消息时间戳",
+          "type": "int32"
+        },
+        "forward": {
+          "description": "向前获取 n 条消息",
+          "type": "int32"
+        },
+        "backward": {
+          "description": "向后获取 n 条消息",
+          "type": "int32"
+        }
+      }
+    },
+    "MessageQuerySince": {
+      "description": "从指定位置开始拉取若干条消息\nkey / ts 不能混用，优先使用 key\nforward / backward 可同时使用，默认为 forward=100\n使用消息 key 查询的时候，查询区间为 (key, +inf) / (-inf, key)\n使用消息 ts 查询的时候，查询区间为 [ts, +inf) / (-inf, ts]\nforward / backward 可选其一\n查询结果最多返回 100 条消息：\n  - forward / backward 最大值为 100\n  - 不指定 forward / backward 时，默认返回 forward=100 的消息记录\n  - 如果同时使用 forward / backward 查询，返回消息保证 总数 <= forward + backward\n",
+      "properties": {
+        "key": {
+          "description": "指定位置的消息 `key`",
+          "type": "string"
+        },
+        "ts": {
+          "description": "指定位置的消息时间戳",
+          "type": "int32"
+        },
+        "forward": {
+          "description": "向前获取 n 条消息",
+          "type": "int32"
+        },
+        "backward": {
+          "description": "向后获取 n 条消息",
+          "type": "int32"
+        }
+      }
+    },
+    "MessageQueryLatest": {
+      "description": "获取该 vchannel 下的最新消息列表\n查询结果最多返回 100 条消息：\n  - limit 最大值为 100\n  - 不指定 limit 时，limit 默认为 20\n",
+      "properties": {
+        "limit": {
+          "description": "获取 n 条消息",
+          "type": "int32"
+        }
+      }
+    },
+    "MessageQuery": {
+      "description": "window / since / latest / thread 只能存在其中一种查询方法\n如果带有多种查询方法，则只以第一个方法为准\n",
+      "properties": {
+        "window": {
+          "description": "按照 `window` 方法查询",
+          "$ref": "#/definitions/MessageQueryWindow"
+        },
+        "since": {
+          "description": "按照 `since` 方法查询",
+          "$ref": "#/definitions/MessageQuerySince"
+        },
+        "latest": {
+          "description": "按照 `latest` 方法查询",
+          "$ref": "#/definitions/MessageQueryLatest"
+        }
+      }
+    },
+    "MessageQueryResult": {
+      "required": [
+        "messages"
+      ],
+      "properties": {
+        "messages": {
+          "description": "查询到的消息列表",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Message"
+          }
+        }
+      }
+    },
+    "RTMStart": {
+      "required": [
+        "user",
+        "ws_host"
+      ],
+      "properties": {
+        "user": {
+          "description": "rtm 用户",
+          "$ref": "#/definitions/User"
+        },
+        "ws_host": {
+          "description": "rtm 连接地址",
+          "type": "string"
+        }
+      }
+    },
+    "Emoji": {
+      "required": [
+        "id",
+        "uid",
+        "team_id",
+        "name",
+        "type",
+        "created",
+        "updated",
+        "url"
+      ],
+      "properties": {
+        "id": {
+          "description": "emoji id",
+          "type": "string"
+        },
+        "uid": {
+          "description": "创建用户 id",
+          "type": "string"
+        },
+        "team_id": {
+          "description": "所属团队 id",
+          "type": "string"
+        },
+        "name": {
+          "description": "名称",
+          "type": "string"
+        },
+        "type": {
+          "description": "资源类型",
+          "type": "string"
+        },
+        "created": {
+          "description": "创建时间",
+          "type": "dateTime"
+        },
+        "updated": {
+          "description": "最后修改时间",
+          "type": "dateTime"
+        },
+        "url": {
+          "description": "emoji url"
+        }
+      }
+    },
+    "Sticker": {
+      "required": [
+        "url",
+        "name",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "url": {
+          "description": "sticker url",
+          "type": "string"
+        },
+        "name": {
+          "description": "名称",
+          "type": "string"
+        },
+        "width": {
+          "description": "图片宽度",
+          "type": "integer"
+        },
+        "height": {
+          "description": "图片高度",
+          "type": "integer"
+        }
+      }
+    },
+    "StickerPack": {
+      "description": "表情包",
+      "required": [
+        "pack",
+        "stickers"
+      ],
+      "properties": {
+        "pack": {
+          "description": "表情包名称",
+          "type": "string"
+        },
+        "stickers": {
+          "description": "包含的表情",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Sticker"
+          }
+        }
+      }
+    },
+    "Error": {
+      "required": [
+        "code",
+        "error"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ResponseCode"
+        },
+        "error": {
+          "$ref": "#/definitions/ResponseError"
+        }
+      }
+    },
+    "OK": {
+      "required": [
+        "code",
+        "error"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ResponseCode",
+          "default": 0
+        }
+      }
+    },
+    "NoContent": {
+      "description": "NO CONTENT"
+    },
+    "TBD": {
+      "description": "待定义",
+      "type": "string"
+    },
+    "ResponseObjectId": {
+      "type": "string"
+    },
+    "ResponseCode": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "ResponseError": {
+      "type": "string",
+      "format": "string"
+    }
+  }
+}

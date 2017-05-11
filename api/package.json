@@ -4,8 +4,9 @@
   "description": "BearyChat OpenAPI documentation",
   "main": "swagger.yml",
   "scripts": {
-    "build": "npm run build:swagger && npm run build:readme",
-    "build:swagger": "node gen_doc.js",
+    "build": "npm run build:json && npm run build:doc && npm run build:readme",
+    "build:json": "node gen_json.js",
+    "build:doc": "node gen_doc.js",
     "build:readme": "markdown-toc -i README.md"
   },
   "private": true,
