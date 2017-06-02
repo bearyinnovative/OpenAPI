@@ -8,7 +8,7 @@
   "host": "api.bearychat.com",
   "basePath": "/v1",
   "schemes": [
-    "http"
+    "https"
   ],
   "consumes": [
     "application/json"
@@ -545,6 +545,45 @@
         ]
       }
     },
+    "/channel.kickout": {
+      "post": {
+        "tags": [
+          "channel"
+        ],
+        "description": "当前用户移除一个讨论组成员。\n",
+        "authentication": true,
+        "responses": {
+          "204": {
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "body",
+            "description": "讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "kick_uid",
+            "in": "body",
+            "description": "移除用户 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
     "/session_channel.info": {
       "get": {
         "tags": [
@@ -806,6 +845,45 @@
       }
     },
     "/session_channel.kick": {
+      "post": {
+        "tags": [
+          "session channel"
+        ],
+        "description": "移除一个临时讨论组成员。\n",
+        "authentication": true,
+        "responses": {
+          "204": {
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "session_channel_id",
+            "in": "body",
+            "description": "临时讨论组 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "kick_uid",
+            "in": "body",
+            "description": "邀请用户 id",
+            "example": "=bw52O",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/session_channel.kickout": {
       "post": {
         "tags": [
           "session channel"
