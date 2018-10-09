@@ -25,10 +25,12 @@ BearyChat 开放 API 文档
 - [bearychat.js][]
 - [bearychat.py][]
 - [bearychat-go][]
+- [bearychat.php][]
 
 [bearychat.js]: https://github.com/bearyinnovative/bearychat.js
 [bearychat.py]: https://github.com/bearyinnovative/bearychat.py
 [bearychat-go]: https://github.com/bearyinnovative/bearychat-go
+[bearychat.php]: https://github.com/hachi-zzq/bearychat-open-api
 
 ## 基于 OpenAPI 的开发库
 
