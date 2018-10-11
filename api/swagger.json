@@ -16,6 +16,18 @@
   "produces": [
     "application/json"
   ],
+  "securityDefinitions": {
+    "TokenAuth": {
+      "type": "apiKey",
+      "in": "query",
+      "name": "token"
+    }
+  },
+  "security": [
+    {
+      "TokenAuth": []
+    }
+  ],
   "paths": {
     "/meta": {
       "get": {
@@ -23,7 +35,6 @@
           "meta"
         ],
         "description": "返回 BearyChat API 的状态。\n",
-        "authentication": false,
         "responses": {
           "200": {
             "description": "meta response",
@@ -49,9 +60,9 @@
           "team"
         ],
         "description": "返回当前团队信息。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/Team"
             },
@@ -74,9 +85,9 @@
           "user"
         ],
         "description": "返回团队内指定用户完整信息。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/User"
             },
@@ -85,6 +96,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -93,9 +105,8 @@
         "parameters": [
           {
             "name": "user_id",
-            "in": "body",
-            "description": "指定用户 id",
-            "example": "=bw52O",
+            "in": "query",
+            "description": "指定用户 id，如 \\\"=bw52O\\\"",
             "required": true,
             "type": "string"
           }
@@ -108,9 +119,9 @@
           "user"
         ],
         "description": "返回团队内的用户列表，获取某个用户的完整信息，请使用 `user.info`.\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "type": "array",
               "items": {
@@ -122,6 +133,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -135,9 +147,9 @@
           "user"
         ],
         "description": "返回当前用户的信息。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/User"
             },
@@ -146,6 +158,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -159,9 +172,31 @@
           "user"
         ],
         "description": "更新当前用户信息。\n",
-        "authentication": true,
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user_info",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "beary_bot",
+                  "description": "用户名 (@name)"
+                },
+                "full_name": {
+                  "type": "string",
+                  "example": "bearybot",
+                  "description": "用户全名"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/User"
             },
@@ -170,26 +205,14 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
           }
         },
-        "parameters": [
-          {
-            "name": "name",
-            "in": "body",
-            "description": "用户名 (@name)",
-            "example": "beary_bot",
-            "required": false
-          },
-          {
-            "name": "full_name",
-            "in": "body",
-            "description": "用户全名",
-            "example": "BearyBot",
-            "required": false
-          }
+        "consumes": [
+          "application/json"
         ]
       }
     },
@@ -199,9 +222,9 @@
           "vchannel"
         ],
         "description": "返回指定聊天会话的完整信息。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "type": "object",
               "description": "Channel / SessionChannel / P2PChannel 的其中一种\n"
@@ -214,9 +237,8 @@
         "parameters": [
           {
             "name": "vchannel_id",
-            "in": "body",
+            "in": "query",
             "description": "聊天会话 id",
-            "example": "=bw52O",
             "required": true,
             "type": "string"
           }
@@ -229,9 +251,9 @@
           "channel"
         ],
         "description": "返回指定讨论组的完整信息。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/Channel"
             },
@@ -240,6 +262,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/TBD"
             }
@@ -248,9 +271,8 @@
         "parameters": [
           {
             "name": "channel_id",
-            "in": "body",
-            "description": "讨论组 id",
-            "example": "=bw52O",
+            "in": "query",
+            "description": "讨论组 id， 例如 \\\"=bw52O\\\"",
             "required": true,
             "type": "string"
           }
@@ -263,9 +285,9 @@
           "channel"
         ],
         "description": "返回团队内的讨论组列表，获取某个讨论组的完整信息，请使用 `channel.info`.\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "type": "array",
               "items": {
@@ -277,6 +299,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -290,9 +313,9 @@
           "channel"
         ],
         "description": "创建一个讨论组\n",
-        "authentication": true,
         "responses": {
           "201": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/Channel"
             },
@@ -301,35 +324,43 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
           }
         },
+        "consumes": [
+          "application/json"
+        ],
         "parameters": [
           {
-            "name": "name",
             "in": "body",
-            "description": "讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。\n允许使用数字、下划线 (`_`)、中线 (`-`) 和点。\n",
-            "example": "吃喝玩乐在深圳",
+            "name": "vchannel_info",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "topic",
-            "in": "body",
-            "description": "讨论组话题",
-            "example": "今天吃什么？",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "private",
-            "in": "body",
-            "description": "讨论组是否为私密？",
-            "required": false,
-            "type": "boolean",
-            "default": false
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "吃喝玩乐在深圳",
+                  "description": "讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。允许使用数字、下划线 (`_`)、中线 (`-`) 和点。"
+                },
+                "topic": {
+                  "type": "string",
+                  "example": "今天吃什么",
+                  "description": "讨论组话题"
+                },
+                "private": {
+                  "type": "boolean",
+                  "description": "讨论组是否为私密？",
+                  "default": false
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
           }
         ]
       }
@@ -340,9 +371,9 @@
           "channel"
         ],
         "description": "归档一个讨论组。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/Channel"
             },
@@ -351,6 +382,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -358,12 +390,22 @@
         },
         "parameters": [
           {
-            "name": "channel_id",
             "in": "body",
-            "description": "讨论组 id",
-            "example": "=bw52O",
+            "name": "channel_info",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "讨论组 id"
+                }
+              },
+              "required": [
+                "channel_id"
+              ]
+            }
           }
         ]
       }
@@ -374,9 +416,9 @@
           "channel"
         ],
         "description": "恢复一个已被归档的讨论组。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/Channel"
             },
@@ -385,6 +427,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -392,12 +435,22 @@
         },
         "parameters": [
           {
-            "name": "channel_id",
             "in": "body",
-            "description": "讨论组 id",
-            "example": "=bw52O",
+            "name": "channel_info",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "讨论组 id"
+                }
+              },
+              "required": [
+                "channel_id"
+              ]
+            }
           }
         ]
       }
@@ -408,14 +461,15 @@
           "channel"
         ],
         "description": "当前用户离开讨论组。\n",
-        "authentication": true,
         "responses": {
           "204": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/NoContent"
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -423,12 +477,22 @@
         },
         "parameters": [
           {
-            "name": "channel_id",
             "in": "body",
-            "description": "讨论组 id",
-            "example": "=bw52O",
+            "name": "channel_info",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "讨论组 id"
+                }
+              },
+              "required": [
+                "channel_id"
+              ]
+            }
           }
         ]
       }
@@ -439,9 +503,9 @@
           "channel"
         ],
         "description": "当前用户加入指定讨论组。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/Channel"
             },
@@ -450,6 +514,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -457,12 +522,22 @@
         },
         "parameters": [
           {
-            "name": "channel_id",
             "in": "body",
-            "description": "讨论组 id",
-            "example": "=bw52O",
+            "name": "channel_info",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "讨论组 id"
+                }
+              },
+              "required": [
+                "channel_id"
+              ]
+            }
           }
         ]
       }
@@ -473,14 +548,15 @@
           "channel"
         ],
         "description": "当前用户邀请一个团队成员加入讨论组。\n",
-        "authentication": true,
         "responses": {
           "204": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/NoContent"
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -488,20 +564,28 @@
         },
         "parameters": [
           {
-            "name": "channel_id",
             "in": "body",
-            "description": "讨论组 id",
-            "example": "=bw52O",
+            "name": "channel_info",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "invite_uid",
-            "in": "body",
-            "description": "邀请用户 id",
-            "example": "=bw52O",
-            "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "讨论组 id"
+                },
+                "invite_uid": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "邀请用户 id"
+                }
+              },
+              "required": [
+                "channel_id",
+                "invite_uid"
+              ]
+            }
           }
         ]
       }
@@ -512,14 +596,15 @@
           "channel"
         ],
         "description": "当前用户移除一个讨论组成员。\n",
-        "authentication": true,
         "responses": {
           "204": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/NoContent"
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -527,20 +612,28 @@
         },
         "parameters": [
           {
-            "name": "channel_id",
             "in": "body",
-            "description": "讨论组 id",
-            "example": "=bw52O",
+            "name": "channel_info",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "kick_uid",
-            "in": "body",
-            "description": "移除用户 id",
-            "example": "=bw52O",
-            "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "讨论组 id"
+                },
+                "kick_uid": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "移除用户 id"
+                }
+              },
+              "required": [
+                "channel_id",
+                "kick_uid"
+              ]
+            }
           }
         ]
       }
@@ -551,14 +644,15 @@
           "channel"
         ],
         "description": "当前用户移除一个讨论组成员。\n",
-        "authentication": true,
         "responses": {
           "204": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/NoContent"
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -566,20 +660,28 @@
         },
         "parameters": [
           {
-            "name": "channel_id",
             "in": "body",
-            "description": "讨论组 id",
-            "example": "=bw52O",
+            "name": "channel_info",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "kick_uid",
-            "in": "body",
-            "description": "移除用户 id",
-            "example": "=bw52O",
-            "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "讨论组 id"
+                },
+                "kick_uid": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "移除用户 id"
+                }
+              },
+              "required": [
+                "channel_id",
+                "kick_uid"
+              ]
+            }
           }
         ]
       }
@@ -590,9 +692,9 @@
           "session channel"
         ],
         "description": "返回一个临时讨论组的完整信息。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/SessionChannel"
             },
@@ -601,6 +703,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -609,9 +712,8 @@
         "parameters": [
           {
             "name": "session_channel_id",
-            "in": "body",
-            "description": "讨论组 id",
-            "example": "=bw52O",
+            "in": "query",
+            "description": "讨论组 id， 例如 \\\"=bw52O\\\"",
             "required": true,
             "type": "string"
           }
@@ -624,9 +726,9 @@
           "session channel"
         ],
         "description": "返回团队内已经加入的临时讨论组列表，获取某个临时讨论组的完整信息，\n请使用 `session_channel.info`.\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "type": "array",
               "items": {
@@ -638,6 +740,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -651,9 +754,9 @@
           "session channel"
         ],
         "description": "创建一个临时讨论组。\n",
-        "authentication": true,
         "responses": {
           "201": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/SessionChannel"
             },
@@ -662,6 +765,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -669,22 +773,29 @@
         },
         "parameters": [
           {
-            "name": "name",
             "in": "body",
-            "description": "临时讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。\n允许使用数字、下划线 (`_`)、中线 (`-`) 和点。\n",
-            "example": "吃喝玩乐在深圳",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "member_uids",
-            "in": "body",
-            "description": "临时讨论组成员 id 列表",
-            "example": "[\"=bw52O\", \"=bw52P\"]",
+            "name": "session_channel_info",
             "required": true,
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/ResponseObjectId"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "吃喝玩乐在深圳",
+                  "description": "讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。允许使用数字、下划线 (`_`)、中线 (`-`) 和点。"
+                },
+                "member_uids": {
+                  "type": "string",
+                  "example": "[\"=bw52O\", \"=bw52P\"]",
+                  "description": "临时讨论组成员 id 列表",
+                  "items": {
+                    "$ref": "#/definitions/ResponseObjectId"
+                  }
+                }
+              },
+              "required": [
+                "member_uids"
+              ]
             }
           }
         ]
@@ -696,9 +807,9 @@
           "session channel"
         ],
         "description": "归档一个临时讨论组。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/SessionChannel"
             },
@@ -707,6 +818,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -714,12 +826,22 @@
         },
         "parameters": [
           {
-            "name": "session_channel_id",
             "in": "body",
-            "description": "临时讨论组 id",
-            "example": "=bw52O",
+            "name": "channel_info",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "session_channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "临时讨论组 id"
+                }
+              },
+              "required": [
+                "session_channel_id"
+              ]
+            }
           }
         ]
       }
@@ -730,9 +852,9 @@
           "session channel"
         ],
         "description": "将临时讨论组转换为讨论组。\n",
-        "authentication": true,
         "responses": {
           "201": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/Channel"
             },
@@ -741,6 +863,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -748,28 +871,33 @@
         },
         "parameters": [
           {
-            "name": "session_channel_id",
             "in": "body",
-            "description": "临时讨论组 id",
-            "example": "=bw52O",
+            "name": "channel_info",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "name",
-            "in": "body",
-            "description": "讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。\n允许使用数字、下划线 (`_`)、中线 (`-`) 和点。\n",
-            "example": "吃喝玩乐在深圳",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "private",
-            "in": "body",
-            "description": "讨论组是否为私密？",
-            "required": false,
-            "type": "boolean",
-            "default": true
+            "schema": {
+              "type": "object",
+              "properties": {
+                "session_channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "临时讨论组 id"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "吃喝玩乐在深圳",
+                  "description": "讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。允许使用数字、下划线 (`_`)、中线 (`-`) 和点。"
+                },
+                "private": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "讨论组是否为私密?"
+                }
+              },
+              "required": [
+                "session_channel_id",
+                "name"
+              ]
+            }
           }
         ]
       }
@@ -780,14 +908,15 @@
           "session channel"
         ],
         "description": "离开临时讨论组。\n",
-        "authentication": true,
         "responses": {
           "204": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/NoContent"
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -795,12 +924,22 @@
         },
         "parameters": [
           {
-            "name": "session_channel_id",
             "in": "body",
-            "description": "临时讨论组 id",
-            "example": "=bw52O",
+            "name": "session_channel_info",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "session_channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "临时讨论组 id"
+                }
+              },
+              "required": [
+                "session_channel_id"
+              ]
+            }
           }
         ]
       }
@@ -811,14 +950,15 @@
           "session channel"
         ],
         "description": "邀请一个团队成员加入临时讨论组。\n",
-        "authentication": true,
         "responses": {
           "204": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/NoContent"
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -826,20 +966,28 @@
         },
         "parameters": [
           {
-            "name": "session_channel_id",
             "in": "body",
-            "description": "临时讨论组 id",
-            "example": "=bw52O",
+            "name": "session_channel_info",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "invite_uid",
-            "in": "body",
-            "description": "邀请用户 id",
-            "example": "=bw52O",
-            "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "session_channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "临时讨论组 id"
+                },
+                "invite_uid": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "邀请用户 id"
+                }
+              },
+              "required": [
+                "session_channel_id",
+                "invite_uid"
+              ]
+            }
           }
         ]
       }
@@ -850,14 +998,15 @@
           "session channel"
         ],
         "description": "移除一个临时讨论组成员。\n",
-        "authentication": true,
         "responses": {
           "204": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/NoContent"
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -865,20 +1014,28 @@
         },
         "parameters": [
           {
-            "name": "session_channel_id",
             "in": "body",
-            "description": "临时讨论组 id",
-            "example": "=bw52O",
+            "name": "session_channel_info",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "kick_uid",
-            "in": "body",
-            "description": "邀请用户 id",
-            "example": "=bw52O",
-            "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "session_channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "临时讨论组 id"
+                },
+                "kick_uid": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "移除用户 id"
+                }
+              },
+              "required": [
+                "session_channel_id",
+                "kick_uid"
+              ]
+            }
           }
         ]
       }
@@ -889,14 +1046,15 @@
           "session channel"
         ],
         "description": "移除一个临时讨论组成员。\n",
-        "authentication": true,
         "responses": {
           "204": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/NoContent"
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -904,20 +1062,28 @@
         },
         "parameters": [
           {
-            "name": "session_channel_id",
             "in": "body",
-            "description": "临时讨论组 id",
-            "example": "=bw52O",
+            "name": "session_channel_info",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "kick_uid",
-            "in": "body",
-            "description": "邀请用户 id",
-            "example": "=bw52O",
-            "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "session_channel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "临时讨论组 id"
+                },
+                "kick_uid": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "移除用户 id"
+                }
+              },
+              "required": [
+                "session_channel_id",
+                "kick_uid"
+              ]
+            }
           }
         ]
       }
@@ -928,9 +1094,9 @@
           "p2p"
         ],
         "description": "返回一个 P2P 聊天会话的完整信息。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/P2PChannel"
             },
@@ -939,6 +1105,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -947,9 +1114,8 @@
         "parameters": [
           {
             "name": "p2p_channel_id",
-            "in": "body",
-            "description": "P2P 聊天会话 id",
-            "example": "=bw52O",
+            "in": "query",
+            "description": "P2P 聊天会话 id， 例如\\\"=bw52O\\\"",
             "required": true,
             "type": "string"
           }
@@ -962,9 +1128,9 @@
           "p2p"
         ],
         "description": "返回 P2P 聊天会话列表，获取某个 P2P 会话的完整信息，请使用 `p2p.info`.\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "type": "array",
               "items": {
@@ -976,6 +1142,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -989,9 +1156,9 @@
           "p2p"
         ],
         "description": "创建一个 P2P 聊天会话。\n",
-        "authentication": true,
         "responses": {
           "201": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/P2PChannel"
             },
@@ -1000,6 +1167,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1007,12 +1175,22 @@
         },
         "parameters": [
           {
-            "name": "user_id",
             "in": "body",
-            "description": "P2P 聊天另外一方的用户 id",
-            "example": "=bw52O",
+            "name": "p2p_info",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "P2P 聊天另外一方的用户 id"
+                }
+              },
+              "required": [
+                "user_id"
+              ]
+            }
           }
         ]
       }
@@ -1023,9 +1201,9 @@
           "message"
         ],
         "description": "查询指定 vchannel 下的消息列表。支持以下几种查询算法：\n\n### `latest`\n\n查询 vchannel 下最新的消息，支持参数：\n\n- `limit`: 查询数量限制，最大值为 100, 默认 20\n\n### `since`\n\n从指定位置开始拉取若干条消息，支持参数：\n\n- `key`: 开始位置的消息 key, 不可以和 `ts` 同时使用\n- `ts`: 开始位置的消息 ts, 不可以和 `ts` 同时使用\n- `forward`: 向前（时间发生方向）获取条数\n- `backward`: 向后（时间发生方向）获取条数\n\n**注意**:\n\n1. 使用 `key` 查询时，查询区间不包括 key 对应的消息\n2. 使用 `ts` 查询时，查询区间包括 ts 对应的消息\n3. `forward` / `backward` 参数可以同时使用\n4. `forward` / `backward` 参数最大值为 100,\n5. `forward` / `backward` 均未指定时，默认使用 `forward=100`\n\n### `window`\n\n拉取一定时间窗口内的消息，支持参数：\n\n- `from_key` / `to_key`: 窗口区间的消息 key\n- `from_ts` / `to_ts`: 窗口区间的消息 ts\n- `forward`: 从 from 方向往 to 方向取的消息数\n- `backward`: 从 to 方向往 from 方向取的消息数\n\n**注意**:\n\n1. `{from,to}_key` 和 `{from,to}_ts` 不可以混用\n2. 使用 `{from,to}_key` 查询时，查询区间不包括 key 对应的消息\n3. 使用 `{from,to}_ts` 查询时，查询区间包括 ts 对应的消息\n4. `forward` 和 `backward` 参数只能选其中一个\n5. `forward` / `backward` 均未指定时，默认使用 `forward=100`\n6. 如果查询区间开始值比结束值大，返回空结果\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/MessageQueryResult"
             },
@@ -1034,6 +1212,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1041,22 +1220,28 @@
         },
         "parameters": [
           {
-            "name": "vchannel_id",
             "in": "body",
-            "description": "待查询 vchannel_id",
+            "name": "message_info",
             "required": true,
-            "example": "=bw52O",
-            "type": "string"
-          },
-          {
-            "name": "query",
-            "in": "body",
-            "description": "消息查询 payload",
-            "required": true,
-            "$ref": "#/definitions/MessageQuery"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "vchannel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "待查询 vchannel_id"
+                },
+                "query": {
+                  "$ref": "#/definitions/MessageQuery"
+                }
+              },
+              "required": [
+                "vchannel_id",
+                "query"
+              ]
+            }
           }
-        ],
-        "parameters_example": "// latest\n{\n  \"vchannel_id\": \"=bw52O\",\n  \"query\": {\n    \"latest\": {\n      \"limit\": 10\n    }\n  }\n}\n\n// since\n{\n  \"vchannel_id\": \"=bw52O\",\n  \"query\": {\n    \"since\": {\n      \"ts\": 1485236262366\n    }\n  }\n}\n\n// window\n{\n  \"vchannel_id\": \"=bw52O\",\n  \"query\": {\n    \"window\": {\n      \"from_ts\": 1485236262366,\n      \"to_ts\": 1485236362366,\n      \"forward\": 100\n    }\n  }\n}\n"
+        ]
       }
     },
     "/message.info": {
@@ -1065,9 +1250,9 @@
           "message"
         ],
         "description": "返回一条消息的信息。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/Message"
             },
@@ -1076,28 +1261,26 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
-            },
-            "key": null
+            }
           }
         },
         "parameters": [
           {
             "name": "vchannel_id",
-            "in": "body",
-            "description": "指定的目标聊天会话 id",
-            "example": "=bw52O",
-            "required": true,
-            "$ref": "#/definitions/VChannelId"
+            "type": "string",
+            "in": "query",
+            "description": "指定的目标聊天会话 id，例如 \\\"=bw52O\\\"",
+            "required": true
           },
           {
             "name": "message_key",
-            "in": "body",
-            "description": "获取消息的 key",
-            "example": "1487667236785.0077",
-            "required": true,
-            "$ref": "#/definitions/MessageKey"
+            "type": "string",
+            "in": "query",
+            "description": "获取消息的 key，例如 \\\"1487667236785.0077\\\"",
+            "required": true
           }
         ]
       }
@@ -1108,9 +1291,9 @@
           "message"
         ],
         "description": "发送一条消息到指定聊天会话。\n",
-        "authentication": true,
         "responses": {
           "201": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/Message"
             },
@@ -1119,6 +1302,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1126,30 +1310,36 @@
         },
         "parameters": [
           {
-            "name": "vchannel_id",
             "in": "body",
-            "description": "指定的目标聊天会话 id",
-            "example": "=bw52O",
+            "name": "message_info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/VChannelId"
+              "type": "object",
+              "properties": {
+                "vchannel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "指定的目标聊天会话 id"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "中午吃啥啊？",
+                  "description": "消息内容"
+                },
+                "attachments": {
+                  "type": "array",
+                  "example": "中午吃啥啊？",
+                  "description": "消息附件",
+                  "items": {
+                    "$ref": "#/definitions/MessageAttachment"
+                  }
+                }
+              },
+              "required": [
+                "vchannel_id",
+                "text"
+              ]
             }
-          },
-          {
-            "name": "text",
-            "in": "body",
-            "description": "消息内容",
-            "example": "中午吃啥啊？",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "attachments",
-            "in": "body",
-            "description": "消息附件",
-            "required": true,
-            "type": "array",
-            "items": "$ref '#/definitions/MessageAttachment'"
           }
         ]
       }
@@ -1160,14 +1350,15 @@
           "message"
         ],
         "description": "删除一条消息。\n",
-        "authentication": true,
         "responses": {
           "204": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/NoContent"
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1175,22 +1366,28 @@
         },
         "parameters": [
           {
-            "name": "vchannel_id",
             "in": "body",
-            "description": "消息聊天会话 id",
-            "example": "=bw52O",
+            "name": "message_info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/VChannelId"
+              "type": "object",
+              "properties": {
+                "vchannel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "待查询 vchannel_id"
+                },
+                "message_key": {
+                  "type": "string",
+                  "description": "删除的消息 key",
+                  "example": "1487667236785.0077"
+                }
+              },
+              "required": [
+                "vchannel_id",
+                "message_key"
+              ]
             }
-          },
-          {
-            "name": "message_key",
-            "in": "body",
-            "description": "删除的消息 key",
-            "example": "1487667236785.0077",
-            "required": true,
-            "$ref": "#/definitions/MessageKey"
           }
         ]
       }
@@ -1201,9 +1398,9 @@
           "message"
         ],
         "description": "更新一条消息的内容。\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/Message"
             },
@@ -1212,6 +1409,124 @@
             }
           },
           "default": {
+            "description": "request fail",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "message_info",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "vchannel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "待查询 vchannel_id"
+                },
+                "message_key": {
+                  "type": "string",
+                  "description": "更新的消息 key",
+                  "example": "1487667236785.0077"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "更新的消息内容",
+                  "example": "中午吃啥啊？"
+                }
+              },
+              "required": [
+                "vchannel_id",
+                "message_key",
+                "text"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/message.forward": {
+      "post": {
+        "tags": [
+          "message"
+        ],
+        "description": "转发消息\n",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/MessageForward"
+            },
+            "examples": {
+              "message response": "{\n  \"repost\": {\n    \"uid\": \"=bw52T\",\n    \"vchannel_id\": \"=bw52O\",\n    \"robot_id\": null,\n    \"created_ts\": 1539056624039,\n    \"message_key\": \"1539056624039.0143\",\n    \"id\": \"=bw52Q\",\n    \"team_id\": \"=bw52U\",\n    \"subtype\": \"normal\",\n    \"text\": \"当测不测，反受其乱\"\n  },\n  \"key\": \"1539079267590.0001\",\n  \"updated\": \"2018-10-09T10:01:08.000+0000\",\n  \"is_channel\": true,\n  \"uid\": \"=bw52W\",\n  \"thread_key\": null,\n  \"created\": \"2018-10-09T10:01:08.000+0000\",\n  \"vchannel_id\": \"=bw52O\",\n  \"refer_key\": null,\n  \"robot_id\": null,\n  \"edited\": false,\n  \"created_ts\": 1539079267590,\n  \"pin_id\": null,\n  \"id\": \"=bw52Z\",\n  \"team_id\": \"=bw52U\",\n  \"text_i18n\": {\n    \"zh-CN\": \"转发了消息\",\n    \"en\": \"fowarded message\"\n  },\n  \"reactions\": [],\n  \"subtype\": \"forwarded\",\n  \"text\": \"转发了消息\"\n}\n"
+            }
+          },
+          "default": {
+            "description": "request fail",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "message_info",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "vchannel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "转发的消息所在的位置 id"
+                },
+                "key": {
+                  "type": "string",
+                  "description": "更新的消息 key",
+                  "example": "1487667236785.0077"
+                },
+                "to_vchannel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "转发目的会话 id"
+                }
+              },
+              "required": [
+                "vchannel_id",
+                "key",
+                "to_vchannel_id"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/message_pin.list": {
+      "get": {
+        "tags": [
+          "message_pin"
+        ],
+        "description": "查询某个聊天会话的置顶消息列表\n",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MessagePin"
+              }
+            },
+            "examples": {
+              "message-pin response": "[\n  {\n    \"id\": \"=bw52T\",\n    \"team_id\": \"=bw52U\",\n    \"uid\": \"=bw52W\",\n    \"vchannel_id\": \"=bw52O\",\n    \"message_id\": \"=bw53a\",\n    \"message_key\": \"1539079277448.0002\",\n    \"created_at\": \"2018-10-10T09:48:55.000+0800\",\n    \"updated_at\": \"2018-10-10T09:48:55.000+0800\",\n    \"message\": null\n  }\n]\n"
+            }
+          },
+          "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1220,29 +1535,109 @@
         "parameters": [
           {
             "name": "vchannel_id",
-            "in": "body",
-            "description": "消息聊天会话 id",
-            "example": "=bw52O",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/VChannelId"
-            }
-          },
-          {
-            "name": "message_key",
-            "in": "body",
-            "description": "更新的消息 key",
-            "example": "1487667236785.0077",
-            "required": true,
-            "$ref": "#/definitions/MessageKey"
-          },
-          {
-            "name": "text",
-            "in": "body",
-            "description": "更新的消息内容",
-            "example": "中午吃啥啊？",
+            "in": "query",
+            "description": "讨论组 id， 例如 \\\"=bw52O\\\"",
             "required": true,
             "type": "string"
+          }
+        ]
+      }
+    },
+    "/message_pin.create": {
+      "post": {
+        "tags": [
+          "message_pin"
+        ],
+        "description": "置顶消息\n",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/MessagePin"
+            },
+            "examples": {
+              "message_pin response": "{\n  \"id\": \"=bw52T\",\n  \"team_id\": \"=bw52U\",\n  \"uid\": \"=bw52W\",\n  \"vchannel_id\": \"=bw52O\",\n  \"message_id\": \"=bw53a\",\n  \"message_key\": \"1539079277448.0002\",\n  \"created_at\": \"2018-10-10T09:48:55.000+0800\",\n  \"updated_at\": \"2018-10-10T09:48:55.000+0800\"\n}\n"
+            }
+          },
+          "default": {
+            "description": "request fail",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "message_pin_info",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "vchannel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "消息所在的频道"
+                },
+                "message_key": {
+                  "type": "string",
+                  "description": "想要置顶的消息 key",
+                  "example": "1487667236785.0077"
+                }
+              },
+              "required": [
+                "vchannel_id",
+                "message_key"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/message_pin.delete": {
+      "post": {
+        "tags": [
+          "message_pin"
+        ],
+        "description": "删除置顶消息\n",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "description": "request fail",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "message_pin_info",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "vchannel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "消息所在的频道"
+                },
+                "pin_id": {
+                  "type": "string",
+                  "description": "置顶消息的 id",
+                  "example": "=bw52O"
+                }
+              },
+              "required": [
+                "vchannel_id",
+                "pin_id"
+              ]
+            }
           }
         ]
       }
@@ -1253,9 +1648,9 @@
           "emoji & sticker"
         ],
         "description": "返回团队内的自定义 emoji 列表\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "type": "array",
               "items": {
@@ -1281,9 +1676,9 @@
           "emoji & sticker"
         ],
         "description": "返回当前用户的自定义 sticker 列表\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "type": "array",
               "items": {
@@ -1309,9 +1704,9 @@
           "rtm"
         ],
         "description": "打开 RTM 连接会话\n",
-        "authentication": true,
         "responses": {
           "200": {
+            "description": "request success",
             "schema": {
               "$ref": "#/definitions/RTMStart"
             },
@@ -1320,6 +1715,7 @@
             }
           },
           "default": {
+            "description": "request fail",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1393,7 +1789,8 @@
         },
         "created": {
           "description": "团队创建时间",
-          "type": "dateTime"
+          "type": "string",
+          "format": "data-time"
         }
       }
     },
@@ -1424,7 +1821,6 @@
           "$ref": "#/definitions/ResponseObjectId"
         },
         "team_id": {
-          "description": "用户所属团队 id",
           "$ref": "#/definitions/ResponseObjectId"
         },
         "email": {
@@ -1464,11 +1860,9 @@
           ]
         },
         "avatars": {
-          "description": "用户头像",
           "$ref": "#/definitions/UserAvatar"
         },
         "profile": {
-          "description": "用户个人资料",
           "$ref": "#/definitions/UserProfile"
         },
         "inactive": {
@@ -1477,7 +1871,8 @@
         },
         "created": {
           "description": "用户加入时间",
-          "type": "dateTime"
+          "type": "string",
+          "format": "data-time"
         }
       }
     },
@@ -1539,7 +1934,6 @@
           "$ref": "#/definitions/ResponseObjectId"
         },
         "uid": {
-          "description": "讨论组创建者 id",
           "$ref": "#/definitions/ResponseObjectId"
         },
         "vchannel_id": {
@@ -1715,30 +2109,24 @@
       ],
       "properties": {
         "key": {
-          "description": "消息唯一索引 key",
           "$ref": "#/definitions/MessageKey"
         },
         "team_id": {
           "$ref": "#/definitions/ResponseObjectId"
         },
         "uid": {
-          "description": "消息发送用户 id，为 null 时表示消息不是由 User 所发",
           "$ref": "#/definitions/ResponseObjectId"
         },
         "robot_id": {
-          "description": "消息发送机器人 id，为 null 时表示消息不是由 Robot 所发",
           "$ref": "#/definitions/ResponseObjectId"
         },
         "vchannel_id": {
-          "description": "消息所属聊天会话 id",
           "$ref": "#/definitions/VChannelId"
         },
         "refer_key": {
-          "description": "消息引用的消息 key",
           "$ref": "#/definitions/MessageKey"
         },
         "subtype": {
-          "description": "消息类型",
           "$ref": "#/definitions/MessageSubtype"
         },
         "text": {
@@ -1758,7 +2146,8 @@
         },
         "created": {
           "description": "消息创建时间",
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "created_ts": {
           "description": "消息创建时间戳",
@@ -1767,11 +2156,49 @@
         },
         "updated": {
           "description": "消息最后修改时间",
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "is_channel": {
           "description": "消息是否为讨论组消息？",
           "type": "boolean"
+        }
+      }
+    },
+    "MessagePin": {
+      "description": "置顶消息",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "team_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "uid": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "vchannel_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "message_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "message_key": {
+          "$ref": "#/definitions/MessageKey"
+        },
+        "created_at": {
+          "description": "创建时间",
+          "type": "string",
+          "format": "data-time"
+        },
+        "updated_at": {
+          "description": "更新时间",
+          "type": "string",
+          "format": "data-time"
+        },
+        "message": {
+          "description": "消息",
+          "type": "string"
         }
       }
     },
@@ -1788,19 +2215,23 @@
         },
         "from_ts": {
           "description": "区间开始的消息时间戳",
-          "type": "int32"
+          "type": "integer",
+          "format": "int32"
         },
         "to_ts": {
           "description": "区间结束的消息时间戳",
-          "type": "int32"
+          "type": "integer",
+          "format": "int32"
         },
         "forward": {
           "description": "向前获取 n 条消息",
-          "type": "int32"
+          "type": "integer",
+          "format": "int32"
         },
         "backward": {
           "description": "向后获取 n 条消息",
-          "type": "int32"
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -1813,15 +2244,18 @@
         },
         "ts": {
           "description": "指定位置的消息时间戳",
-          "type": "int32"
+          "type": "integer",
+          "format": "int32"
         },
         "forward": {
           "description": "向前获取 n 条消息",
-          "type": "int32"
+          "type": "integer",
+          "format": "int32"
         },
         "backward": {
           "description": "向后获取 n 条消息",
-          "type": "int32"
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -1830,7 +2264,8 @@
       "properties": {
         "limit": {
           "description": "获取 n 条消息",
-          "type": "int32"
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -1838,15 +2273,12 @@
       "description": "window / since / latest / thread 只能存在其中一种查询方法\n如果带有多种查询方法，则只以第一个方法为准\n",
       "properties": {
         "window": {
-          "description": "按照 `window` 方法查询",
           "$ref": "#/definitions/MessageQueryWindow"
         },
         "since": {
-          "description": "按照 `since` 方法查询",
           "$ref": "#/definitions/MessageQuerySince"
         },
         "latest": {
-          "description": "按照 `latest` 方法查询",
           "$ref": "#/definitions/MessageQueryLatest"
         }
       }
@@ -1865,6 +2297,57 @@
         }
       }
     },
+    "MessageForward": {
+      "properties": {
+        "repost": {
+          "$ref": "#/definitions/Message"
+        },
+        "key": {
+          "description": "转发后的消息的 key",
+          "type": "string"
+        },
+        "updated": {
+          "description": "更新时间",
+          "type": "string",
+          "format": "data-time"
+        },
+        "is_channel": {
+          "description": "是否为在群组内发送的消息",
+          "type": "boolean"
+        },
+        "uid": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "thread_key": {
+          "description": "线程 key",
+          "type": "string"
+        },
+        "created": {
+          "description": "创建时间",
+          "type": "string",
+          "format": "data-time"
+        },
+        "vchannel_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "refer_key": {
+          "description": "转发 key",
+          "type": "string"
+        },
+        "robot_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "edited": {
+          "description": "是否修改过",
+          "type": "boolean"
+        },
+        "created_ts": {
+          "description": "消息创建时间戳",
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "RTMStart": {
       "required": [
         "user",
@@ -1872,7 +2355,6 @@
       ],
       "properties": {
         "user": {
-          "description": "rtm 用户",
           "$ref": "#/definitions/User"
         },
         "ws_host": {
@@ -1915,11 +2397,13 @@
         },
         "created": {
           "description": "创建时间",
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "updated": {
           "description": "最后修改时间",
-          "type": "dateTime"
+          "type": "string",
+          "format": "date-time"
         },
         "url": {
           "description": "emoji url"
@@ -1944,11 +2428,13 @@
         },
         "width": {
           "description": "图片宽度",
-          "type": "integer"
+          "type": "integer",
+          "format": "int32"
         },
         "height": {
           "description": "图片高度",
-          "type": "integer"
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -1993,8 +2479,7 @@
       ],
       "properties": {
         "code": {
-          "$ref": "#/definitions/ResponseCode",
-          "default": 0
+          "$ref": "#/definitions/ResponseCode"
         }
       }
     },

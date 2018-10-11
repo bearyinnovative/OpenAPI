@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+const mustache = require('mustache')
+const getStdin = require('get-stdin')
+const fs = require('fs')
+const join = require('path').join
+
+const tmplPath = join(__dirname, '../index.tmpl')
+const tmpl = fs.readFileSync(tmplPath).toString()
+ 
+getStdin().then((yaml) => {
+  const rendered = mustache.render(tmpl, {spec: yaml})
+  console.log(rendered)
+})

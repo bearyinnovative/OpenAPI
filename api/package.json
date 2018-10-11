@@ -7,13 +7,19 @@
     "build": "npm run build:json && npm run build:doc && npm run build:readme",
     "build:json": "node gen_json.js",
     "build:doc": "node gen_doc.js",
-    "build:readme": "markdown-toc -i README.md"
+    "build:readme": "markdown-toc -i README.md",
+    "prepare": "mkdir -p generated",
+    "build:api": "swagger-cli bundle swagger.yml | node bin/build-docs > generated/openapi.html",
+    "build:swagger": "npm install --verbose && npm run prepare && npm run build:api"
   },
   "private": true,
   "license": "UNLICENSED",
   "dependencies": {
     "async": "^2.1.5",
+    "get-stdin": "^6.0.0",
     "js-yaml": "^3.8.2",
-    "markdown-toc": "^1.1.0"
+    "markdown-toc": "^1.1.0",
+    "mustache": "^3.0.0",
+    "swagger-cli": "^2.1.3"
   }
 }
