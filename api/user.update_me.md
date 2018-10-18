@@ -15,7 +15,7 @@ PATCH {base_url}/user.update_me
 | 参数名称 | 参数类型 | 参数是否必须？ | 说明 | 样例 |
 |:--------:|:--------:|:--------------:|------|------|
 | `name` | `string` | 否 | 用户名 (@name) | beary_bot |
-| `full_name` | `string` | 否 | 用户全名 | BearyBot |
+| `full_name` | `string` | 否 | 用户全名 | bearybot |
 
 ## 响应
 

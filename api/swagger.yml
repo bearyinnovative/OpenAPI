@@ -839,7 +839,7 @@ paths:
                 example: 吃喝玩乐在深圳
                 description: 讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。允许使用数字、下划线 (`_`)、中线 (`-`) 和点。
               member_uids:
-                type: string
+                type: array
                 example: '["=bw52O", "=bw52P"]'
                 description: 临时讨论组成员 id 列表
                 items:

@@ -14,7 +14,8 @@ POST {base_url}/message_pin.delete
 
 | 参数名称 | 参数类型 | 参数是否必须？ | 说明 | 样例 |
 |:--------:|:--------:|:--------------:|------|------|
-| `message_pin_info` | `string` | 是 |  |  |
+| `vchannel_id` | `string` | 是 | 消息所在的频道 | =bw52O |
+| `pin_id` | `string` | 是 | 置顶消息的 id | =bw52O |
 
 ## 响应
 

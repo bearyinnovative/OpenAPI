@@ -14,7 +14,7 @@ GET {base_url}/vchannel.info
 
 | 参数名称 | 参数类型 | 参数是否必须？ | 说明 | 样例 |
 |:--------:|:--------:|:--------------:|------|------|
-| `vchannel_id` | `string` | 是 | 聊天会话 id | =bw52O |
+| `vchannel_id` | `string` | 是 | 聊天会话 id |  |
 
 ## 响应
 

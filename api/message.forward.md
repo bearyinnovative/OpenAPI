@@ -14,7 +14,9 @@ POST {base_url}/message.forward
 
 | 参数名称 | 参数类型 | 参数是否必须？ | 说明 | 样例 |
 |:--------:|:--------:|:--------------:|------|------|
-| `message_info` | `string` | 是 |  |  |
+| `vchannel_id` | `string` | 是 | 转发的消息所在的位置 id | =bw52O |
+| `key` | `string` | 是 | 更新的消息 key | 1487667236785.0077 |
+| `to_vchannel_id` | `string` | 是 | 转发目的会话 id | =bw52O |
 
 ## 响应
 
