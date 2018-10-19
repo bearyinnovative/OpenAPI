@@ -15,7 +15,7 @@ POST {base_url}/session_channel.kick
 | 参数名称 | 参数类型 | 参数是否必须？ | 说明 | 样例 |
 |:--------:|:--------:|:--------------:|------|------|
 | `session_channel_id` | `string` | 是 | 临时讨论组 id | =bw52O |
-| `kick_uid` | `string` | 是 | 邀请用户 id | =bw52O |
+| `kick_uid` | `string` | 是 | 移除用户 id | =bw52O |
 
 ## 响应
 

@@ -43,18 +43,38 @@ function describeRequestParameters(methodSchema) {
     ])
 
     parameters.forEach((p) => {
-      let type = '`string`'
-      if (p.type) {
-        type = `\`${p.type}\``
+      if (p.in == 'body') {
+        // init required
+        schema = p.schema
+        required = schema.required || []
+        Object.keys(schema.properties).forEach((key) => {
+          let type = '`string`'
+          if (schema.properties[key].type) {
+            type = `\`${schema.properties[key].type}\``
+          }
+          const line = [
+            `\`${key}\``,
+            type,
+            (required.indexOf(key) != -1) ? '是' : '否',
+            (schema.properties[key].description || '').replace('\n', ' ').trim(),
+            (schema.properties[key].example || '').replace('\n', ' ').trim()
+          ].join(' | ')
+          content.push(`| ${line} |`)
+        })
+      } else {
+        let type = '`string`'
+        if (p.type) {
+          type = `\`${p.type}\``
+        }
+        const line = [
+          `\`${p.name}\``,
+          type,
+          p.required ? '是' : '否',
+          (p.description || '').replace('\n', ' ').trim(),
+          (p.example || '').replace('\n', ' ').trim(),
+        ].join(' | ')
+        content.push(`| ${line} |`)
       }
-      const line = [
-        `\`${p.name}\``,
-        type,
-        p.required ? '是' : '否',
-        (p.description || '').replace('\n', ' ').trim(),
-        (p.example || '').replace('\n', ' ').trim(),
-      ].join(' | ')
-      content.push(`| ${line} |`)
     })
   }
 

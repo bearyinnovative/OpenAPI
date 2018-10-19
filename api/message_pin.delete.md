@@ -1,11 +1,11 @@
-# session_channel.kickout
+# message_pin.delete
 
-移除一个临时讨论组成员。
+删除置顶消息
 
 ## 请求方式
 
 ```
-POST {base_url}/session_channel.kickout
+POST {base_url}/message_pin.delete
 ```
 
 ## 请求参数
@@ -14,12 +14,12 @@ POST {base_url}/session_channel.kickout
 
 | 参数名称 | 参数类型 | 参数是否必须？ | 说明 | 样例 |
 |:--------:|:--------:|:--------------:|------|------|
-| `session_channel_id` | `string` | 是 | 临时讨论组 id | =bw52O |
-| `kick_uid` | `string` | 是 | 移除用户 id | =bw52O |
+| `vchannel_id` | `string` | 是 | 消息所在的频道 | =bw52O |
+| `pin_id` | `string` | 是 | 置顶消息的 id | =bw52O |
 
 ## 响应
 
-### 204
+### 200
 ### 错误响应
 
 ```javascript

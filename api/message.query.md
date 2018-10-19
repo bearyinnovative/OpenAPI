@@ -56,7 +56,7 @@ POST {base_url}/message.query
 | 参数名称 | 参数类型 | 参数是否必须？ | 说明 | 样例 |
 |:--------:|:--------:|:--------------:|------|------|
 | `vchannel_id` | `string` | 是 | 待查询 vchannel_id | =bw52O |
-| `query` | `string` | 是 | 消息查询 payload |  |
+| `query` | `string` | 是 |  |  |
 
 ```javascript
 // latest
@@ -68,8 +68,7 @@ POST {base_url}/message.query
     }
   }
 }
-
-// since
+ // since
 {
   "vchannel_id": "=bw52O",
   "query": {
@@ -78,8 +77,7 @@ POST {base_url}/message.query
     }
   }
 }
-
-// window
+ // window
 {
   "vchannel_id": "=bw52O",
   "query": {

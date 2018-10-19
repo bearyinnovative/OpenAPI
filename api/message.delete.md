@@ -14,7 +14,7 @@ POST {base_url}/message.delete
 
 | 参数名称 | 参数类型 | 参数是否必须？ | 说明 | 样例 |
 |:--------:|:--------:|:--------------:|------|------|
-| `vchannel_id` | `string` | 是 | 消息聊天会话 id | =bw52O |
+| `vchannel_id` | `string` | 是 | 待查询 vchannel_id | =bw52O |
 | `message_key` | `string` | 是 | 删除的消息 key | 1487667236785.0077 |
 
 ## 响应

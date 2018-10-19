@@ -16,7 +16,7 @@ POST {base_url}/message.create
 |:--------:|:--------:|:--------------:|------|------|
 | `vchannel_id` | `string` | 是 | 指定的目标聊天会话 id | =bw52O |
 | `text` | `string` | 是 | 消息内容 | 中午吃啥啊？ |
-| `attachments` | `array` | 是 | 消息附件 |  |
+| `attachments` | `array` | 否 | 消息附件 | 中午吃啥啊？ |
 
 ## 响应
 
