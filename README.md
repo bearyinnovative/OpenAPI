@@ -1,8 +1,9 @@
 # OpenAPI
 
 [Join OpenAPI group](https://openapi.bearychat.com/apply)
-[OpenAPI Online Document](http://openapi.bearychat.help)
 ![doc: 1.0](https://img.shields.io/badge/doc-1.0-green.svg)
+
+[OpenAPI Online Document](http://openapi.bearychat.help)
 
 BearyChat 开放 API 文档
 
