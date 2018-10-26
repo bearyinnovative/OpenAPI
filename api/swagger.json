@@ -785,7 +785,7 @@
                   "description": "讨论组名称，可以包含 2 到 20 个英文字符或 1 到 10 个中文字符。允许使用数字、下划线 (`_`)、中线 (`-`) 和点。"
                 },
                 "member_uids": {
-                  "type": "string",
+                  "type": "array",
                   "example": "[\"=bw52O\", \"=bw52P\"]",
                   "description": "临时讨论组成员 id 列表",
                   "items": {
@@ -1642,6 +1642,117 @@
         ]
       }
     },
+    "/reaction.create": {
+      "post": {
+        "tags": [
+          "reaction"
+        ],
+        "description": "创建消息 Reaction\n",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/MessageReaction"
+            },
+            "examples": {
+              "reaction created response": "{\n  \"id\": \"=bw52Q\",\n  \"team_id\": \"=bw52R\",\n  \"uid\": \"=bw52S\",\n  \"message_id\": \"=bw52Q\",\n  \"message_key\": \"1540460114044.0100\",\n  \"reaction\": \":smile:\"\n  \"created_ts\": 1540461431018,\n  \"created\": \"2018-10-25T09:57:11.000+0000\",\n  \"updated\": \"2018-10-25T09:57:11.000+0000\"\n}\n"
+            }
+          },
+          "default": {
+            "description": "request fail",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "reaction_create_info",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "vchannel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "消息所在的频道"
+                },
+                "key": {
+                  "type": "string",
+                  "description": "想要加 sticker 的 message 的 key",
+                  "example": "1540460114044.0100"
+                },
+                "reaction": {
+                  "type": "string",
+                  "description": "想要添加的 reaction 名",
+                  "example": ":smile:"
+                }
+              },
+              "required": [
+                "vchannel_id",
+                "key",
+                "reaction"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/reaction.delete": {
+      "post": {
+        "tags": [
+          "reaction"
+        ],
+        "description": "删除消息 reaction\n",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/NoContent"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "reaction_delete_info",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "vchannel_id": {
+                  "type": "string",
+                  "example": "=bw52O",
+                  "description": "消息所在的频道"
+                },
+                "key": {
+                  "type": "string",
+                  "description": "想要删 sticker 的 message 的 key",
+                  "example": "1540460114044.0100"
+                },
+                "reaction": {
+                  "type": "string",
+                  "description": "想要删除的 reaction 名",
+                  "example": ":smile:"
+                }
+              },
+              "required": [
+                "vchannel_id",
+                "key",
+                "reaction"
+              ]
+            }
+          }
+        ]
+      }
+    },
     "/emoji.list": {
       "get": {
         "tags": [
@@ -2202,6 +2313,45 @@
         }
       }
     },
+    "MessageReaction": {
+      "description": "消息 Reaction\n",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "uid": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "team_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "message_id": {
+          "$ref": "#/definitions/ResponseObjectId"
+        },
+        "message_key": {
+          "$ref": "#/definitions/MessageKey"
+        },
+        "reaction": {
+          "description": "reaction 名",
+          "type": "string"
+        },
+        "created_ts": {
+          "description": "消息创建时间戳",
+          "type": "integer",
+          "format": "int32"
+        },
+        "created": {
+          "description": "创建时间",
+          "type": "string",
+          "format": "data-time"
+        },
+        "updated": {
+          "description": "更新时间",
+          "type": "string",
+          "format": "data-time"
+        }
+      }
+    },
     "MessageQueryWindow": {
       "description": "拉取一定时间窗口里面的消息\n{from,to}_key / {from,to}_ts 不能混用，优先使用 {from,to}_key 对\nfrom_{key,ts} to_{key,ts} 必须成对出现\n使用消息 key 查询的时候，查询区间为 (from_key, to_key)\n使用消息 ts 查询的时候，查询区间为 [from_ts, to_ts]\nforward / backward 可选其一\n查询结果最多返回 100 条消息：\n  - forward / backward 最大值为 100\n  - 不指定 forward / backward 时，默认返回 forward=100 的消息记录\n  - 如果查询区间开始值比结束值大，返回空结果\n",
       "properties": {
@@ -2472,17 +2622,6 @@
         }
       }
     },
-    "OK": {
-      "required": [
-        "code",
-        "error"
-      ],
-      "properties": {
-        "code": {
-          "$ref": "#/definitions/ResponseCode"
-        }
-      }
-    },
     "NoContent": {
       "description": "NO CONTENT"
     },
@@ -2503,3 +2642,4 @@
     }
   }
 }
+
