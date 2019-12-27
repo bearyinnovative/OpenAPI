@@ -120,6 +120,14 @@ paths:
       responses:
         '302':
           description: request success and 302
+        '404':
+          description: request no exist file
+          examples:
+            file not found: |
+              {
+                "code": 6,
+                "error": "文件不存在"
+              }
       parameters:
         - name: file_key
           type: string
