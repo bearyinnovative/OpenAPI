@@ -111,6 +111,29 @@ paths:
           description: 指定用户 id，如 \"=bw52O\"
           required: true
           type: string
+  /file.location:
+    get:
+      tags:
+        - file
+      description: |
+        换取文件真实地址
+      responses:
+        '302':
+          description: request success and 302
+        '404':
+          description: request no exist file
+          examples:
+            file not found: |
+              {
+                "code": 6,
+                "error": "文件不存在"
+              }
+      parameters:
+        - name: file_key
+          type: string
+          in: query
+          description: 文件 key
+          required: ture
   /user.list:
     get:
       tags:
