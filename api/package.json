@@ -15,7 +15,7 @@
   "private": true,
   "license": "UNLICENSED",
   "dependencies": {
-    "async": "^2.1.5",
+    "async": "^2.6.4",
     "get-stdin": "^6.0.0",
     "js-yaml": "^3.8.2",
     "markdown-toc": "^1.1.0",
